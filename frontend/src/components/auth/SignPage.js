@@ -8,7 +8,8 @@ const SignPage = () => {
   const [Email, setEmail] = useState("");
   const [otp, setOtp] = useState(["", "", "", ""]);
   const otpRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-  const url = "https://back-ecom-six.vercel.app";
+  const backUrl = process.env.REACT_APP_URL;
+  console.log(backUrl);
   const navigate = useNavigate();
 
   const checking = Email.length > 0;
@@ -16,7 +17,7 @@ const SignPage = () => {
   const showForm = (event) => {
     event.preventDefault();
     if (checking) {
-      axios.post(`${url}/user/EmailRegister`, { Email }, { withCredentials: true })
+      axios.post(`${backUrl}/user/EmailRegister`, { Email }, { withCredentials: true })
         .then((res) => {
           const mes = res.data.message;
           console.log(res);
@@ -73,7 +74,7 @@ const SignPage = () => {
     event.preventDefault();
     const otpCode = otp.join('');
     console.log(otpCode)
-    axios.post(`${url}/user/Otpverfiy`, { Otp: otpCode }, { withCredentials: true })
+    axios.post(`${backUrl}/user/Otpverfiy`, { Otp: otpCode }, { withCredentials: true })
       .then((res) => {
         const msg = res.data.msg;
         if (msg === "Email Doesn't match" || msg === "Otp Doesn't Match") {

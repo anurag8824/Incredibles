@@ -11,9 +11,10 @@ router.post("/register/finish",User.UserData)
 router.get("/me",User.UserCheck)
 router.get("/Deals",User.Deals);
 router.post("/orderclick",User.OrderClick)
-router.post("/myproduct",upload.single('file'),User.Myproduct);
+router.post("/myproduct",upload.single('image'),User.Myproduct);                                 //upload.single('Invoice')
 router.get("/singledeal/:id",User.SingleDeal);
 router.post("/kyc",User.Kyc)
+router.get("/myorder",User.myOrder)
 
 
 export default router;

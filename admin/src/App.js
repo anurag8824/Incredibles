@@ -8,6 +8,8 @@ import AddProduct from './Pages/AddProduct';
 import Layout from './Pages/Layout';
 import AddMerchant from './Pages/AddMerchant';
 import DealsData from './Pages/DealsData';
+import ProductData from './Pages/ProductData';
+import EditDeal from './Pages/EditDeal';
 
 function App() {
     return (
@@ -19,6 +21,9 @@ function App() {
           <Route path="add-product" element={<AddProduct />} />
           <Route path="add-merchant" element={<AddMerchant />} />
           <Route path="deals-data" element={<DealsData />} />
+          <Route path="product-data" element={<ProductData />} />
+          <Route path="edit/deal/:id" element={<EditDeal />} />
+
 
 
 

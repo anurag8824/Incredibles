@@ -17,10 +17,10 @@ const MyProducts = new mongoose.Schema({
         type:String,
         default:""
     },
-    TrackingCompnay:{
-        type:String,
-        default:""
-    },
+    // TrackingCompnay:{
+    //     type:String,
+    //     default:""
+    // },
     TrackingId:{
         type:String,
         default:""
@@ -42,7 +42,7 @@ const MyProducts = new mongoose.Schema({
         default:false,
     },
     status:{
-   type:String,
+      type:String,
         default:"none"
     },
 

@@ -9,9 +9,11 @@ const ProductPage = () => {
     console.log(id);
     const navigate = useNavigate();
     const [data, setData] = useState([])
+    const backUrl = process.env.REACT_APP_URL;
+
 
     useEffect(() => {
-        axios.get(`https://back-ecom-six.vercel.app/user/singledeal/${id}`, { withCredentials: true })
+        axios.get(`${backUrl}/user/singledeal/${id}`, { withCredentials: true })
             .then((res) => {
                 const msg = res.data.msg;
                 if (msg == "0 Deals is live !") {
@@ -34,14 +36,14 @@ const ProductPage = () => {
 
     const shopPage = (e) => {
         e.preventDefault();
-        axios.post("https://back-ecom-six.vercel.app/user/orderclick", { Product_id: id }, {withCredentials:true})
+        axios.post(`${backUrl}/user/orderclick`, { Product_id: id }, { withCredentials: true })
             .then((res) => {
                 console.log(res, "response")
                 const url = data.Link;
                 console.log(url)// Replace with your desired URL
                 window.open(url, '_blank', 'noopener,noreferrer');
                 const Id = res.data.msg
-                navigate(`/single-product/${Id}`);
+                navigate(`/single-product/${id}/${Id}`);
             })
             .catch((err) => {
                 console.log(err);
@@ -90,7 +92,7 @@ const ProductPage = () => {
                         <div className="lg:col-span-3 lg:row-end-1">
 
                             <div className="max-w-xl pl-10 overflow-hidden rounded-lg">
-                                <img className="h-full w-60 max-w-full object-cover" src="/motorola.png" alt="" />
+                                <img className="h-full w-60 max-w-full object-cover" src={`${backUrl}/${data.Image}`} alt="" />
                             </div>
 
                         </div>
@@ -221,7 +223,6 @@ const ProductPage = () => {
 
             </section>
 
-            {/* <img src="/motorola.png"/> */}
 
         </div>
     )

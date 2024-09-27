@@ -12,6 +12,8 @@ const ProfilePage = () => {
     // const [data, setData] = useState([])
 
     const navigate = useNavigate();
+  const backUrl = process.env.REACT_APP_URL;
+    
 
 
 
@@ -19,7 +21,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
 
-        axios.get('https://back-ecom-six.vercel.app/user/me', { withCredentials: true })
+        axios.get(`${backUrl}/user/me`, { withCredentials: true })
             .then((res) => {
                 const msg = res.data.msg
                 console.log(res,"user");

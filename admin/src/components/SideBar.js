@@ -81,11 +81,19 @@ const Sidebar = () => {
                         </button>
                     </div>
 
-                    <div>
+                    <div className=' py-2'>
                         <a href='/deals-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
-                            Deals Data
+                        Deals Data
                         </a>
                     </div>
+
+
+                    <div className='py-2'>
+                        <a href='/product-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
+                        Product Data
+                        </a>
+                    </div>
+
 
                     <hr className='h-px my-2  bg-gray-400 border-0'/>
 

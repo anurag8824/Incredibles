@@ -6,13 +6,15 @@ const MyDealStatus = () => {
 
     const [showdeals, setShowdeals] = useState(false);
     const [data, setData] = useState([])
+    const backUrl = process.env.REACT_APP_URL;
+
 
     const navigate = useNavigate();
 
 
     useEffect(() => {
 
-        axios.get('https://back-ecom-six.vercel.app/user/me', { withCredentials: true })
+        axios.get(`${backUrl}/user/me`, { withCredentials: true })
             .then((res) => {
                 const msg = res.data.msg
                 if (msg == "Email not verifed !") {
@@ -21,15 +23,15 @@ const MyDealStatus = () => {
 
                 } else if (msg == "Email verifed !") {
 
-                    axios.get('https://back-ecom-six.vercel.app/user/Deals', { withCredentials: true })
+                    axios.get(`${backUrl}/user/myorder`, { withCredentials: true })
                         .then((res) => {
                             const msg = res.data.msg;
-                            if (msg == "0 Deals is live !") {
+                            if (msg == "0 Deal CLose !") {
                                 setShowdeals(true);
                                 console.log("No deals is live !");
                             } else {
                                 setShowdeals(false);
-                                const data = res.data.Deals
+                                const data = res.data.products
                                 console.log(data);
                                 setData(data);
                                 console.log(res);
@@ -48,6 +50,8 @@ const MyDealStatus = () => {
 
     }, []);
 
+     
+
 
     return (
 
@@ -59,33 +63,33 @@ const MyDealStatus = () => {
                 :
                 <section id='Projects' className="w-96 mx-auto grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 justify-items-center justify-center gap-y-8 gap-x-96 mt-8 mb-36">
 
-                    {data.map((deal) => {
+                    {data.map((data) => {
                         return (<div class="w-72 bg-gray-100 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:shadow-blue-300">
-                            <a href={`/product/${deal._id}`}>
+                            <a href={`/single-product/${data.Product_id}/${data.Appid}`}>
                                 <div style={{ height: "20rem" }} className='w-72 '>
 
-                                    <img src="motorola.png"
+                                    <img src={`${backUrl}/${data.Image}`}
                                         alt="Product" class="w-72 object-cover rounded-t-xl" />
                                 </div>
 
                                 <div class="w-48 pt-4">
                                     <div className='grid gap-12 grid-cols-2 '>
-                                    <span class="text-black  pl-2 font-medium  uppercase text-xs">Earn ₹{deal.OfferAmmount}</span>
-                                    <div className='w-3 h-3'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg> <span>Ordered</span> </div>
-                                   
+                                        <span class="text-black  pl-2 font-medium  uppercase text-xs">Earn ₹{data.OfferAmmount}</span>
+                                        <div className='w-3 h-3'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg> <span>{data.status}</span> </div>
+
 
                                     </div>
-                                    <p class="text-gray-700  pt-4 pl-2 text-xs">on {deal.CardType} Bank Credit Cards</p>
-                                    <p class="text-md  font-normal pt-1  pl-2  ">{deal.DealTitle}</p>
+                                    <p class="text-gray-700  pt-4 pl-2 text-xs">on {data.CardType} Bank Credit Cards</p>
+                                    <p class="text-md  font-normal pt-1  pl-2  ">{data.DealTitle}</p>
 
                                     <div className='flex items-center pt-1'>
                                         <div class="ml-2"><img width="12" height="12" src="https://img.icons8.com/color/48/rgb-circle-1--v1.png" alt="rgb-circle-1--v1" /></div>
-                                        <p class="text-xs truncate block pl-2 uppercase ">Variant- {deal.Variant}</p>
+                                        <p class="text-xs truncate block pl-2 uppercase ">Variant- {data.Variant}</p>
                                     </div>
 
 
                                     <div class="flex items-center pt-1 mb-2">
-                                        <p class="text-md pl-2 font-bold text-black cursor-auto my-1"> ₹{deal.Price}</p>
+                                        <p class="text-md pl-2 font-bold text-black cursor-auto my-1"> ₹{data.Price}</p>
 
                                         <div class="ml-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                             fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">

@@ -8,11 +8,13 @@ const DealsPage = () => {
     const [data, setData] = useState([])
 
     const navigate = useNavigate();
+    const backUrl = process.env.REACT_APP_URL;
+
 
 
     useEffect(() => {
 
-        axios.get('https://back-ecom-six.vercel.app/user/me', { withCredentials: true })
+        axios.get(`${backUrl}/user/me`, { withCredentials: true })
             .then((res) => {
                 const msg = res.data.msg
                 if (msg == "Email not verifed !") {
@@ -21,7 +23,7 @@ const DealsPage = () => {
 
                 } else if (msg == "Email verifed !") {
 
-                    axios.get('https://back-ecom-six.vercel.app/user/Deals', { withCredentials: true })
+                    axios.get(`${backUrl}/user/Deals`, { withCredentials: true })
                         .then((res) => {
                             const msg = res.data.msg;
                             if (msg == "0 Deals is live !") {
@@ -64,8 +66,7 @@ const DealsPage = () => {
                             <a href={`/product/${deal._id}`}>
                                 <div style={{ height: "20rem" }} className='w-72 '>
 
-                                    <img src="motorola.png"
-                                        alt="Product" className="w-72 object-cover rounded-t-xl" />
+                                <img src={`${backUrl}/${deal.Image}`} alt="Product Image" className="w-72 object-cover rounded-t-xl" />
                                 </div>
 
                                 <div className="w-48 pt-4">

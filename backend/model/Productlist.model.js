@@ -33,6 +33,10 @@ const ProductList = new mongoose.Schema({
     },
     offerCash:{
     type:String,
+    },
+    Status:{
+    type:String,
+    default:"Inactive"
     }
   
 },{timestamps:true})

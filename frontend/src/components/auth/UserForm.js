@@ -8,11 +8,12 @@ const UserForm = () => {
     const [first_Name,setFirst_Name] = useState("");
     const [last_Name,setLast_Name] = useState("");
     const [Phoneno,setPhoneno] = useState("");
-    const url = "https://back-ecom-six.vercel.app";
+  const backUrl = process.env.REACT_APP_URL;
+
 
     function handleSubmit(event) {
         event.preventDefault();
-        axios.post(`${url}/user/register/finish`,{first_Name,last_Name,Phoneno},{withCredentials:true})
+        axios.post(`${backUrl}/user/register/finish`,{first_Name,last_Name,Phoneno},{withCredentials:true})
         .then((res)=>{
             if(res.data == 'sucessfully Registered !'){
                 navigate('/deals');

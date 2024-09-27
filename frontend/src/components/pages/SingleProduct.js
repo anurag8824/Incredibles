@@ -12,6 +12,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const SingleProduct = () => {
 
+    const backUrl = process.env.REACT_APP_URL;
+
+
     // for set value 
     const [order, setOrder] = useState("");
     const [track, setTrack] = useState("");
@@ -25,16 +28,18 @@ const SingleProduct = () => {
     const [tracked, setTracked] = useState(true);
     const [invoice, setInvoice] = useState(true);
 
-    
+
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
-      };
+    };
+    const Id = useParams().Id
     const id = useParams().id
+
     console.log(id);
     const navigate = useNavigate();
     const [data, setData] = useState([])
 
-    
+
 
     // Save form data to localStorage when trackdata changes
     // useEffect(() => {
@@ -73,46 +78,63 @@ const SingleProduct = () => {
     const Data = localStorage.getItem("Data");
     console.log(Data)
 
-    
+
 
     const hideinvoice = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
 
         setTracked(false);
         setInvoice(false);
 
         // const OrderId = localStorage.getItem(orderId)
-        const AppId = id
-        
+        const AppId = Id;
+        const OrderId = order;
+
         const TrackingId = track;
         const Otp = delivered;
         const FourDigit = flipdelivered;
-        const Invoice =file;
 
-        axios.post("https://back-ecom-six.vercel.app/user/myproduct",{
-            AppId,TrackingId,Otp,FourDigit,Invoice
-        }, {headers:{
-            "Content-Type": "multipart/form-data",
-          }}).then((res)=>{
-            const msg  = res.data.msg;
-            if(msg === "order sucessfully Placed !"){
-                navigate("/deals")
-            }
-            else{
-                alert("Error in Placing Order wait for some time !")
-            }
-          })
+
+        const formData = new FormData();
+        formData.append('AppId', AppId);
+        formData.append('TrackingId', TrackingId);
+        formData.append('Otp', Otp);
+        formData.append('FourDigit', FourDigit);
+        formData.append('OrderId', OrderId);
+
+        formData.append('image', file)
+
+        console.log(formData);
+        console.log(file, "file ")
+
+        axios.post(`${backUrl}/user/myproduct`,
+            formData
+            , {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            }).then((res) => {
+                const msg = res.data.msg;
+                if (msg === "order sucessfully Placed !") {
+                    navigate("/deals")
+                }
+                else {
+                    alert("Error in Placing Order wait for some time !")
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
 
 
 
     }
 
 
-
+    const [mydata, setMydata] = useState()
 
     useEffect(() => {
 
-        axios.get(`https://back-ecom-six.vercel.app/user/singledeal/${id}`, { withCredentials: true })
+        axios.get(`${backUrl}/user/singledeal/${id}`, { withCredentials: true })
             .then((res) => {
                 console.log(res);
                 const msg = res.data.msg;
@@ -125,6 +147,7 @@ const SingleProduct = () => {
                     // console.log(data);
                     setData(data);
 
+
                     console.log(res);
                 }
 
@@ -133,12 +156,48 @@ const SingleProduct = () => {
                 console.log(err);
             })
 
+        axios.get(`${backUrl}/user/myorder`, { withCredentials: true })
+            .then((res) => {
+                const msg = res.data.msg;
+                if (msg == "0 Deal CLose !") {
+                    // setShowdeals(true);
+                    // console.log("No deals is live !");
+                } else {
+                    // setShowdeals(false);
+                    const mydata = res.data.products
+                    console.log(mydata,"mydata");
+                    setMydata(mydata);
+                    const updateData = (mydata) => {
+                        // Utility function to set state only if the value is not an empty string
+                        const setStateIfNotEmpty = (value, setter) => {
+                            if (value != "") {
+                                setter(value);
+                            }
+                        };
+
+                        // Using the utility function to update states
+                        setStateIfNotEmpty(mydata.OrderId, setOrder);
+                        setStateIfNotEmpty(mydata.TrackingId, setTrack);
+                        setStateIfNotEmpty(mydata.Otp, setDelivered);
+                        setStateIfNotEmpty(mydata.FourDigit, setFlipdelivered);
+                        // setStateIfNotEmpty(mydata.Invoice, setInvoice);
+
+                        console.log(order,track);
+                    };
+
+                    // Call updateData with mydata
+                    updateData(mydata);
+                    console.log(res);
+                }
+
+            }).catch((err) => {
+                console.log(err);
+            })
 
 
 
 
     }, []);
-
 
 
 
@@ -184,7 +243,7 @@ const SingleProduct = () => {
                             <div className="lg:flex lg:items-start">
                                 {/* <div className="lg:order-2 lg:ml-5 sm:items-center"> */}
                                 <div className="max-w-xl overflow-hidden rounded-lg md:items-center ">
-                                    <img className="h-full w-48 max-w-full object-cover" src="/motorola.png" alt="" />
+                                    <img className="h-full w-48 max-w-full object-cover" src={`${backUrl}/${data.Image}`} alt="" />
                                 </div>
 
                                 {/* </div> */}
@@ -283,7 +342,7 @@ const SingleProduct = () => {
                                 <div className={`${checked ? "block" : "hidden"} ml-1 hihdden align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                     <p> Order ID </p>
 
-                                    <input onChange={e => { setOrder(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyz1234" required />
+                                    <input onChange={e => { setOrder(e.target.value) }} value= {order} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyz1234" required />
 
                                     <button type="button" onClick={showIdForm} className="text-white w-24 bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium w-f rounded-lg text-sm px-5 py-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">SaveId</button>
                                 </div>
@@ -340,24 +399,31 @@ const SingleProduct = () => {
                                 <div className={`${invoice ? "block" : "hidden"}`}>
                                     <div className={`${tracked ? "hidden" : "block"} ml-1 text-sm font-medium pb-2 text-gray-500`}>
                                         Invoice
-                                        <div className="flex pt-1 pb-2 items-center justify-center w-36">
-                                            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-36 h-36 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500">
-                                                <div className="flex flex-col items-center  p-2 m-1 ">
-                                                    <svg className="w-8 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                    </svg>
-                                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                        <span className="font-semibold">Click to upload</span> or drag and drop
-                                                    </p>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                                                </div>
-                                                <input id="dropzone-file" type="file" onChange={handleFileChange} className="hidden" />
-                                            </label>
-                                        </div>
+                                        <form >
 
-                                        <button type="button" onClick={hideinvoice} className="text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                            Save Invoice
-                                        </button>
+                                            <div className="flex pt-1 pb-2 items-center justify-center w-36">
+                                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-36 h-36 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500">
+                                                    <div className="flex flex-col items-center  p-2 m-1 ">
+                                                        <svg className="w-8 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                        </svg>
+                                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                            <span className="font-semibold">Click to upload</span> or drag and drop
+                                                        </p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                                    </div>
+                                                    <input id="dropzone-file" type="file" name="image" onChange={handleFileChange} className="hidden" />
+                                                </label>
+                                            </div>
+
+
+
+                                            <button type="button" onClick={hideinvoice} className="text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                                Save Invoice
+                                            </button>
+
+                                        </form>
+
                                     </div>
                                 </div>
 
@@ -368,10 +434,13 @@ const SingleProduct = () => {
 
 
 
-                                    <h1 className="sm: text-2xl mt-3 font-bold text-gray-900 sm:text-3xl">Product name</h1>
+                                    <h1 className="sm: text-2xl mt-3 font-bold text-gray-900 sm:text-3xl">{data.DealTitle
+
+                                    }</h1>
 
                                     <div className="mt-2 flex items-center">
-                                        <p className="ml-1 text-sm font-medium text-gray-500">Deal Price</p>
+                                        <p className="ml-1 text-sm font-medium text-gray-500">₹ {data.Price}</p>
+                                        <p className="ml-1 text-sm font-medium text-gray-500">({data.Variant})</p>
                                     </div>
 
                                     <div className="mt-3 flex select-none flex-wrap items-center gap-1">
@@ -381,24 +450,24 @@ const SingleProduct = () => {
                                     <div className="mt-3 flex select-none flex-wrap items-center gap-1">
                                         <label className="">
                                             <input type="radio" name="subscription" value="4 Months" className="peer sr-only" />
-                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs. 12345</p>
+                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs. {data.Price}</p>
                                             <span className="mt-1 block text-center ml-1 text-xs font-medium text-gray-500">You'll spend</span>
                                         </label>
                                         <label className="">
                                             <input type="radio" name="subscription" value="8 Months" className="peer sr-only" checked />
-                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs. 12345</p>
+                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs.{(data.Price - data.Offer) + data.OfferAmmount}</p>
                                             <span className="mt-1 block text-center ml-1 text-xs font-medium text-gray-500">Recieve from Incredibles</span>
                                         </label>
 
                                         <label className="">
                                             <input type="radio" name="subscription" value="12 Months" className="peer sr-only" />
-                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs. 12345</p>
+                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs. {(data.Price - data.Offer) + data.OfferAmmount}</p>
                                             <span className="mt-1 block text-center ml-1 text-xs font-medium text-gray-500">Total You Recieve</span>
                                         </label>
 
                                         <label className="">
                                             <input type="radio" name="subscription" value="12 Months" className="peer sr-only" />
-                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs. 123</p>
+                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs. {data.OfferAmmount}</p>
                                             <span className="mt-1 block text-center ml-1 text-xs font-medium text-gray-500">Total Earnings</span>
                                         </label>
                                     </div>

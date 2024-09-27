@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
 const ManageBank = () => {
     // Form state
@@ -9,15 +10,21 @@ const ManageBank = () => {
         acHolder: '',
         panNumber: '',
         panHolder: '',
-        
+        branch:''
+
     });
+
+    const backUrl = process.env.REACT_APP_URL;
+
+    
+
 
     // Handle form input changes
     const handleChange = (e) => {
-        const { name, value, files } = e.target;
+        const { name, value } = e.target;
         setAccountData({
             ...accountData,
-            [name]: files ? files[0] : value,
+            [name] : value,
         });
     };
 
@@ -25,6 +32,19 @@ const ManageBank = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Account Data:', accountData);
+        axios.post(`${backUrl}/kyc` , accountData , {withCredentials: true})
+        .then( (res) => {
+         if(   res.data == "sucesfully completed !" ){
+            alert("succesfully completed")
+         }
+         else{
+            alert("Error in KYC")
+         }
+            
+        })
+        .catch((err)=>{
+            alert(err);
+        })
         // Add your form submission logic here
     };
 
@@ -36,6 +56,11 @@ const ManageBank = () => {
                     <div>
                         <label for="bankName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bank Name</label>
                         <input onChange={handleChange} name="bankName" type="text" id="bankName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                    </div>
+
+                    <div>
+                        <label for="branch" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">branch Name</label>
+                        <input onChange={handleChange} name="branch" type="text" id="branch" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
                     </div>
 
 
@@ -57,7 +82,7 @@ const ManageBank = () => {
 
 
 
-                   
+
                     <div>
                         <label for="panNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pan Number</label>
                         <input onChange={handleChange} name='panNumber' type="text" id="panNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
