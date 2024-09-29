@@ -14,7 +14,7 @@ app.use(express.json({limit:"16kb"}))
 app.use(cookieParser())
 app.use(express.static('public'));
 app.use(cors({
-    origin:["https://test-ecom-ten.vercel.app", "http://localhost:3000","http://88.222.241.94:3000" ,"http://localhost:3001","http://incredibledeals.in","http://admin.incredibledeals.in"], 
+    origin:["https://test-ecom-ten.vercel.app", "http://localhost:3000","http://88.222.241.94:3000" ,"http://localhost:3001","https://incredibledeals.in","https://admin.incredibledeals.in"], 
     credentials:true
 }));
 
