@@ -24,7 +24,9 @@ app.use("/user",User)
 app.use("/admin",Admin)
 
 
-
+app.get('/', (req, res) => {
+    res.send('Welcome to the API');
+});
 
 
 
