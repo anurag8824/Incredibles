@@ -5,7 +5,6 @@ const Admin = () => {
     const navigate =  useNavigate();
     // Form state
     const [formData, setFormData] = useState({
-        name: '',
         email: '',
         password: '',
     });
@@ -36,20 +35,6 @@ const Admin = () => {
             >
                 <h2 className="col-span-1 md:col-span-2 text-2xl font-bold mb-4">Admin Login</h2>
 
-                {/* Name */}
-                <div>
-                    <label htmlFor="name" className="block font-medium text-gray-700">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
-                </div>
 
                 {/* Email */}
                 <div>
