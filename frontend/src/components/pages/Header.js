@@ -7,33 +7,42 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
-  const [iuser, setIuser] = useState(true);
-  const local = useLocation().pathname;
+  const [iuser, setIuser] = useState();
   const navigate = useNavigate();
   const backUrl = process.env.REACT_APP_URL;
+  const local = useLocation().pathname;
 
 
 
   useEffect(() => {
+
     axios.get(`${backUrl}/user/me`, { withCredentials: true })
       .then((res) => {
         const msg = res.data.msg
         // console.log("res",res)
         // console.log(msg);
         if (msg == "Email not verifed !") {
+          setIuser(false)
           // alert("Email not verifed")
           // navigate('/sign-in');
 
         } else if (msg == "Email verifed !") {
+
+          setIuser(true);
+        }
+        else {
           setIuser(false)
         }
-      }, [local])
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
 
 
 
 
-  },)
+  }, [local])
 
 
 
@@ -54,23 +63,41 @@ const Navbar = () => {
 
 
 
-          <div className={`absolute right-7 top-5 cursor-pointer text-blue-600 ${iuser ? "block" : "hidden"} `} >
+
+
+
+          {/* <div className={`absolute right-7 top-5 cursor-pointer text-blue-600 ${iuser ? "hidden" : ""} `} >
             <a href='/sign-in' className="rounded-full border-2 border-gray-700 px-6 py-1 font-medium text-gray-700 transition-colors hover:bg-white hover:text-gray-700">Login</a>
           </div>
+
+
           
-
-
-
-          <div className={`absolute right-7 top-3 cursor-pointer text-blue-600 ${iuser ? "hidden" : "block"} `} >
-            {/* <a href='/profile' className="rounded-full border-2 border-white px-6 py-1 font-medium text-white transition-colors hover:bg-white hover:text-gray-700">Profile</a> */}
+          <div className={`absolute right-7 top-3 cursor-pointer text-blue-600 ${iuser ? "" : "hidden"} `} >
 
             <a href='/profile' className="">
               <img
-                src="/profilegif.gif"
+                src="/profilereview.png"
                 alt="GIF Icon"
                 className="w-12 h-12"
               /></a>
+          </div> */}
+
+          <div className="absolute right-7 top-3 cursor-pointer text-blue-600">
+            {iuser ? (
+              <a href='/profile'>
+                <img
+                  src="/profilereview.png"
+                  alt="Profile Icon"
+                  className="w-12 h-12"
+                />
+              </a>
+            ) : (
+              <a href='/sign-in' className="rounded-full border-2 border-gray-700 px-6 py-1 font-medium text-gray-700 transition-colors hover:bg-white hover:text-gray-700">
+                Login
+              </a>
+            )}
           </div>
+
 
 
         </header>

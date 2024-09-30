@@ -119,11 +119,6 @@ const Footer = () => {
         <div className="bg-gray-800">
           <div className="mx-auto flex max-w-screen-xl flex-col gap-y-4 px-4 py-3 text-center text-white sm:flex-row sm:justify-between sm:text-left">
             <div className="">© 2024 Incredibles | All Rights Reserved</div>
-            <div className="">
-              <a className="" href="#">Privacy Policy</a>
-              <span>|</span>
-              <a className="" href="#">Terms of Service</a>
-            </div>
           </div>
         </div>
       </footer>

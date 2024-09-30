@@ -10,6 +10,7 @@ import AddMerchant from './Pages/AddMerchant';
 import DealsData from './Pages/DealsData';
 import ProductData from './Pages/ProductData';
 import EditDeal from './Pages/EditDeal';
+import Admin from './Pages/Admin';
 
 function App() {
     return (
@@ -17,7 +18,9 @@ function App() {
         <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Sidebar />} />
+          <Route index element={<Admin />} />
+          <Route path="dashboard" element={<Sidebar />} />
+
           <Route path="add-product" element={<AddProduct />} />
           <Route path="add-merchant" element={<AddMerchant />} />
           <Route path="deals-data" element={<DealsData />} />

@@ -104,6 +104,9 @@ const Sidebar = () => {
                         </div>
                     </div>
 
+
+                    
+
                     
 
                     {/* <div>
@@ -115,6 +118,12 @@ const Sidebar = () => {
                     <div>
                         <div className='w-full text-left px-4 py-2 mb-4 bg-slate-200 hover:bg-slate-200 focus:outline-none'>
                             <a href='add-merchant'>Add Merchant</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className='w-full text-left px-4 py-2 mb-4 bg-gray-500 hover:bg-red-600 focus:outline-none'>
+                            <a href='/'>Log Out</a>
                         </div>
                     </div>
 

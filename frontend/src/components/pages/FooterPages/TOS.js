@@ -5,16 +5,14 @@ const TOS = () => {
     
   <div class="bg-white text-black dark:bg-black dark:text-white">
       <div class="container mx-auto px-4 py-8">
-        <p class="mb-4">
-          Effective Date: 2024-7-15
-        </p>
+        
         <div class='w-full flex'>
           <h1 class="text-3xl font-bold mb-4 text-orange-800">Terms of Service for Your Business </h1>
         </div>
         <br />
         <p class="mb-4 text-base">
-          Welcome to the website. Please read these terms of service carefully before using the website. By using the website, you agree to be bound by these terms of service. If you do not agree to these terms of service, you may not use the website. These terms of service govern your use of the website and all services provided by the website. If you do not agree to these terms of service, you may not use the website.
-          </p>
+        Welcome to Incredibles. These Terms of Service ("Terms") govern your use of our website and services. By accessing or using our platform, you agree to be bound by these Terms. Please read them carefully.
+        </p>
           <br />
           {/* <!-- repeat this section for each section of terms --> */}
             <div class='pb-5'>
@@ -24,14 +22,23 @@ const TOS = () => {
                 <ul>
                     <li class='list-disc'>
                         <p class="text-base">
-                            By accessing this website, you agree to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.
+                        By using the Incredibles website and services, you agree to comply with these Terms and all applicable laws and regulations. If you do not agree to these Terms, you are prohibited from using the platform.
                         </p>
                     </li>
                     <br />
                     <li class='list-disc'>
                         <p class="text-base">
-                            We reserve the right to change these terms of service at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service. Any updates you will be notified via email.
-                        </p>
+                        To use our services, you must be at least 18 years old and have a valid credit card issued by a participating bank or financial institution. By using our platform, you represent that you meet these eligibility requirements.</p>
+                    </li>
+                    <br />
+                    <li class='list-disc'>
+                        <p class="text-base">
+                        Incredibles provides users with access to cashback and profit offers on credit card purchases. The offers are subject to the terms and conditions specified by the respective partner banks and merchants. We do not guarantee the availability of any particular offer at any time.</p>
+                    </li>
+                    <br />
+                    <li class='list-disc'>
+                        <p class="text-base">
+                        To access certain features of our platform, you may be required to create an account. You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account or any other breach of security.</p>
                     </li>
                 </ul>
           </div>

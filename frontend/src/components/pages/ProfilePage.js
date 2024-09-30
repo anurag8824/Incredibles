@@ -9,7 +9,7 @@ const ProfilePage = () => {
 
 
     // const [showdeals, setShowdeals] = useState(false);
-    // const [data, setData] = useState([])
+    const [data, setData] = useState({})
 
     const navigate = useNavigate();
     const backUrl = process.env.REACT_APP_URL;
@@ -24,7 +24,8 @@ const ProfilePage = () => {
         axios.get(`${backUrl}/user/me`, { withCredentials: true })
             .then((res) => {
                 const msg = res.data.msg
-                console.log(res, "user");
+                const User = res.data.user;
+                setData(User)
                 if (msg == "Email not verifed !") {
                     // alert("Please Verify your email")
                     navigate('/sign-in');
@@ -48,7 +49,7 @@ const ProfilePage = () => {
 
             <section className="relative pt-20 pb-24 ">
                 <div className="w-full max-w-5xl mx-auto px-6 md:px-8 bg-gray-100">
-                    
+
                     <div className="grid grid-cols-2 pt-2 px-10  flex-col items-center justify-center relative z-10 mb-5">
                         <div className="flex">
                             <img
@@ -60,10 +61,10 @@ const ProfilePage = () => {
 
                         <div className="flex flex-col justify-center sm:flex-row sm:justify-between sm:items-center text-center sm:text-left">
                             <div>
-                                <h3 className="font-medium text-lg text-gray-900 mb-1">User name</h3>
-                                <h3 className="font-manrope text-sm text-gray-900">+91-9876543210</h3>
+                                <h3 className="font-medium text-lg text-gray-900 mb-1">{data.first_Name + " " + data.last_Name}</h3>
+                                <h3 className="font-manrope text-sm text-gray-900">{data.Phoneno}</h3>
                                 <p className="font-normal text-base leading-7 text-gray-500">
-                                    Email: xyz1234@gmail.com
+                                    {data.Email}
                                 </p>
                             </div>
                         </div>
