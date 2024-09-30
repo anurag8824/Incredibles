@@ -252,7 +252,7 @@ const SingleProduct = () => {
 
                             <div className='flex ml-1 text-sm font-medium pb-2 mt-8  text-gray-500 gap-2'>
                                 <p>Order Cancelled?</p>
-                                <button type="button" className="text-blue-800 hover:text-red-600 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Marked Cancelled</button>
+                                <button type="button" className="text-blue-800 hover:text-red-600 font-medium rounded-lg text-sm">Marked Cancelled</button>
                             </div>
 
 
@@ -342,9 +342,9 @@ const SingleProduct = () => {
                                 <div className={`${checked ? "block" : "hidden"} ml-1 hihdden align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                     <p> Order ID </p>
 
-                                    <input onChange={e => { setOrder(e.target.value) }} value= {order} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyz1234" required />
+                                    <input onChange={e => { setOrder(e.target.value) }} value= {order} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 " placeholder="xyz1234" required />
 
-                                    <button type="button" onClick={showIdForm} className="text-white w-24 bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium w-f rounded-lg text-sm px-5 py-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">SaveId</button>
+                                    <button type="button" onClick={showIdForm} className="text-white w-24 bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium w-f rounded-lg text-sm px-5 py-2 mb-2 ">SaveId</button>
                                 </div>
 
 
@@ -384,13 +384,13 @@ const SingleProduct = () => {
                                     <div className={`${tracked ? "block" : "hidden"} ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                         <p> FlipCart Delivery Support</p>
 
-                                        <input onChange={e => { setFlipdelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                                        <input onChange={e => { setFlipdelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="John" required />
                                     </div>
 
 
                                     <div className={`${tracked ? "block" : "hidden"} ml-1 text-sm font-medium pb-2 mt-0  text-gray-500`}>
 
-                                        <button type="button" onClick={showTrackForm} className="text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save Track</button>
+                                        <button type="button" onClick={showTrackForm} className="text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2">Save Track</button>
 
 
                                     </div>
@@ -402,15 +402,15 @@ const SingleProduct = () => {
                                         <form >
 
                                             <div className="flex pt-1 pb-2 items-center justify-center w-36">
-                                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-36 h-36 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500">
+                                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-36 h-36 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  hover:bg-gray-100 ">
                                                     <div className="flex flex-col items-center  p-2 m-1 ">
-                                                        <svg className="w-8 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                        <svg className="w-8 h-8 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                                         </svg>
-                                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                        <p className="mb-2 text-sm text-gray-500 ">
                                                             <span className="font-semibold">Click to upload</span> or drag and drop
                                                         </p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                                        <p className="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                                     </div>
                                                     <input id="dropzone-file" type="file" name="image" onChange={handleFileChange} className="hidden" />
                                                 </label>
@@ -418,7 +418,7 @@ const SingleProduct = () => {
 
 
 
-                                            <button type="button" onClick={hideinvoice} className="text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                            <button type="button" onClick={hideinvoice} className="text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 ">
                                                 Save Invoice
                                             </button>
 

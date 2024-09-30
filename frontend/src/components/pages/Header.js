@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <>
 
-      <div className='bg-gray-800 sticky top-0 w-[100%] z-50'>
+      <div className='bg-gray-100 sticky top-0 w-[100%] z-50'>
 
         <header className="relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 text-blue-900 md:mx-auto md:flex-row md:items-center">
           <a href="/" className="flex cursor-pointer items-center whitespace-nowrap text-2xl font-black text-blue-500">
@@ -55,7 +55,7 @@ const Navbar = () => {
 
 
           <div className={`absolute right-7 top-5 cursor-pointer text-blue-600 ${iuser ? "block" : "hidden"} `} >
-            <a href='/sign-in' className="rounded-full border-2 border-white px-6 py-1 font-medium text-white transition-colors hover:bg-white hover:text-gray-700">Login</a>
+            <a href='/sign-in' className="rounded-full border-2 border-gray-700 px-6 py-1 font-medium text-gray-700 transition-colors hover:bg-white hover:text-gray-700">Login</a>
           </div>
           
 

@@ -101,21 +101,7 @@ const NewHomePage = () => {
               <h1 className="title-font mb-3 inline-block cursor-pointer text-xl capitali font-extrabold tracking-wide text-gray-800">Maximize Your Rewards, Minimize Your Effort!</h1>
               <p className="line-clamp-6 mb-3 cursor-pointer overflow-hidden leading-relaxed text-gray-500">Users can securely link their order details to the platform, ensuring they earn rewards and cashback with every purchase made through the website.</p>
             </div>
-            <div className="flex flex-wrap items-center justify-between px-6 pt-1 pb-4">
-              <div className="flex flex-wrap text-sm text-gray-500">
-                <span className="mr-1">Sep 25, 2024</span>
-                <span className="">· 1 min read</span>
-              </div>
-              <div className="mt-1">
-                <span className="mr-3 ml-auto inline-flex items-center py-1 pr-3 text-sm leading-none text-gray-400 md:ml-0 lg:ml-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                  </svg>
-                  3.5K
-                </span>
-              </div>
-            </div>
+            
           </article>
 
           <article className="group h-full overflow-hidden rounded-lg border-2 border-gray-200 border-opacity-60 shadow-lg">
@@ -127,21 +113,7 @@ const NewHomePage = () => {
               <h1 className="title-font mb-3 inline-block cursor-pointer text-xl capitali font-extrabold tracking-wide text-gray-800">Shop Smart, Earn More – Get Cashback on Every Swipe!</h1>
               <p className="line-clamp-6 mb-3 cursor-pointer overflow-hidden leading-relaxed text-gray-500">The app curates exclusive deals from various merchants, allowing users to shop at their favorite stores while earning extra rewards and cashback.</p>
             </div>
-            <div className="flex flex-wrap items-center justify-between px-6 pt-1 pb-4">
-              <div className="flex flex-wrap text-sm text-gray-500">
-                <span className="mr-1">Sep 10, 2024</span>
-                <span className="">· 2 min read</span>
-              </div>
-              <div className="mt-1">
-                <span className="mr-3 ml-auto inline-flex items-center py-1 pr-3 text-sm leading-none text-gray-400 md:ml-0 lg:ml-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                  </svg>
-                  3.5K
-                </span>
-              </div>
-            </div>
+            
           </article>
 
           <article className="group h-full overflow-hidden rounded-lg border-2 border-gray-200 border-opacity-60 shadow-lg">
@@ -152,21 +124,7 @@ const NewHomePage = () => {
               <h1 className="title-font mb-3 inline-block cursor-pointer text-xl capitali font-extrabold tracking-wide text-gray-800">Your Credit Card, Your Cashback – A Perfect combo!</h1>
               <p className="line-clamp-6 mb-3 cursor-pointer overflow-hidden leading-relaxed text-gray-500">After shopping, users receive cashback directly into their account, with options to redeem or transfer rewards easily through the app.</p>
             </div>
-            <div className="flex flex-wrap items-center justify-between px-6 pt-1 pb-4">
-              <div className="flex flex-wrap text-sm text-gray-500">
-                <span className="mr-1">Sep 1, 2024</span>
-                <span className="">· 1 min read</span>
-              </div>
-              <div className="mt-1">
-                <span className="mr-3 ml-auto inline-flex items-center py-1 pr-3 text-sm leading-none text-gray-400 md:ml-0 lg:ml-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                  </svg>
-                  3.5K
-                </span>
-              </div>
-            </div>
+           
           </article>
 
         </div>
@@ -221,8 +179,8 @@ const NewHomePage = () => {
               <p className="mt-4 text-base text-gray-700">Top Picks, Maximum Rewards – More Value, More Cashback!</p>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-4">
-              <article className="relative">
+            <div className="mt-10 grid grid-cols-2  gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-4">
+              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./iphone.jpg" alt="" />
                 </div>
@@ -265,7 +223,7 @@ const NewHomePage = () => {
               </article>
 
 
-              <article className="relative">
+              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./motorola5g.webp" alt="" />
                 </div>
@@ -305,7 +263,7 @@ const NewHomePage = () => {
                 </div>
               </article>
 
-              <article className="relative">
+              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./iphone.jpg" alt="" />
                   <div className="absolute top-0 m-1 rounded-full bg-white">
@@ -346,7 +304,7 @@ const NewHomePage = () => {
               </article>
 
 
-              <article className="relative">
+              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./motorola.png" alt="" />
                   <div className="absolute top-0 m-1 rounded-full bg-white">
