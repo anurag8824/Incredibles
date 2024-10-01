@@ -210,7 +210,7 @@ const ProductPage = () => {
 
                             <div className="mt-3 flow-root sm:mt-12">
                                 {/* <h1 className="text-3xl font-bold">Delivered To Your Door</h1> */}
-                                <p className="mt-1">5% TDS (Rs. {data.OfferAmmount * 0.05}) will be deducted on cash reward and rest amount will be transferred to your bank account ({(data.Price - data.Offer) + data.OfferAmmount})</p>
+                                <p className="mt-1">2% TDS (Rs. {data.OfferAmmount * 0.02}) will be deducted on cash reward and rest amount will be transferred to your bank account ({(data.Price - data.Offer) + data.OfferAmmount})</p>
 
                             </div>
                         </div>

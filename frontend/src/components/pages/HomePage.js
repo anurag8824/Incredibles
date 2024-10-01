@@ -85,7 +85,7 @@ const NewHomePage = () => {
 
         <h1 className="mb-12 text-center font-sans text-5xl font-bold">How we make you profitable</h1>
 
-       
+
 
 
 
@@ -101,7 +101,7 @@ const NewHomePage = () => {
               <h1 className="title-font mb-3 inline-block cursor-pointer text-xl capitali font-extrabold tracking-wide text-gray-800">Maximize Your Rewards, Minimize Your Effort!</h1>
               <p className="line-clamp-6 mb-3 cursor-pointer overflow-hidden leading-relaxed text-gray-500">Users can securely link their order details to the platform, ensuring they earn rewards and cashback with every purchase made through the website.</p>
             </div>
-            
+
           </article>
 
           <article className="group h-full overflow-hidden rounded-lg border-2 border-gray-200 border-opacity-60 shadow-lg">
@@ -113,18 +113,18 @@ const NewHomePage = () => {
               <h1 className="title-font mb-3 inline-block cursor-pointer text-xl capitali font-extrabold tracking-wide text-gray-800">Shop Smart, Earn More – Get Cashback on Every Swipe!</h1>
               <p className="line-clamp-6 mb-3 cursor-pointer overflow-hidden leading-relaxed text-gray-500">The app curates exclusive deals from various merchants, allowing users to shop at their favorite stores while earning extra rewards and cashback.</p>
             </div>
-            
+
           </article>
 
           <article className="group h-full overflow-hidden rounded-lg border-2 border-gray-200 border-opacity-60 shadow-lg">
-            {/* <img className="w-full transform object-cover object-center transition duration-500 ease-in-out group-hover:scale-105 md:h-36 lg:h-48" src="https://images.unsplash.com/photo-1660548311281-61e57dad92e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60" alt="blog" /> */}
+          
 
             <iframe className='w-full bg-red-900 transform object-cover object-center transition duration-500 ease-in-out group-hover:scale-105 md:h-36 lg:h-48' src="https://lottie.host/embed/62a6fa38-8c61-4ddf-80c3-c9ac9a9afa76/gHBejt6e9K.json"></iframe>
             <div className="py-1 px-6">
               <h1 className="title-font mb-3 inline-block cursor-pointer text-xl capitali font-extrabold tracking-wide text-gray-800">Your Credit Card, Your Cashback – A Perfect combo!</h1>
               <p className="line-clamp-6 mb-3 cursor-pointer overflow-hidden leading-relaxed text-gray-500">After shopping, users receive cashback directly into their account, with options to redeem or transfer rewards easily through the app.</p>
             </div>
-           
+
           </article>
 
         </div>
@@ -148,10 +148,15 @@ const NewHomePage = () => {
             </div>
 
             <div className="mx-auto mt-20 grid max-w-screen-lg grid-cols-1 gap-x-8 gap-y-12 text-center sm:text-left md:grid-cols-3">
+
+
+
               <div className="grow-card backdrop-blur-lg relative mb-3 rounded-3xl border bg-white/70 px-12 py-10 text-left shadow lg:px-12">
                 <h3 className="relative text-5xl font-black text-blue-600">100K+</h3>
                 <p className="relative mt-5 text-gray-600">Join a community of over 1 million savvy shoppers who are maximizing their rewards and cashback benefits with every purchase!</p>
               </div>
+
+              
 
               <div className="backdrop-blur-lg relative mb-3 rounded-3xl border bg-white/70 px-12 py-10 text-left shadow lg:px-12">
                 <p className="relative text-5xl font-black text-blue-600">51%</p>
@@ -163,11 +168,19 @@ const NewHomePage = () => {
                 <p className="relative mt-5 text-gray-600">With a 95% satisfaction rate, our users love how easy and rewarding it is to shop using their credit cards through our platform!
                 </p>
               </div>
+
             </div>
+
+
+
+
+
           </div>
         </section>
 
       </div>
+
+      
 
 
 
@@ -180,6 +193,7 @@ const NewHomePage = () => {
             </div>
 
             <div className="mt-10 grid grid-cols-2  gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-4">
+              
               <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./iphone.jpg" alt="" />
@@ -191,7 +205,7 @@ const NewHomePage = () => {
                   <div className="">
                     <h3 className="text-xs font-semibold sm:text-sm md:text-base">
                       <a href="#" title="" className="cursor-pointer">
-                        Iphone 16 
+                        Iphone 16
                         <span className="absolute" aria-hidden="true"></span>
                       </a>
                     </h3>
@@ -215,12 +229,14 @@ const NewHomePage = () => {
                   </div>
 
                   <div className="text-right">
-                    {/* <del className="mt-px text-xs font-semibold text-gray-600 sm:text-sm"> ₹79.00 </del> */}
 
                     <p className="text-xs font-normal sm:text-sm md:text-base">₹149099.00</p>
                   </div>
                 </div>
               </article>
+
+
+
 
 
               <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
@@ -267,8 +283,8 @@ const NewHomePage = () => {
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./iphone.jpg" alt="" />
                   <div className="absolute top-0 m-1 rounded-full bg-white">
-                  <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹4999</p>
-                </div>
+                    <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹4999</p>
+                  </div>
                 </div>
                 <div className="mt-4 flex items-start justify-between">
                   <div className="">
@@ -308,8 +324,8 @@ const NewHomePage = () => {
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./motorola.png" alt="" />
                   <div className="absolute top-0 m-1 rounded-full bg-white">
-                  <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹4999</p>
-                </div>
+                    <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹4999</p>
+                  </div>
                 </div>
                 <div className="mt-4 flex items-start justify-between">
                   <div className="">
@@ -350,6 +366,8 @@ const NewHomePage = () => {
         </section>
 
       </div>
+
+
 
 
 

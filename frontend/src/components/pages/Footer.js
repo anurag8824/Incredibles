@@ -53,7 +53,7 @@ const Footer = () => {
         <div className="mx-auto grid max-w-screen-xl gap-x-12 md:gap-y-8 gap-y-1 px-4 py-8 md:grid-cols-2 xl:grid-cols-4 xl:px-10">
           <div className="max-w-sm">
             <div className="mb-6 flex h-12 items-center space-x-2">
-              <span className="text-2xl font-bold text-white">Incre<span className="text-blue-600">dibles</span>.</span>
+              <span className="text-2xl font-bold text-white">Incre<span className="text-blue-600">dibles</span></span>
             </div>
             <div className="text-white">Shop. Earn. Repeat – Unlock Rewards and Cashback with Every Purchase!</div>
           </div>
