@@ -58,7 +58,6 @@ const ProfilePage = () => {
         // console.error('Error during logout:', err);
         //   });
 
-
     };
 
    
@@ -184,7 +183,7 @@ const ProfilePage = () => {
 
 
 
-                        <button onClick={handleLogout} type="button" class="flex items-center justify-between w-full py-3 px-5  font-medium text-gray-500 focus:ring-4 focus:ring-gray-200 hover:bg-gray-100 gap-3">
+                        <button onClick={()=>{handleLogout()}} type="button" class="flex items-center justify-between w-full py-3 px-5  font-medium text-gray-500 focus:ring-4 focus:ring-gray-200 hover:bg-gray-100 gap-3">
                             <span class="flex items-center gap-2">
                                 <img className='w-5 h-5 me-2' src='logout.png' />
                                 Log Out</span>
