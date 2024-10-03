@@ -3,7 +3,7 @@ import React from 'react'
 const TOS = () => {
   return (
     
-  <div class="bg-white text-black dark:bg-black dark:text-white">
+  <div class="bg-white mx-3 text-black DARK:bg-black DARK:text-white">
       <div class="container mx-auto px-4 py-8">
         
         <div class='w-full flex'>
@@ -16,7 +16,7 @@ const TOS = () => {
           <br />
           {/* <!-- repeat this section for each section of terms --> */}
             <div class='pb-5'>
-            <h2 class='font-bold text-orange-700 dark:text-orange-300'>General</h2>
+            <h2 class='font-bold text-orange-700 DARK:text-orange-300'>General</h2>
                
                 <br /> 
                 <ul>

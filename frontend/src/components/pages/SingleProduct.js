@@ -206,7 +206,7 @@ const SingleProduct = () => {
             <section className="py-3 sm:py-6">
                 <div className="container mx-auto px-4">
 
-                    <nav className="flex">
+                    {/* <nav className="flex">
                         <ol role="list" className="flex items-center">
                             <li className="text-left">
                                 <div className="-m-1">
@@ -234,7 +234,7 @@ const SingleProduct = () => {
                                 </div>
                             </li>
                         </ol>
-                    </nav>
+                    </nav> */}
 
                     <div className="md:flex grid-cols-2 gap-24">
 
@@ -265,7 +265,7 @@ const SingleProduct = () => {
 
 
 
-                                <a href="https://pagedone.io/" className="pb-3 flex items-center font-medium  ">
+                                <a  className="pb-3 flex items-center font-medium  ">
                                     <span className="w-6 h-6 text-white bg-indigo-600 border border-gray-200 rounded-full flex justify-center items-center mr-3 text-sm  lg:w-8 lg:h-8">1</span>
                                     <div className="block">
                                         <h4 className="text-base  text-indigo-600">Accepted</h4>
@@ -306,7 +306,7 @@ const SingleProduct = () => {
                                 </a>
 
                                 <a className="pb-3 flex items-center font-medium  ">
-                                    <span className="w-6 h-6 bg-gray-50 border border-gray-200 rounded-full flex justify-center items-center mr-3 text-sm  lg:w-8 lg:h-8">5</span>
+                                    <span className="w-6 h-6 bg-gray-50 border border-gray-200 rounded-full flex justify-center items-center mr-3 text-sm  md:w-8 md:h-8">5</span>
                                     <div className="block">
                                         <h4 className="text-base  text-gray-900">Payment Released</h4>
                                     </div>
@@ -319,7 +319,7 @@ const SingleProduct = () => {
 
 
                                 <div className='ml-1 text-sm font-medium pb-2 text-gray-500'>
-                                    IncrediblesID - {`incredibles` + id}
+                                    Incredibles ID - {`incredibles` + id}
                                 </div>
 
                                 <div className={`${checked ? "hidden" : "block"} ml-1 text-sm font-medium pb-2 text-gray-500`}>
@@ -344,7 +344,7 @@ const SingleProduct = () => {
 
                                     <input onChange={e => { setOrder(e.target.value) }} value= {order} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 " placeholder="xyz1234" required />
 
-                                    <button type="button" onClick={showIdForm} className="text-white w-24 bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium w-f rounded-lg text-sm px-5 py-2 mb-2 ">SaveId</button>
+                                    <button type="button" onClick={showIdForm} className="text-white w-24 bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium w-f rounded-lg text-sm px-5 py-2 mb-2 ">Save ID</button>
                                 </div>
 
 
@@ -353,7 +353,7 @@ const SingleProduct = () => {
                                     <div className={`${tracked ? "block" : "hidden"} ml-1  text-sm font-medium pb-2  text-gray-500`}>
 
                                         <form className="grid gap-2 align-middle w-full mx-full">
-                                            <label for="countries" className="block text-sm font-medium pb-1 text-gray-500 dark:text-white">Select Tracking ID</label>
+                                            <label for="countries" className="block text-sm font-medium pb-1 text-gray-500 dark:text-white">Select Track</label>
                                             <select id="countries" required className="bg-gray-50 border font-medium border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mt-0 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 <option selected>Choose a Company</option>
                                                 <option value="EKART">E-Kart</option>

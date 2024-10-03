@@ -10,13 +10,13 @@ const ManageBank = () => {
         acHolder: '',
         panNumber: '',
         panHolder: '',
-        branch:''
+        branch: ''
 
     });
 
     const backUrl = process.env.REACT_APP_URL;
 
-    
+
 
 
     // Handle form input changes
@@ -24,7 +24,7 @@ const ManageBank = () => {
         const { name, value } = e.target;
         setAccountData({
             ...accountData,
-            [name] : value,
+            [name]: value,
         });
     };
 
@@ -32,26 +32,30 @@ const ManageBank = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Account Data:', accountData);
-        axios.post(`${backUrl}/kyc` , accountData , {withCredentials: true})
-        .then( (res) => {
-         if(   res.data == "sucesfully completed !" ){
-            alert("succesfully completed")
-         }
-         else{
-            alert("Error in KYC")
-         }
-            
-        })
-        .catch((err)=>{
-            alert(err);
-        })
+        axios.post(`${backUrl}/kyc`, accountData, { withCredentials: true })
+            .then((res) => {
+                if (res.data == "sucesfully completed !") {
+                    alert("succesfully completed")
+                }
+                else {
+                    alert("Error in KYC")
+                }
+
+            })
+            .catch((err) => {
+                alert(err);
+            })
         // Add your form submission logic here
     };
 
     return (
-        <div className='w-full max-w-3xl mx-auto px-4 md:px-6 py-24'>
+        <div className='w-full max-w-3xl mx-auto px-4 md:px-6 pb-24 pt-8'>
             <form onSubmit={handleSubmit} className="" >
+                <h2 class="block mb-2 text-lg font-medium pb-4 text-gray-900">Add Your Bank Details</h2>
+
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
+
+
 
                     <div>
                         <label for="bankName" class="block mb-2 text-sm font-medium text-gray-900">Bank Name</label>
@@ -77,7 +81,7 @@ const ManageBank = () => {
 
                     <div>
                         <label for="acHolder" class="block mb-2 text-sm font-medium text-gray-900">Account Holder name</label>
-                        <input onChange={handleChange} name='acHolder' type="text" id="acHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  required />
+                        <input onChange={handleChange} name='acHolder' type="text" id="acHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                     </div>
 
 
@@ -85,7 +89,7 @@ const ManageBank = () => {
 
                     <div>
                         <label for="panNumber" class="block mb-2 text-sm font-medium text-gray-900 ">Pan Number</label>
-                        <input onChange={handleChange} name='panNumber' type="text" id="panNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  required />
+                        <input onChange={handleChange} name='panNumber' type="text" id="panNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                     </div>
 
 

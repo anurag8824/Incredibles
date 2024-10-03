@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import NewCarousal from './NewCarousal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import DownloadAppPopup from './DownloadAppPopup';
 
 
 const NewHomePage = () => {
 
   const navigate = useNavigate();
   const backUrl = process.env.REACT_APP_URL;
+
+
+  const [supportsPWA, setSupportsPWA] = useState(false);
+  const [promptInstall, setPromptInstall] = useState(null);
 
 
 
@@ -24,10 +28,33 @@ const NewHomePage = () => {
           // navigate('/deals');
         }
       })
-  })
+
+      const handler = e => {
+        e.preventDefault();
+        console.log("we are being triggered :D");
+        setSupportsPWA(true);
+        setPromptInstall(e);
+      };
+      window.addEventListener("beforeinstallprompt", handler);
+  
+      return () => window.removeEventListener("transitionend", handler);
+
+  }, []);
 
 
 
+  const donwnow = evt => {
+    // evt.preventDefault();
+    if (!promptInstall) {
+      return;
+    }
+    promptInstall.prompt();
+  };
+  // if (!supportsPWA) {
+  //   return null;
+  // }
+
+  
   return (
     <div>
       <div className=" bg-gray-800">
@@ -36,6 +63,7 @@ const NewHomePage = () => {
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <div className="">
               <div className="lg:max-w-xl lg:pr-5">
+                
                 <p className="flex text-sm uppercase text-gray-300">
                   <svg xmlns="http://www.w3.org/2000/svg" className="mr-1 inline h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
@@ -49,7 +77,7 @@ const NewHomePage = () => {
                 <p className="text-base text-gray-400">"Shop. Earn. Repeat – Unlock Rewards and Cashback with Every Purchase!"</p>
               </div>
               <div className="mt-10 flex flex-col items-center md:flex-row">
-                <a href='/deals' className="mb-3 inline-flex h-12 w-full items-center justify-center rounded bg-blue-700 px-6 font-medium tracking-wide text-white shadow-md transition md:mr-4 md:mb-0 md:w-auto focus:outline-none hover:bg-blue-800">Earn Now </a>
+                <button onClick={donwnow} className="mb-3 inline-flex h-12 w-full items-center justify-center rounded bg-blue-700 px-6 font-medium tracking-wide text-white shadow-md transition md:mr-4 md:mb-0 md:w-auto focus:outline-none hover:bg-blue-800">Download App</button>
                 <a href="#works" aria-label="" className="group inline-flex items-center font-semibold text-white"
                 >Watch how it works
                   <svg xmlns="http://www.w3.org/2000/svg" className="group-hover:translate-x-2 ml-4 h-6 w-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -368,10 +396,14 @@ const NewHomePage = () => {
       </div>
 
 
+      <DownloadAppPopup/>
+
+
 
 
 
       <NewCarousal />
+
 
 
 

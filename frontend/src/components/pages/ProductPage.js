@@ -54,40 +54,10 @@ const ProductPage = () => {
 
 
     return (
-        <div classNameName='pb-20'>
-            <section className="py-6 sm:py-6">
+        
+            <section className="py-6 px-3 sm:py-6">
 
-                <div classNameName="container mx-auto px-4">
-                    <nav className="flex">
-                        <ol role="list" className="flex items-center">
-                            <li className="text-left">
-                                <div className="-m-1">
-                                    <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"> Home </a>
-                                </div>
-                            </li>
-
-                            <li className="text-left">
-                                <div className="flex items-center">
-                                    <span className="mx-2 text-gray-400">/</span>
-                                    <div className="-m-1">
-                                        <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"> Deals </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li className="text-left">
-                                <div className="flex items-center">
-                                    <span className="mx-2 text-gray-400">/</span>
-                                    <div className="-m-1">
-                                        <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800" aria-current="page">{data.DealTitle
-
-                                        } </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ol>
-                    </nav>
-
+                <div className="container mx-auto px-4">                    
                     <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-10 lg:mt-12 lg:grid-cols-5 lg:gap-16">
                         <div className="lg:col-span-3 lg:row-end-1">
 
@@ -140,11 +110,7 @@ const ProductPage = () => {
                             </div>
 
                             <div className="mt-6 flex flex-col items-center justify-between space-y-4 border-t border-b py-2 sm:flex-row sm:space-y-0">
-                                {/* <div className="flex items-end">
-                                    <h1 className="text-2xl font-bold">Rs. 123</h1>
-                                    <span className="text-base"></span>
-                                </div> */}
-
+                                
                                 <button onClick={shopPage} type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -208,7 +174,7 @@ const ProductPage = () => {
                                 </nav>
                             </div>
 
-                            <div className="mt-3 flow-root sm:mt-12">
+                            <div className="md:mt-3 mt-3 flow-root ">
                                 {/* <h1 className="text-3xl font-bold">Delivered To Your Door</h1> */}
                                 <p className="mt-1">2% TDS (Rs. {data.OfferAmmount * 0.02}) will be deducted on cash reward and rest amount will be transferred to your bank account ({(data.Price - data.Offer) + data.OfferAmmount})</p>
 
@@ -224,7 +190,7 @@ const ProductPage = () => {
             </section>
 
 
-        </div>
+       
     )
 }
 

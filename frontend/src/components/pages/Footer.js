@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { FaArrowAltCircleLeft, FaBoxOpen, FaHome, FaRegArrowAltCircleDown, FaRegArrowAltCircleRight, FaTags, FaUser, FaUserCircle } from 'react-icons/fa';
-import { FaBarsProgress } from 'react-icons/fa6';
+import {  FaBoxOpen, FaHome, FaRegArrowAltCircleDown, FaRegArrowAltCircleRight, FaTags, FaUserCircle } from 'react-icons/fa';
+
 
 // import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
@@ -106,7 +106,8 @@ const Footer = () => {
             </nav>
           </div>
           <div className="">
-            <div className="mb-2 mt-4 font-medium text-white xl:mb-4">Subscribe to our Newsletter</div>
+            <div className="mb-2 mt-4 font-medium text-white xl:mb-4">Subscribe to our Newsletter </div>
+            
             <div className="flex flex-col">
               <div className="mb-4">
                 <input type="email" className="mb-2 block h-14 w-full rounded-xl bg-gray-200 px-4 text-gray-800 focus:outline-none focus:outline focus:ring-1 focus:ring-blue-600 sm:w-80" placeholder="Enter your email" />
@@ -127,23 +128,23 @@ const Footer = () => {
 
 
       {/* Mobile View  */}
-      <div className="fixed bottom-0 left-0 w-full flex md:hidden justify-around items-center border-t border-gray-200  bg-white  py-4">
+      <div className="fixed bottom-0 left-0 w-full flex md:hidden justify-around items-center border-t border-gray-200  bg-white  py-1">
         <a href="/" className="text-gray-600 flex flex-col items-center hover:text-gray-900 ">
-          <FaHome size={36} />
+          <FaHome size={25} />
           <span className="">Home</span>
         </a>
         <a href="/deals" className="text-gray-600 flex flex-col items-center hover:text-gray-900 ">
-          <FaTags size={36} />
+          <FaTags size={25} />
           <span className="">Deals</span>
         </a>
 
         <a href="/deal-status" className="text-gray-600 flex flex-col items-center hover:text-gray-900 ">
-          <FaBoxOpen  size={36} />
+          <FaBoxOpen  size={25} />
           <span className="">Order</span>
         </a>
 
         <a  href="/profile" className="text-gray-600 flex flex-col items-center  hover:text-gray-900 ">
-          <FaUserCircle  size={36} />
+          <FaUserCircle  size={25} />
           <span className="">Profile</span>
         </a>
 {/* 

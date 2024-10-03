@@ -96,7 +96,7 @@ const FAQ = () => {
 
       </ul>
       <div className="mt-20 flex justify-center">
-        <a className="inline-flex cursor-pointer rounded-lg bg-blue-500 py-3 px-5 text-lg text-white" href="#">Still have questions?</a>
+        <a className="inline-flex cursor-pointer rounded-lg bg-blue-500 py-3 px-5 text-lg text-white" href="/contact">Still have questions?</a>
       </div>
     </div>
     </div>

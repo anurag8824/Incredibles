@@ -184,7 +184,7 @@ const CommentCarousel = () => {
       comment: "Incredibles is best app for the credit cash rewards. Easy to use and optimized",
       name: "Karan Jain",
       date: "Oct 01, 2024",
-      rating: 4,
+      rating: 5,
     },
     {
       image: "/profilereview.png",
@@ -198,14 +198,14 @@ const CommentCarousel = () => {
       comment: "Got the amazing deal offer for buying me a new phone with the best cash back using Incredibles.",
       name: "Anup Kumar",
       date: "May 22, 2024",
-      rating: 3,
+      rating: 5,
     },
     {
       image: "/profilereview.png",
       comment: "Amazing! Incredibles is really just a incredible and beautiful. Got highest cash bak reward from it.",  
       name: "Nikhil Kumar",
       date: "June 03, 2024",
-      rating: 4,
+      rating: 5,
     },
   ];
 

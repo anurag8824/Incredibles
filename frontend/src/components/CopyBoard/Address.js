@@ -41,11 +41,11 @@ const Address = () => {
           id="npm-install-copy-button"
           type="text"
           className="col-span-6 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          value="Bharat mata circle Magywas 302020"
+          value="Address"   //it is a placeholer 
           disabled
           readOnly
         />
-        <CopyToClipboard text="Bharat mata circle Magywas 302020" onCopy={() => setCopied(true)}>
+        <CopyToClipboard text="Bharat mata circle Magywas" onCopy={() => setCopied(true)}>
           <button className="absolute end-2 top-1/2 -translate-y-1/2 text-gray-500  hover:bg-gray-100  rounded-lg p-2 inline-flex items-center justify-center">
             <span id="default-icon" className={!copied ? '' : 'hidden'}>
               <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
