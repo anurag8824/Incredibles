@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const ProductForm = () => {
+
+  const backUrl =  process.env.REACT_APP_URL;
   // Form state
   const [formData, setFormData] = useState({
     DealTitle: '',
@@ -31,7 +33,7 @@ const ProductForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData);
-    axios.post("http://localhost:8000/admin/adddeals", formData, {
+    axios.post(`${backUrl}/admin/adddeals`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data' // Optional, Axios sets this automatically for FormData
       }
