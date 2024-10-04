@@ -57,7 +57,19 @@ const User = new mongoose.Schema({
     branch:{
         type:String,
         default:""
-    }
+    },
+    Panvrifed:{
+        type:Boolean,
+        default:false
+    },
+    Panvrifed:{
+        type:Boolean,
+        default:false
+    },
+    Acvrifed:{
+        type:Boolean,
+        default:false
+    },
 })
 
 const userModel = mongoose.model("userdetail",User)

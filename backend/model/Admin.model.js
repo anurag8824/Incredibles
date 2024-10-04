@@ -4,6 +4,7 @@ import { type } from "os";
 const Admin = new mongoose.Schema({
     Email:{
         type:String,
+        default:"businessincredibles05@gmail.com",
         
     },
     Otp:{
@@ -12,6 +13,10 @@ const Admin = new mongoose.Schema({
     Phoneno:{
         type:String,
         default:""
+    },
+    Password:{
+        type:String,
+        default:"incredibles@1234"
     },
     Name:{
         type:String,

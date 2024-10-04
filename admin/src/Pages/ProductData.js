@@ -28,6 +28,17 @@ const ProductData = () => {
             });
     }, [backUrl]); // Added dependency array to avoid repeated API calls
 
+
+    useEffect(() => {
+        const Email = localStorage.getItem('Email');  // get name of cookies
+        console.log(Email, "email recieved from localstorage");
+        if (Email == null) {
+            console.log("sfj;osadjf")
+            navigate('/')
+        }
+    }, [])
+
+
     return (
         <div className="m-6 px-6 py-20">
             <div className="relative overflow-x-auto">

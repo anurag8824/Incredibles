@@ -4,7 +4,7 @@ import { useParams ,useNavigate} from 'react-router-dom';
 
 const EditDeal = () => {
   const backUrl = process.env.REACT_APP_URL;
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
 
   // Form state
   const [formData, setFormData] = useState({
@@ -58,11 +58,22 @@ const EditDeal = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.put(`${backUrl}/admin/updatedeal/${id}`,formData).then((res)=>{
-      nevigate("/product-data")
+      navigate("/product-data")
     }).catch((err)=>{
       console.error(err);
     })
   };
+
+
+  useEffect(() => {
+    const Email = localStorage.getItem('Email');  // get name of cookies
+    console.log(Email, "email recieved from localstorage");
+    if (Email == null) {
+        console.log("sfj;osadjf")
+        navigate('/')
+    }
+}, [])
+
 
   return (
     <div className='mx-14 my-10 p-10'>

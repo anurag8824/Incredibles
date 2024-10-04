@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import DownloadAppPopup from './DownloadAppPopup';
 
 
 
@@ -81,22 +80,18 @@ const Navbar = () => {
               /></a>
           </div> */}
 
-          <div className="absolute right-7 top-3 cursor-pointer text-blue-600">
-
-     
-
-
+          <div className="absolute right-7 cursor-pointer text-blue-600">
 
             {iuser ? (
               <a href='/profile'>
                 <img
                   src="/profilegif.gif"
                   alt="Profile Icon"
-                  className="w-12 h-12"
+                  className="w-12 top-3 h-12"
                 />
               </a>
             ) : (
-              <a href='/sign-in' className="rounded-full border-2 border-white px-6 py-1 font-medium text-white transition-colors hover:bg-white hover:text-gray-700">
+              <a href='/sign-in' className="rounded-full border-2 top-5 border-white px-6 py-1  font-medium text-white transition-colors hover:bg-white hover:text-gray-700">
                 Login
               </a>
             )}

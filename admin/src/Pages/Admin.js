@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
 
 const Admin = () => {
     const navigate =  useNavigate();
+
+    const backUrl = process.env.REACT_APP_URL;
     // Form state
     const [formData, setFormData] = useState({
-        email: '',
-        password: '',
+        Email: '',
+        Password: '',
     });
 
     // Handle form input changes
@@ -21,10 +25,37 @@ const Admin = () => {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form Data:', formData);
+        axios.post(`${backUrl}/admin/login` , formData)
+        .then((res) => {
+            if(res.data.msg == "Email is not existing" || res.data.msg == "Password not match"){
+                alert(res.data.msg);
+            }else{
+                localStorage.setItem("Email",formData.Email);
+                console.log(localStorage.getItem("Email"));
+                navigate('/dashboard')
+            }
+          console.log(res);
+        });
+
+      
         // Add your form submission logic here
-        navigate('/dashboard')
+        
     };
+
+
+    useEffect(() => {
+     
+      
+    }, [])
+    
+
+
+    
+
+
+
+
+
 
     return (
         <div className='m-10 px-10 py-16'>
@@ -44,9 +75,9 @@ const Admin = () => {
                     <input
                         type="email"
                         id="email"
-                        name="email"
+                        name="Email"
                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.email}
+                        value={formData.Email}
                         onChange={handleChange}
                     />
                 </div>
@@ -59,9 +90,9 @@ const Admin = () => {
                     <input
                         type="password"
                         id="password"
-                        name="password"
+                        name="Password"
                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.password}
+                        value={formData.Password}
                         onChange={handleChange}
                     />
                 </div>

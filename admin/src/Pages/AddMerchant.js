@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate} from 'react-router-dom';
 
 const AddMerchant = () => {
+    const navigate = useNavigate();
     // Form state
     const [formData, setFormData] = useState({
         name: '',
@@ -23,6 +25,16 @@ const AddMerchant = () => {
         console.log('Form Data:', formData);
         // Add your form submission logic here
     };
+
+    useEffect(() => {
+        const Email = localStorage.getItem('Email');  // get name of cookies
+        console.log(Email, "email recieved from localstorage");
+        if (Email == null) {
+            console.log("sfj;osadjf")
+            navigate('/')
+        }
+    }, [])
+
 
     return (
         <div className='m-10 px-10 py-16'>

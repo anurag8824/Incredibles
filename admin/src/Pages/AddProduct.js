@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
+
 
 const ProductForm = () => {
 
-  const backUrl =  process.env.REACT_APP_URL;
+  const navigate = useNavigate();
+
+
+  const backUrl = process.env.REACT_APP_URL;
   // Form state
   const [formData, setFormData] = useState({
     DealTitle: '',
@@ -47,6 +52,16 @@ const ProductForm = () => {
 
     // Add your form submission logic here
   };
+
+  useEffect(() => {
+    const Email = localStorage.getItem('Email');  // get name of cookies
+    console.log(Email, "email recieved from localstorage");
+    if (Email == null) {
+      console.log("sfj;osadjf")
+      navigate('/')
+    }
+  }, [])
+
 
   return (
     <div className='mx-14 my-10 p-10'>

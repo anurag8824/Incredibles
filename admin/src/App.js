@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
-import Sidebar from './components/SideBar';
 import AddProduct from './Pages/AddProduct';
 import Layout from './Pages/Layout';
 import AddMerchant from './Pages/AddMerchant';
@@ -11,6 +10,7 @@ import DealsData from './Pages/DealsData';
 import ProductData from './Pages/ProductData';
 import EditDeal from './Pages/EditDeal';
 import Admin from './Pages/Admin';
+import DashBoard from './components/DashBoard';
 
 function App() {
     return (
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Admin />} />
-          <Route path="dashboard" element={<Sidebar />} />
+          <Route path="dashboard" element={<DashBoard />} />
 
           <Route path="add-product" element={<AddProduct />} />
           <Route path="add-merchant" element={<AddMerchant />} />

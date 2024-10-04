@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import AddPan from './PopUp/AddPan';
+import AddAccount from './PopUp/AddAccount';
+
 const DealsPage = () => {
 
     const [showdeals, setShowdeals] = useState(false);
@@ -9,19 +12,35 @@ const DealsPage = () => {
 
     const navigate = useNavigate();
     const backUrl = process.env.REACT_APP_URL;
-
+     const [pan,setPan] = useState(true);
+     const [ac,setAc] = useState(true);
 
 
     useEffect(() => {
 
         axios.get(`${backUrl}/user/me`, { withCredentials: true })
             .then((res) => {
+                console.log(res,"me")
                 const msg = res.data.msg
                 if (msg == "Email not verifed !") {
                     // alert("Please Verify your email")
                     navigate('/sign-in');
+                } else if (msg == "Email verifed !") { 
+                    const Acvrifed = res.data.user.Acvrifed;
+                    const panvrifed = res.data.user.Panvrifed;
+                    if(!panvrifed){
+                      setPan(false)
+                    }else{
+                        setPan(true)
+                        if(Acvrifed){
+                            console.log(Acvrifed,"Acvrifed")
+                            setAc(true)
+                        }
+                        else{
+                            setAc(false);
+                        }
+                    }
 
-                } else if (msg == "Email verifed !") {
 
                     axios.get(`${backUrl}/user/Deals`, { withCredentials: true })
                         .then((res) => {
@@ -36,7 +55,6 @@ const DealsPage = () => {
                                 setData(data);
                                 console.log(res);
                             }
-
                         }).catch((err) => {
                             console.log(err);
                         })
@@ -46,16 +64,17 @@ const DealsPage = () => {
 
                 }
             })
-
-
     }, []);
 
 
     return (
-
-
-
         <>
+        
+        {pan ? (ac ?"" : <AddAccount />) : <AddPan />}
+ 
+           
+
+
             {showdeals ?
                 <div className="items-center text-center mt-10 text-red-600 mb-40 pt-8 pb-20">No deals is Live</div>
                 :
@@ -66,7 +85,7 @@ const DealsPage = () => {
                             <a href={`/product/${deal._id}`}>
                                 <div style={{ height: "20rem" }} className='w-72 '>
 
-                                <img src={`${backUrl}/${deal.Image}`} alt="Product Image" className="w-72 object-cover rounded-t-xl" />
+                                    <img src={`${backUrl}/${deal.Image}`} alt="Product Image" className="w-72 object-cover rounded-t-xl" />
                                 </div>
 
                                 <div className="w-48 pt-4">
@@ -105,15 +124,7 @@ const DealsPage = () => {
 
 
                 </section>
-
-
             }
-
-
-
-
-
-
 
 
         </>

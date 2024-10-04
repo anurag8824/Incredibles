@@ -1,6 +1,6 @@
 import React from 'react'
 import AddMerchant from './PopModel/AddMerchant.js';
-import AddProduct from './PopModel/AddProduct.js';
+import AddProduct from '../pages/PopUp/AddAccount.js';
 
 const AdminPage = () => {
 

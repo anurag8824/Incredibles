@@ -17,7 +17,7 @@ const mailOptions = {
     from:"lokesh@iiitmanipur.ac.in",
     to:Toemail,
     subject:Subject,
-    text:Message
+    html:Message
 }
 
 transporter.sendMail(mailOptions,(err,info)=>{

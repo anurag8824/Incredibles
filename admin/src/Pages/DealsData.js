@@ -1,13 +1,11 @@
-
-
-
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const DealsData = () => {
     const backUrl = process.env.REACT_APP_URL;
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${backUrl}/admin/allorder`)
@@ -19,6 +17,16 @@ const DealsData = () => {
                 console.log(err);
             });
     }, []); // Empty dependency array to prevent infinite API calls
+
+    useEffect(() => {
+        const Email = localStorage.getItem('Email');  // get name of cookies
+        console.log(Email, "email recieved from localstorage");
+        if (Email == null) {
+            console.log("sfj;osadjf")
+            navigate('/')
+        }
+    }, [])
+
 
     return (
         <div className='m-6 px-6 py-20'>

@@ -14,6 +14,7 @@ const option = {
 
 
 };
+let token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmcmVlX3RpZXJfYWFhcnRpeWFkYXZ2dl85NDcwZTAwYzY2IiwiZXhwIjoxNzI4MDQ0MzY2fQ.z2e3mqzjcmrTDsC0q4b-esuhFS6A8-dNnQOnczJmurI"
 const EmailRegister = async (req, res) => {
   const Email = req.body.Email;
 
@@ -41,7 +42,38 @@ const EmailRegister = async (req, res) => {
 
 
   const Subject = "Otp Verification";
-  const Message = `Otp is ${otp}`
+  const Message =  `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your OTP Code</title>
+    <style>
+      body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+      .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+      h1 { color: #333; font-size: 24px; text-align: center; }
+      .otp { background-color: #f0f0f0; font-size: 28px; color: #007bff; padding: 15px; text-align: center; letter-spacing: 5px; }
+      .footer { text-align: center; font-size: 14px; color: #777; margin-top: 30px; }
+      .footer a { color: #007bff; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Your OTP Code</h1>
+      <p>Dear User,</p>
+      <p>Here is your One-Time Password (OTP) to verify your identity:</p>
+      <div class="otp">${otp}</div>
+      <p>The OTP is valid for 10 minutes. Please do not share it with anyone.</p>
+      <p>Thank you,<br>The IncrediblesDeals Team</p>
+    </div>
+    <div class="footer">
+      <p>&copy; 2024 IncrediblesDeals. All rights reserved.</p>
+    </div>
+  </body>
+  </html>
+`
+
   try {
     EmailVerfication(Email, Subject, Message)
 
@@ -221,7 +253,129 @@ const SingleDeal = async (req, res) => {
 
 }
 
-const Kyc = async (req, res) => {
+// genrate access token
+
+const GenrateToken = async()=>{
+  var formdata = new FormData();
+formdata.append("client_id", process.env.CLIENT_ID);
+formdata.append("client_secret", process.env.CLIENT_ID);
+
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
+ 
+fetch("https://production.deepvue.tech/v1/authorize", requestOptions)
+  .then(response => response.text())
+  .then((result) => {console.log(result)
+    const Result = JSON.parse(result)
+    console.log(Result.access_token)
+       if(Result.access_token){
+         console.log(Result.access_token,"access token")
+         let token =  Result.access_token;
+       }
+      }
+
+)
+  .catch(error => console.log('error', error));
+}
+
+const PanKyc = async (req, res) => {
+  const Email = req.cookies.Email;
+  const user = await userModel.findOne({ Email });
+  if (!user) {
+    return res.json("user not exist");
+
+  }
+  user.panNumber = req.body.panNumber,
+  user.panHolder = req.body.panHolder
+
+var myHeaders = new Headers();
+// myHeaders.append("Authorization", `Bearer ${token}`);
+
+console.log("token", token); 
+myHeaders.append("Authorization", `Bearer ${token}`);
+
+myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
+myHeaders.append("Content-Type", "application/json");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch(`https://production.deepvue.tech/v1/verification/panbasic?pan_number=${req.body.panNumber}&name=${req.body.panHolder}`, requestOptions)
+  .then(response => response.text())
+  .then((result) =>{ console.log(result)
+    const Result = JSON.parse(result);
+    if(Result.data.status === "VALID"){
+      user.Panvrifed = true
+       user.save().then(()=>{
+         return res.send({msg:"valid Details"})
+
+       } 
+      
+      )
+
+      
+
+    }else if(Result.data.status === "INVALID"){
+     return  res.json({msg:"Invalid Details"})
+     }
+    else if(Result.detail ==="Not a valid token"){
+      GenrateToken().then(()=>{
+        fetch("https://production.deepvue.tech/v1/verification/panbasic?pan_number={{req.body.panNumber}}&name={{req.body.panHolder}}", requestOptions)
+  .then(response => response.text())
+  .then((result) =>{ console.log(result)
+    const Result = JSON.parse(result);
+    if(Result.data.status === "VALID"){
+      user.Panvrifed = true
+       user.save().then(()=>{
+        return res.send({msg:"Invalid Details"})
+
+       } 
+      
+      )
+
+      
+
+    }else if(Result.data.status === "INVALID"){
+     return res.json({msg:"Invalid Details"})
+     }
+    //  else if(Result.detail ==="Not a valid token"){
+    //   GenrateToken().then(()=>{
+        
+            
+    //   })
+    //  }
+  }
+)
+  .catch(error => console.log('error', error));
+  
+            
+      })
+     }
+  }
+)
+  .catch(error => console.log('error', error));
+  
+  
+  // user.bankName = req.body.bankName,
+  //   user.IfceCode = req.body.IfceCode,
+  //   user.acNumber = req.body.acNumber,
+  //   user.acHolder = req.body.acHolder,
+   
+    // user.branch = req.body.branch,
+
+     
+
+    
+
+}
+
+const ACKyc = async (req, res) => {
   const Email = req.cookies.Email;
   const user = await userModel.findOne({ Email });
   if (!user) {
@@ -229,75 +383,65 @@ const Kyc = async (req, res) => {
 
   }
   user.bankName = req.body.bankName,
-    user.IfceCode = req.body.IfceCode,
-    user.acNumber = req.body.acNumber,
-    user.acHolder = req.body.acHolder,
-    user.panNumber = req.body.panNumber,
-    user.panHolder = req.body.panHolder,
-    user.branch = req.body.branch,
+  user.IfceCode = req.body.IfceCode,
+  user.acNumber = req.body.acNumber,
+  user.acHolder = req.body.acHolder,
+ 
+  user.branch = req.body.branch
 
-    await user.save();
-  res.send("sucesfully completed !")
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${token}`);
+
+console.log("token:", token);
+myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
+myHeaders.append("Content-Type", "application/json");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions)
+  .then(response => response.text())
+  .then((result) => {console.log(result)
+
+  const Result = JSON.parse(result)
+  if(Result.code ==200){
+    if(Result.data.account_exists){
+      user.Acvrifed = true
+         user.save().then(()=>{
+        return  res.json({msg:"valid Details"})
+         })
+    }
+  }
+  
+  if(Result.data.message == "Invalid account number or ifsc provided"){
+   return res.json({msg:"Invalid account number or ifsc provide"})
+  }
+  if(Result.data.message == "Account is blocked"){
+   return res.json({msg:"Account is blocked"})
+  }
+  if(Result.data.message == "IFSC is invalid"){
+   return res.json({msg:"IFSC is invalid"})
+  }
+  if(Result.data.message == "Given account is an NRE account"){
+   return res.json({msg:"Given account is an NRE account"})
+  }
+
+  })
+  .catch(error => console.log('error', error));
+  
+  
+ 
+
+     
+
+    
 
 }
 
-// const myOrder = async (req, res) => {
-//   const Email = req.cookies.Email;
-//   const Products = await myproduct.find({UserId:Email});
-//   // console.log(Products);
-//   if (Products.length > 0) {
-//     const UpdatePrdocts = await Promise.all(
-//       Products.map(async (product) => {
-//         const ProductDetails = await Product.findById(product.Product_id)
-//         return {
-//           ...Products,
-//           ProductDetails: ProductDetails
-//         }
-//       })
-//     )
 
-//     res.json(UpdatePrdocts)
-//   }
-//   else {
-//     res.json({ msg: "0 Deal Closes !" });
-//   }
-// }
-// const myOrder = async (req, res) => {
-//   try {
-//     const Email = req.cookies.Email;
-//     const Products = await myproduct.find({ UserId: Email });
-
-//     if (Products.length > 0) {
-//       // Step 1: Create a cache to store fetched ProductDetails by Product_id
-//       const productCache = {};
-
-//       // Step 2: Fetch ProductDetails for each product
-//       const UpdateProducts = await Promise.all(
-//         Products.map(async (product) => {
-//           // If ProductDetails for this Product_id are not cached, fetch them
-//           if (!productCache[product.Product_id]) {
-//             const ProductDetails = await Product.findById(product.Product_id);
-//             productCache[product.Product_id] = ProductDetails;
-//           }
-
-//           // Return the individual product with its corresponding ProductDetails
-//           return {
-//             ...product, // Spread the individual product object
-//             ProductDetails: productCache[product.Product_id], // Attach cached/fetched ProductDetails
-//           };
-//         })
-//       );
-
-//       // Step 3: Return the updated products list with product details
-//       res.json(UpdateProducts);
-//     } else {
-//       res.json({ msg: "0 Deal Closes !" });
-//     }
-//   } catch (error) {
-//     // Handle errors
-//     res.status(500).json({ error: error.message });
-//   }
-// };
 const myOrder = async (req, res) => {
   try {
     const Email = req.cookies.Email;
@@ -330,4 +474,4 @@ const myOrder = async (req, res) => {
 };
 
 
-export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, Kyc ,myOrder }
+export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc ,myOrder ,ACKyc}

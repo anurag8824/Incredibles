@@ -222,14 +222,14 @@ const NewHomePage = () => {
 
             <div className="mt-10 grid grid-cols-2  gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-4">
               
-              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
+              <article className="relative border-gray-700 rounded-b-md border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./iphone.jpg" alt="" />
                 </div>
                 <div className="absolute top-0 m-1 rounded-full bg-white">
                   <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹5999</p>
                 </div>
-                <div className="mt-4 flex items-start justify-between">
+                <div className="my-2 mx-2 flex items-start justify-between">
                   <div className="">
                     <h3 className="text-xs font-semibold sm:text-sm md:text-base">
                       <a href="#" title="" className="cursor-pointer">
@@ -267,14 +267,14 @@ const NewHomePage = () => {
 
 
 
-              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
+              <article className="relative border-gray-700 rounded-b-md border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./motorola5g.webp" alt="" />
                 </div>
                 <div className="absolute top-0 m-1 rounded-full bg-white">
                   <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹3999</p>
                 </div>
-                <div className="mt-4 flex items-start justify-between">
+                <div className="my-2 mx-2 flex items-start justify-between">
                   <div className="">
                     <h3 className="text-xs font-semibold sm:text-sm md:text-base">
                       <a href="#" title="" className="cursor-pointer">
@@ -307,14 +307,14 @@ const NewHomePage = () => {
                 </div>
               </article>
 
-              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
+              <article className="relative border-gray-700 rounded-b-md border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./iphone.jpg" alt="" />
                   <div className="absolute top-0 m-1 rounded-full bg-white">
                     <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹4999</p>
                   </div>
                 </div>
-                <div className="mt-4 flex items-start justify-between">
+                <div className="my-2 mx-2 flex items-start justify-between">
                   <div className="">
                     <h3 className="text-xs font-semibold sm:text-sm md:text-base">
                       <a href="#" title="" className="cursor-pointer">
@@ -348,14 +348,14 @@ const NewHomePage = () => {
               </article>
 
 
-              <article className="relative border-gray-700 border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
+              <article className="relative border-gray-700 rounded-b-md border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./motorola.png" alt="" />
                   <div className="absolute top-0 m-1 rounded-full bg-white">
                     <p className="text-[10px] rounded-full bg-black p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">Earn ₹4999</p>
                   </div>
                 </div>
-                <div className="mt-4 flex items-start justify-between">
+                <div className="my-2 mx-2 flex items-start justify-between">
                   <div className="">
                     <h3 className="text-xs font-semibold sm:text-sm md:text-base">
                       <a href="#" title="" className="cursor-pointer">

@@ -13,94 +13,85 @@ const option = {
     Credentials: true
 
 }
-const RegisterAdmin = async (req, res) => {
-    const Email = req.body;
-    try {
-        const otp = genrateOtp();
-        console.log(otp)
 
 
-        const Subject = "Otp Verification";
-        const Message = `Otp is ${otp}`
+// const OtpVerfiy = async (req, res) => {
+//     const Email = req.cookie
+//     const Admin = await AdminData.findOne(Email);
 
-        EmailVerfication(Email, Subject, Message)
-        await AdminData.create({
-            Email: Email,
-            Otp: otp
-        })
-        res
-            .cookie("Email", Email, option)
-            .json("otp sent on yor Email")
-    } catch (error) {
-        res.json(error)
-    }
+//     const otp = Admin.Otp;
 
-}
+//     if (Otp == req.body) {
+//         Admin.verified = true;
+//         await Admin.save();
+//         res.json("Sucessfully Registered !")
+//     }
+//     else {
+//         res.json("Wrong Otp")
+//     }
 
-const OtpVerfiy = async (req, res) => {
-    const Email = req.cookie
-    const Admin = await AdminData.findOne(Email);
-
-    const otp = Admin.Otp;
-
-    if (Otp == req.body) {
-        Admin.verified = true;
-        await Admin.save();
-        res.json("Sucessfully Registered !")
-    }
-    else {
-        res.json("Wrong Otp")
-    }
-
-}
+// }
 
 
 
 
 
 
+
+// const AdminLogin = async (req, res) => {
+//     const Email = req.body
+//     const Admin = AdminData.findOne(Email)
+//     if (!Admin) {
+//         return res.json("Email Doesn't Exist");
+//     }
+//     // if (Admin.verified) {
+//     //     return res.json("First Verfiy Your Email !")
+//     // }
+//     try {
+//         const otp = genrateOtp();
+//         console.log(otp)
+
+
+//         const Subject = "Otp Verification";
+//         const Message = `Otp is ${otp}`
+
+//         EmailVerfication(Email, Subject, Message)
+
+//         Admin.Otp = otp;
+//         await Admin.save();
+//         res.json("Otp Send on Your Email !")
+//     } catch (error) {
+//         res.json(error)
+//     }
+// }
 
 const AdminLogin = async (req, res) => {
-    const Email = req.body
-    const Admin = AdminData.findOne(Email)
-    if (!Admin) {
-        return res.json("Email Doesn't Exist");
-    }
-    if (Admin.verified) {
-        return res.json("First Verfiy Your Email !")
-    }
-    try {
-        const otp = genrateOtp();
-        console.log(otp)
+   try {
+     const Email = req.body.Email
+     const Password = req.body.Password;
+     const Admin = await AdminData.findOne({Email});
+ 
+     // const otp = Admin.Otp;!
+     if(!Admin){
+         return res.json({msg:"Email is not existing"})
+     }
+     if(Admin.Password != Password){
+         return res.json({msg:"Password not match"})
+     }
+     
+      res.json({msg:"successfully"});
+   } catch (error) {
+    console.log(error);
+    res.json({msg:"error"})
+    
+   }
 
 
-        const Subject = "Otp Verification";
-        const Message = `Otp is ${otp}`
-
-        EmailVerfication(Email, Subject, Message)
-
-        Admin.Otp = otp;
-        await Admin.save();
-        res.json("Otp Send on Your Email !")
-    } catch (error) {
-        res.json(error)
-    }
 }
 
-const LoginOtpverify = async (req, res) => {
-    const Email = req.cookie
-    const Admin = await AdminData.findOne(Email);
-
-    const otp = Admin.Otp;
-
-    if (Otp == req.body) {
-        res.json("Sucessfully Login !")
-    }
-    else {
-        res.json("Wrong Otp")
-    }
-
-
+const AdminPost = async(req,res)=>{
+    await AdminData.create({});
+        res.json({msg:"success"});
 }
 
 const Addproduct = async (req, res) => {
@@ -269,6 +260,6 @@ const AllDealsData = async (req, res) => {
 };
 
 export default {
-    AllDealsData, AdminLogin, RegisterAdmin, OtpVerfiy, LoginOtpverify, Addproduct, AllMerchant, AddMerchant, AllDeals, EditDeal
+    AllDealsData, AdminLogin,AdminPost, Addproduct, AllMerchant, AddMerchant, AllDeals, EditDeal
     , UpdateDeal,
 }
