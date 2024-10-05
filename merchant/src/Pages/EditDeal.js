@@ -1,14 +1,11 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate} from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 
-
-const ProductForm = () => {
-
+const EditDeal = () => {
+  const backUrl = process.env.REACT_APP_URL;
   const navigate = useNavigate();
 
-
-  const backUrl = process.env.REACT_APP_URL;
   // Form state
   const [formData, setFormData] = useState({
     DealTitle: '',
@@ -20,10 +17,10 @@ const ProductForm = () => {
     CardType: '',
     DealNumber: '',
     offerCash: '',
-    Image: null,
-    Link: '',
     Status: '',
   });
+
+  const { id } = useParams(); // Get the ID from the URL parameters
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -34,43 +31,57 @@ const ProductForm = () => {
     });
   };
 
+  useEffect(() => {
+    axios.get(`${backUrl}/admin/editdeal/${id}`)
+      .then((res) => {
+        const data = res.data.data;
+        setFormData({
+          DealTitle: data.DealTitle || '',
+          Price: data.Price || '',
+          Offer: data.Offer || '',
+          Store: data.Store || '',
+          Variant: data.Variant || '',
+          OfferAmmount: data.OfferAmmount || '',
+          CardType: data.CardType || '',
+          DealNumber: data.DealNumber || '',
+          offerCash: data.offerCash || '',
+          Status: data.Status || '',
+        });
+      })
+      .catch((err) => console.error(err));
+
+     
+    
+  }, [backUrl, id]); // Dependency array to prevent infinite loop
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
-    axios.post(`${backUrl}/admin/adddeals`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data' // Optional, Axios sets this automatically for FormData
-      }
-    }).then((res) => {
-      console.log(res);
-      alert("Deal added sucessfully !");
-      window.location.reload()
-    }).catch((err) => {
-      console.log(err);
+    axios.put(`${backUrl}/admin/updatedeal/${id}`,formData).then((res)=>{
+      navigate("/product-data")
+    }).catch((err)=>{
+      console.error(err);
     })
-
-    // Add your form submission logic here
   };
+
 
   useEffect(() => {
     const Email = localStorage.getItem('Email');  // get name of cookies
     console.log(Email, "email recieved from localstorage");
     if (Email == null) {
-      console.log("sfj;osadjf")
-      navigate('/')
+        console.log("sfj;osadjf")
+        navigate('/')
     }
-  }, [])
+}, [])
 
 
   return (
-    <div className=''>
-
+    <div className='mx-14 my-10 p-10'>
       <form
         className="max-w-3xl mx-auto p-4 bg-white border grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"
         onSubmit={handleSubmit}
       >
-        <h2 className="col-span-1 md:col-span-2 text-2xl font-bold mb-4">Add Product</h2>
+        <h2 className="col-span-1 md:col-span-2 text-2xl font-bold mb-4">Edit Deal Data</h2>
 
         {/* Deal Title */}
         <div>
@@ -119,7 +130,7 @@ const ProductForm = () => {
 
         {/* Store */}
         <div>
-          <label htmlFor="variant" className="block font-medium text-gray-700">
+          <label htmlFor="store" className="block font-medium text-gray-700">
             Store
           </label>
           <input
@@ -147,11 +158,10 @@ const ProductForm = () => {
           />
         </div>
 
-
-        {/* Deal cardType */}
+        {/* Card Type */}
         <div>
           <label htmlFor="cardType" className="block font-medium text-gray-700">
-            CardType
+            Card Type
           </label>
           <input
             type="text"
@@ -163,10 +173,10 @@ const ProductForm = () => {
           />
         </div>
 
-        {/* offerAmount */}
+        {/* Offer Amount */}
         <div>
           <label htmlFor="offerAmount" className="block font-medium text-gray-700">
-            OfferAmount
+            Offer Amount
           </label>
           <input
             type="number"
@@ -178,10 +188,10 @@ const ProductForm = () => {
           />
         </div>
 
-        {/* Deal Title */}
+        {/* Deal Number */}
         <div>
           <label htmlFor="dealNumber" className="block font-medium text-gray-700">
-            DealNumber
+            Deal Number
           </label>
           <input
             type="text"
@@ -193,11 +203,10 @@ const ProductForm = () => {
           />
         </div>
 
-
-        {/* Deal offerCash */}
+        {/* Offer Cash */}
         <div>
           <label htmlFor="offerCash" className="block font-medium text-gray-700">
-            OfferCash
+            Offer Cash
           </label>
           <input
             type="text"
@@ -209,35 +218,7 @@ const ProductForm = () => {
           />
         </div>
 
-        {/* Image Input */}
-        <div className="md:col-span-2">
-          <label htmlFor="image" className="block font-medium text-gray-700">
-            Image
-          </label>
-          <input
-            type="file"
-            id="image"
-            name="Image"
-            className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none"
-            onChange={handleChange}
-          />
-        </div>
-
-        {/* Link */}
-        <div className="md:col-span-2">
-          <label htmlFor="link" className="block font-medium text-gray-700">
-            Link
-          </label>
-          <input
-            type="url"
-            id="link"
-            name="Link"
-            className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            value={formData.Link}
-            onChange={handleChange}
-          />
-        </div>
-
+        {/* Status */}
         <div className="md:col-span-2">
           <label htmlFor="Status" className="block font-medium text-gray-700">
             Status
@@ -249,7 +230,7 @@ const ProductForm = () => {
             value={formData.Status}
             onChange={handleChange}
           >
-            <option value="">Select an Status</option>
+            <option value="">Select a Status</option>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
@@ -266,8 +247,7 @@ const ProductForm = () => {
         </div>
       </form>
     </div>
-
   );
 };
 
-export default ProductForm;
+export default EditDeal;

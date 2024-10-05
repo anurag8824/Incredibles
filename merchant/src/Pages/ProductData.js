@@ -36,7 +36,7 @@ const ProductData = () => {
             console.log("sfj;osadjf")
             navigate('/')
         }
-    }, [])
+    }, )
 
 
     return (

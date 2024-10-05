@@ -3,9 +3,7 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
-import AddProduct from './Pages/AddProduct';
 import Layout from './Pages/Layout';
-import AddMerchant from './Pages/AddMerchant';
 import DealsData from './Pages/DealsData';
 import ProductData from './Pages/ProductData';
 import EditDeal from './Pages/EditDeal';
@@ -23,8 +21,6 @@ function App() {
           <Route index element={<Admin />} />
           <Route path="dashboard" element={<DashBoard />} />
 
-          <Route path="add-product" element={<AddProduct />} />
-          <Route path="add-merchant" element={<AddMerchant />} />
           <Route path="dynamic-deals" element={<DynamicDeal/>} />
           <Route path="invoices" element={<Invoices />} />
 

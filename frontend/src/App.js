@@ -16,6 +16,7 @@ import TOS from './components/pages/FooterPages/TOS';
 import Check from './components/check';
 import MyDealStatus from './components/pages/MyDealStatus';
 import ManageBank from './components/pages/ManageBank';
+import Wallet from './components/pages/Wallet';
 
 
 
@@ -40,7 +41,7 @@ function App() {
           <Route path="faq" element={<FAQ />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="terms-of-service" element={<TOS />} />
-          <Route path="manage-bank" element={<ManageBank />} />
+          <Route path="wallet" element={<Wallet />} />
 
 
 

@@ -65,10 +65,10 @@ const AddAccount = () => {
         >
           <div className="relative p-4 w-full max-w-md max-h-full">
             {/* Modal content */}
-            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="relative bg-white  rounded-lg shadow DARK:bg-gray-700">
               {/* Modal header */}
-              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t DARK:border-gray-600">
+                <h3 className="text-lg font-semibold text-gray-900 DARK:text-white">
                   Add Account Details
                 </h3>
                 
@@ -79,16 +79,16 @@ const AddAccount = () => {
                 <div className="grid gap-4 mb-4 grid-cols-2">
                   <div className="col-span-2">
                     <label
-                      htmlFor="name"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      htmlFor="ac"
+                      className="block mb-2 text-sm font-medium text-gray-900 DARK:text-white"
                     >
                       Account Number
                     </label>
                     <input
                       type="text"
                       name="acNumber"                     
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Type product name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 DARK:bg-gray-600 DARK:border-gray-500 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-primary-500 DARK:focus:border-primary-500"
+                      placeholder="Type Account Number"
                       required=""
                       value={acData.acNumber}
                       onChange={handleChange}
@@ -99,15 +99,15 @@ const AddAccount = () => {
                   <div className="col-span-2">
                     <label
                       htmlFor="name"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-900 DARK:text-white"
                     >
                       Account Holder
                     </label>
                     <input
                       type="text"
                       name="acHolder"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Type product name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 DARK:bg-gray-600 DARK:border-gray-500 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-primary-500 DARK:focus:border-primary-500"
+                      placeholder="Type Ac. Holder name"
                       required=""
                       value={acData.acHolder}
                       onChange={handleChange}
@@ -118,14 +118,14 @@ const AddAccount = () => {
                   <div className="col-span-2">
                     <label
                       htmlFor="bank"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-900 DARK:text-white"
                     >
                       Bank Name
                     </label>
                     <input
                       type="text"
                       name="bankName"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 DARK:bg-gray-600 DARK:border-gray-500 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-primary-500 DARK:focus:border-primary-500"
                       placeholder="Type Bank name"
                       required=""
                       value={acData.bankName}
@@ -139,15 +139,15 @@ const AddAccount = () => {
                   <div className="col-span-2">
                     <label
                       htmlFor="name"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-900 DARK:text-white"
                     >
-                      IfceCode
+                      IFSC Code
                     </label>
                     <input
                       type="text"
                       name="IfceCode"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Type product name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 DARK:bg-gray-600 DARK:border-gray-500 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-primary-500 DARK:focus:border-primary-500"
+                      placeholder="Type IFSC Code"
                       required=""
                       value={acData.IfceCode}
                       onChange={handleChange}
@@ -158,15 +158,15 @@ const AddAccount = () => {
                   <div className="col-span-2">
                     <label
                       htmlFor="name"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-900 DARK:text-white"
                     >
                     Branch Name
                     </label>
                     <input
                       type="text"
                       name="branch"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Type product name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 DARK:bg-gray-600 DARK:border-gray-500 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-primary-500 DARK:focus:border-primary-500"
+                      placeholder="Type Branch Name"
                       required=""
                       value={acData.branch}
                       onChange={handleChange}
@@ -179,7 +179,7 @@ const AddAccount = () => {
 
                 <button
                   type="submit"
-                  className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center DARK:bg-blue-600 DARK:hover:bg-blue-700 DARK:focus:ring-blue-800"
                 >
                   Save
                 </button>

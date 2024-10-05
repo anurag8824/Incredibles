@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate} from 'react-router-dom';
+import React, { useState , useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const AddMerchant = () => {
-    const navigate = useNavigate();
+import axios from 'axios';
+
+const Admin = () => {
+    const navigate =  useNavigate();
+
+    const backUrl = process.env.REACT_APP_URL;
     // Form state
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
+        Email: '',
+        Password: '',
     });
 
     // Handle form input changes
@@ -22,43 +25,47 @@ const AddMerchant = () => {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form Data:', formData);
+        axios.post(`${backUrl}/admin/login` , formData)
+        .then((res) => {
+            if(res.data.msg == "Email is not existing" || res.data.msg == "Password not match"){
+                alert(res.data.msg);
+            }else{
+                localStorage.setItem("Email",formData.Email);
+                console.log(localStorage.getItem("Email"));
+                navigate('/dashboard')
+            }
+          console.log(res);
+        });
+
+      
         // Add your form submission logic here
+        
     };
 
+
     useEffect(() => {
-        const Email = localStorage.getItem('Email');  // get name of cookies
-        console.log(Email, "email recieved from localstorage");
-        if (Email == null) {
-            console.log("sfj;osadjf")
-            navigate('/')
-        }
+     
+      
     }, [])
+    
+
+
+    
+
+
+
+
 
 
     return (
-        <div className='m-10 px-10 '>
+        <div className='m-10 px-10 py-16'>
 
             <form
                 className="max-w-lg mx-auto p-6  bg-white border grid-cols-1 gap-4 text-sm"
                 onSubmit={handleSubmit}
             >
-                <h2 className="col-span-1 md:col-span-2 text-2xl font-bold mb-4">Add Merchant</h2>
+                <h2 className="col-span-1 md:col-span-2 text-2xl font-bold mb-4">Merchant Login</h2>
 
-                {/* Name */}
-                <div>
-                    <label htmlFor="name" className="block font-medium text-gray-700">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
-                </div>
 
                 {/* Email */}
                 <div>
@@ -68,9 +75,9 @@ const AddMerchant = () => {
                     <input
                         type="email"
                         id="email"
-                        name="email"
+                        name="Email"
                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.email}
+                        value={formData.Email}
                         onChange={handleChange}
                     />
                 </div>
@@ -83,9 +90,9 @@ const AddMerchant = () => {
                     <input
                         type="password"
                         id="password"
-                        name="password"
+                        name="Password"
                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.password}
+                        value={formData.Password}
                         onChange={handleChange}
                     />
                 </div>
@@ -93,7 +100,7 @@ const AddMerchant = () => {
 
                 {/* Submit Button */}
                 <div className="md:col-span-2">
-                    <button
+                    <button 
                         type="submit"
                         className="w-full py-3 px-4 mt-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
@@ -105,4 +112,4 @@ const AddMerchant = () => {
     );
 };
 
-export default AddMerchant;
+export default Admin;
