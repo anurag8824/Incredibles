@@ -1,5 +1,3 @@
-// my-11 md:hidden 
-
 import React, { useEffect, useState } from 'react';
 
 const DownloadAppPopup = () => {

@@ -74,7 +74,6 @@ const DealsPage = () => {
  
            
 
-
             {showdeals ?
                 <div className="items-center text-center mt-10 text-red-600 mb-40 pt-8 pb-20">No deals is Live</div>
                 :
@@ -113,22 +112,11 @@ const DealsPage = () => {
                                 </div>
                             </a>
                         </div>
-
-
-
-
                         )
                     })}
-
-
-
-
                 </section>
             }
-
-
         </>
-
     )
 }
 

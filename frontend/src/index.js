@@ -8,6 +8,6 @@ root.render(
   <>
     <App />
   </>
-  
+
 );
 

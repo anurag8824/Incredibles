@@ -15,7 +15,6 @@ const NewHomePage = () => {
   const [promptInstall, setPromptInstall] = useState(null);
 
 
-
   useEffect(() => {
     axios.get(`${backUrl}/user/me`, { withCredentials: true })
       .then((res) => {
@@ -29,15 +28,15 @@ const NewHomePage = () => {
         }
       })
 
-      const handler = e => {
-        e.preventDefault();
-        console.log("we are being triggered :D");
-        setSupportsPWA(true);
-        setPromptInstall(e);
-      };
-      window.addEventListener("beforeinstallprompt", handler);
-  
-      return () => window.removeEventListener("transitionend", handler);
+    const handler = e => {
+      e.preventDefault();
+      console.log("we are being triggered :D");
+      setSupportsPWA(true);
+      setPromptInstall(e);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+
+    return () => window.removeEventListener("transitionend", handler);
 
   }, []);
 
@@ -54,16 +53,16 @@ const NewHomePage = () => {
   //   return null;
   // }
 
-  
+
   return (
-    <div>
+    <div className=''>
       <div className=" bg-gray-800">
 
         <div className="mx-auto h-full px-4 py-28 md:py-40 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <div className="">
               <div className="lg:max-w-xl lg:pr-5">
-                
+
                 <p className="flex text-sm uppercase text-gray-300">
                   <svg xmlns="http://www.w3.org/2000/svg" className="mr-1 inline h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
@@ -145,7 +144,7 @@ const NewHomePage = () => {
           </article>
 
           <article className="group h-full overflow-hidden rounded-lg border-2 border-gray-200 border-opacity-60 shadow-lg">
-          
+
 
             <iframe className='w-full bg-red-900 transform object-cover object-center transition duration-500 ease-in-out group-hover:scale-105 md:h-36 lg:h-48' src="https://lottie.host/embed/62a6fa38-8c61-4ddf-80c3-c9ac9a9afa76/gHBejt6e9K.json"></iframe>
             <div className="py-1 px-6">
@@ -184,7 +183,7 @@ const NewHomePage = () => {
                 <p className="relative mt-5 text-gray-600">Join a community of over 1 million savvy shoppers who are maximizing their rewards and cashback benefits with every purchase!</p>
               </div>
 
-              
+
 
               <div className="backdrop-blur-lg relative mb-3 rounded-3xl border bg-white/70 px-12 py-10 text-left shadow lg:px-12">
                 <p className="relative text-5xl font-black text-blue-600">51%</p>
@@ -208,7 +207,7 @@ const NewHomePage = () => {
 
       </div>
 
-      
+
 
 
 
@@ -221,7 +220,7 @@ const NewHomePage = () => {
             </div>
 
             <div className="mt-10 grid grid-cols-2  gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-4">
-              
+
               <article className="relative border-gray-700 rounded-b-md border-2 duration-500 hover:scale-105 shadow-lg shadow-gray-800">
                 <div className="aspect-square overflow-hidden">
                   <img className="group-hover:scale-125 h-full w-full object-cover transition-all duration-300" src="./iphone.jpg" alt="" />
@@ -396,7 +395,7 @@ const NewHomePage = () => {
       </div>
 
 
-      <DownloadAppPopup/>
+      <DownloadAppPopup />
 
 
 

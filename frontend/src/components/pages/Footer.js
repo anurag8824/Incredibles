@@ -7,23 +7,6 @@ import { FaBoxOpen, FaHome, FaRegArrowAltCircleDown, FaRegArrowAltCircleRight, F
 
 const Footer = () => {
 
-  // const navigate = useNavigate();
-
-
-  // useEffect(() => {
-  //   axios.get('https://back-ecom-six.vercel.app/user/me', { withCredentials: true })
-  //     .then((res) => {
-  //       const msg = res.data.msg
-  //       if (msg == "Email not verifed !") {
-  //         // alert("Please Verify your email")
-  //         navigate('/sign-in');
-
-  //       } else if (msg == "Email verifed !") {
-  //         navigate('/deals');
-  //       }
-  //     })
-  // })
-
   const [showAddress, setShowAddress] = useState(true)
   const [showLinks, setShowLinks] = useState(true)
 
@@ -91,7 +74,6 @@ const Footer = () => {
 
 
 
-
           </div>
 
           <div className="">
@@ -134,7 +116,6 @@ const Footer = () => {
 
 
 
-
       {/* Mobile View  */}
       <div className="fixed bottom-0 left-0 w-full flex md:hidden justify-around items-center border-t border-gray-200  bg-white  py-1">
         <a href="/" className="text-gray-600 flex flex-col items-center hover:text-gray-900 ">
@@ -162,8 +143,6 @@ const Footer = () => {
         </a> */}
 
       </div>
-
-
     </div>
 
 

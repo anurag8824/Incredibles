@@ -55,43 +55,24 @@ const Navbar = () => {
 
         <header className="relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 text-blue-900 md:mx-auto md:flex-row md:items-center">
           <a href="/" className="flex cursor-pointer items-center whitespace-nowrap text-2xl font-black text-white">
-            
+
             Incre<span className='text-blue-600'>dibles</span>
           </a>
 
 
 
-
-
-
-          {/* <div className={`absolute right-7 top-5 cursor-pointer text-blue-600 ${iuser ? "hidden" : ""} `} >
-            <a href='/sign-in' className="rounded-full border-2 border-gray-700 px-6 py-1 font-medium text-gray-700 transition-colors hover:bg-white hover:text-gray-700">Login</a>
-          </div>
-
-
-          
-          <div className={`absolute right-7 top-3 cursor-pointer text-blue-600 ${iuser ? "" : "hidden"} `} >
-
-            <a href='/profile' className="">
-              <img
-                src="/profilereview.png"
-                alt="GIF Icon"
-                className="w-12 h-12"
-              /></a>
-          </div> */}
-
-          <div className="absolute right-7 cursor-pointer text-blue-600">
+          <div className="absolute right-7  cursor-pointer text-blue-600">
 
             {iuser ? (
               <a href='/profile'>
                 <img
                   src="/profilegif.gif"
                   alt="Profile Icon"
-                  className="w-12 top-3 h-12"
+                  className="w-12 md:top-3 top-2 h-12"
                 />
               </a>
             ) : (
-              <a href='/sign-in' className="rounded-full border-2 top-5 border-white px-6 py-1  font-medium text-white transition-colors hover:bg-white hover:text-gray-700">
+              <a href='/sign-in' className="rounded-full border-2 md:top-5 border-white px-6 py-1  font-medium text-white transition-colors hover:bg-white hover:text-gray-700">
                 Login
               </a>
             )}

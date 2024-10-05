@@ -13,9 +13,7 @@ import Contact from './components/pages/FooterPages/Contact';
 import FAQ from './components/pages/FooterPages/FAQ';
 import PrivacyPolicy from './components/pages/FooterPages/PrivacyPolicy';
 import TOS from './components/pages/FooterPages/TOS';
-import Check from './components/check';
 import MyDealStatus from './components/pages/MyDealStatus';
-import ManageBank from './components/pages/ManageBank';
 import Wallet from './components/pages/Wallet';
 
 
@@ -42,11 +40,6 @@ function App() {
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="terms-of-service" element={<TOS />} />
           <Route path="wallet" element={<Wallet />} />
-
-
-
-
-
 
 
 
