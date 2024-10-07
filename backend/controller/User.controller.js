@@ -14,7 +14,7 @@ const option = {
 
 
 };
-let token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmcmVlX3RpZXJfYWFhcnRpeWFkYXZ2dl85NDcwZTAwYzY2IiwiZXhwIjoxNzI4MDQ0MzY2fQ.z2e3mqzjcmrTDsC0q4b-esuhFS6A8-dNnQOnczJmurI"
+
 const EmailRegister = async (req, res) => {
   const Email = req.body.Email;
 
@@ -73,6 +73,8 @@ const EmailRegister = async (req, res) => {
   </body>
   </html>
 `
+
+
 
   try {
     EmailVerfication(Email, Subject, Message)
@@ -255,129 +257,103 @@ const SingleDeal = async (req, res) => {
 
 // genrate access token
 
-const GenrateToken = async()=>{
-  var formdata = new FormData();
-formdata.append("client_id", process.env.CLIENT_ID);
-formdata.append("client_secret", process.env.CLIENT_ID);
+let token = null;  // Store token globally for reuse
 
-var requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
- 
-fetch("https://production.deepvue.tech/v1/authorize", requestOptions)
-  .then(response => response.text())
-  .then((result) => {console.log(result)
-    const Result = JSON.parse(result)
-    console.log(Result.access_token)
-       if(Result.access_token){
-         console.log(Result.access_token,"access token")
-         let token =  Result.access_token;
-       }
-      }
+const GenrateToken = async () => {
+  try {
+    var formdata = new FormData();
+    formdata.append("client_id", `${process.env.CLIENT_ID}`);
+    formdata.append("client_secret", `${process.env.CLIENT_SECRET_KEY}`);
 
-)
-  .catch(error => console.log('error', error));
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    const response = await fetch("https://production.deepvue.tech/v1/authorize", requestOptions);
+    const result = await response.text();
+    const parsedResult = JSON.parse(result);
+
+    if (parsedResult.access_token) {
+      console.log(parsedResult.access_token, "access token");
+      token = parsedResult.access_token; // Set token globally
+    }
+  } catch (error) {
+    console.log('Error generating token:', error);
+  }
 }
 
 const PanKyc = async (req, res) => {
-  const Email = req.cookies.Email;
-  const user = await userModel.findOne({ Email });
-  if (!user) {
-    return res.json("user not exist");
+  try {
+    const Email = req.cookies.Email;
+    const user = await userModel.findOne({ Email });
+    if (!user) {
+      return res.json("User does not exist");
+    }
 
+    user.panNumber = req.body.panNumber;
+    user.panHolder = req.body.panHolder;
+
+    // Check if token exists or generate it if not available
+    if (!token) {
+      await GenrateToken();
+    }
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    // API call for PAN verification
+    let response = await fetch(`https://production.deepvue.tech/v1/verification/panbasic?pan_number=${req.body.panNumber}&name=${req.body.panHolder}`, requestOptions);
+    let result = await response.text();
+    let parsedResult = JSON.parse(result);
+
+    if (parsedResult?.data?.status === "VALID") {
+      user.Panvrifed = true;
+      await user.save();
+      return res.json({ msg: "Valid Details" });
+    } else if (parsedResult?.data?.status === "INVALID") {
+      return res.json({ msg: "Invalid Details" });
+    } else if (parsedResult.detail === "Not a valid token") {
+      console.log("Invalid token, regenerating...");
+
+      // Regenerate token and retry the PAN verification
+      await GenrateToken();
+
+      myHeaders.set("Authorization", `Bearer ${token}`);  // Update the header with new token
+
+      response = await fetch(`https://production.deepvue.tech/v1/verification/panbasic?pan_number=${req.body.panNumber}&name=${req.body.panHolder}`, requestOptions);
+      result = await response.text();
+      parsedResult = JSON.parse(result);
+
+      if (parsedResult?.data?.status === "VALID") {
+        user.Panvrifed = true;
+        await user.save();
+        return res.json({ msg: "Valid Details after Token Refresh" });
+      } else if (parsedResult?.data?.status === "INVALID") {
+        return res.json({ msg: "Invalid Details after Token Refresh" });
+      }
+    }
+
+  } catch (error) {
+    console.log('Error in PAN KYC:', error);
+    return res.status(500).json({ msg: "Error processing request" });
   }
-  user.panNumber = req.body.panNumber,
-  user.panHolder = req.body.panHolder
-
-var myHeaders = new Headers();
-// myHeaders.append("Authorization", `Bearer ${token}`);
-
-console.log("token", token); 
-myHeaders.append("Authorization", `Bearer ${token}`);
-
-myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
-myHeaders.append("Content-Type", "application/json");
-
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-};
-
-fetch(`https://production.deepvue.tech/v1/verification/panbasic?pan_number=${req.body.panNumber}&name=${req.body.panHolder}`, requestOptions)
-  .then(response => response.text())
-  .then((result) =>{ console.log(result)
-    const Result = JSON.parse(result);
-    if(Result.data.status === "VALID"){
-      user.Panvrifed = true
-       user.save().then(()=>{
-         return res.send({msg:"valid Details"})
-
-       } 
-      
-      )
-
-      
-
-    }else if(Result.data.status === "INVALID"){
-     return  res.json({msg:"Invalid Details"})
-     }
-    else if(Result.detail ==="Not a valid token"){
-      GenrateToken().then(()=>{
-        fetch("https://production.deepvue.tech/v1/verification/panbasic?pan_number={{req.body.panNumber}}&name={{req.body.panHolder}}", requestOptions)
-  .then(response => response.text())
-  .then((result) =>{ console.log(result)
-    const Result = JSON.parse(result);
-    if(Result.data.status === "VALID"){
-      user.Panvrifed = true
-       user.save().then(()=>{
-        return res.send({msg:"Invalid Details"})
-
-       } 
-      
-      )
-
-      
-
-    }else if(Result.data.status === "INVALID"){
-     return res.json({msg:"Invalid Details"})
-     }
-    //  else if(Result.detail ==="Not a valid token"){
-    //   GenrateToken().then(()=>{
-        
-            
-    //   })
-    //  }
-  }
-)
-  .catch(error => console.log('error', error));
-  
-            
-      })
-     }
-  }
-)
-  .catch(error => console.log('error', error));
-  
-  
-  // user.bankName = req.body.bankName,
-  //   user.IfceCode = req.body.IfceCode,
-  //   user.acNumber = req.body.acNumber,
-  //   user.acHolder = req.body.acHolder,
-   
-    // user.branch = req.body.branch,
-
-     
-
-    
-
 }
+
 
 const ACKyc = async (req, res) => {
   const Email = req.cookies.Email;
   const user = await userModel.findOne({ Email });
+  console.log(user);
   if (!user) {
     return res.json("user not exist");
 
@@ -388,11 +364,20 @@ const ACKyc = async (req, res) => {
   user.acHolder = req.body.acHolder,
  
   user.branch = req.body.branch
+  console.log(user.panHolder != req.body.acHolder)
+
+  if(user.panHolder != req.body.acHolder){
+    return res.json({msg:"Pan and Account Holder Name Should Be Same!"})
+    }
+
+    if (!token) {
+            await GenrateToken(); // Ensure you have this function implemented elsewhere
+          }
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${token}`);
 
-console.log("token:", token);
+// console.log("token:", token);
 myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
 myHeaders.append("Content-Type", "application/json");
 
@@ -400,13 +385,16 @@ var requestOptions = {
   method: 'GET',
   headers: myHeaders,
   redirect: 'follow'
-};
+}
+
 
 fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions)
   .then(response => response.text())
-  .then((result) => {console.log(result)
+  .then(result => {console.log(result)
+    console.log("hello world")
 
   const Result = JSON.parse(result)
+  console.log(Result)
   if(Result.code ==200){
     if(Result.data.account_exists){
       user.Acvrifed = true
@@ -440,6 +428,7 @@ fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_numbe
     
 
 }
+
 
 
 const myOrder = async (req, res) => {

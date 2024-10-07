@@ -5,6 +5,7 @@ import axios  from 'axios';
 const AddAccount = () => {
 
   const backUrl = process.env.REACT_APP_URL;
+  console.log(backUrl);
 
   //for accounts details
   //states for show ac model or not
@@ -18,12 +19,12 @@ const AddAccount = () => {
   const closeAcModal = (e) => {
     e.preventDefault();
     setAcModal(false);
-    console.log("Sds",acData)
+    // console.log("Sds",acData)
     axios.post(`${backUrl}/user/Ac/kyc` , acData, {withCredentials : true})
     .then((res) => {
-      console.log(res);
+      console.log(res,"response");
       if(res.data.msg="valid Details"){
-        window.location.reload();
+        // window.location.reload();
       }else {
         alert(res.data.msg);
       }

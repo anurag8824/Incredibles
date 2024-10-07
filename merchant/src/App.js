@@ -11,6 +11,8 @@ import Admin from './Pages/Admin';
 import DashBoard from './Pages/DashBoard';
 import Invoices from './Pages/Invoices';
 import DynamicDeal from './Pages/DynamicDeal';
+import MerchantBulkOrder from './Pages/Merchant/MerchantBulkOrder';
+import MerchantOrder from './Pages/Merchant/MerchantOrder';
 
 function App() {
     return (
@@ -22,6 +24,10 @@ function App() {
           <Route path="dashboard" element={<DashBoard />} />
 
           <Route path="dynamic-deals" element={<DynamicDeal/>} />
+          <Route path="merchant-bulk" element={<MerchantBulkOrder />} />
+          <Route path="merchant-order" element={<MerchantOrder />} />
+
+
           <Route path="invoices" element={<Invoices />} />
 
           
@@ -29,6 +35,9 @@ function App() {
           <Route path="deals-data" element={<DealsData />} />
           <Route path="product-data" element={<ProductData />} />
           <Route path="edit/deal/:id" element={<EditDeal />} />
+
+
+
 
 
 
