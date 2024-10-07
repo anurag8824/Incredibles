@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios  from 'axios';
+import { useNavigate } from 'react-router-dom'
 
 
 const AddAccount = () => {
 
   const backUrl = process.env.REACT_APP_URL;
   console.log(backUrl);
+  const navigate = useNavigate();
 
   //for accounts details
   //states for show ac model or not
@@ -20,15 +22,20 @@ const AddAccount = () => {
     e.preventDefault();
     setAcModal(false);
     // console.log("Sds",acData)
-    axios.post(`${backUrl}/user/Ac/kyc` , acData, {withCredentials : true})
-    .then((res) => {
-      console.log(res,"response");
-      if(res.data.msg="valid Details"){
-        // window.location.reload();
-      }else {
-        alert(res.data.msg);
+    axios.post(`${backUrl}/user/Ac/kyc` , acData, {withCredentials : true}).then((response)=>{
+
+
+      if (response.data.msg === "Valid Bank Details"){
+        setAcModal(false);
+        window.location.reload();
       }
+      else{
+        alert(response.data.msg);
+      }
+
+      console.log(response);
     })
+    
   };
 
 

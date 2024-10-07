@@ -319,7 +319,7 @@ const PanKyc = async (req, res) => {
     if (parsedResult?.data?.status === "VALID") {
       user.Panvrifed = true;
       await user.save();
-      return res.json({ msg: "Valid Details" });
+      return res.json({ msg: "Valid Pan Details" });
     } else if (parsedResult?.data?.status === "INVALID") {
       return res.json({ msg: "Invalid Details" });
     } else if (parsedResult.detail === "Not a valid token") {
@@ -337,7 +337,7 @@ const PanKyc = async (req, res) => {
       if (parsedResult?.data?.status === "VALID") {
         user.Panvrifed = true;
         await user.save();
-        return res.json({ msg: "Valid Details after Token Refresh" });
+        return res.json({ msg: "Valid Pan Details after Token Refresh" });
       } else if (parsedResult?.data?.status === "INVALID") {
         return res.json({ msg: "Invalid Details after Token Refresh" });
       }
@@ -350,75 +350,89 @@ const PanKyc = async (req, res) => {
 }
 
 
-const ACKyc = async (req, res) => {
-  const Email = req.cookies.Email;
-  const user = await userModel.findOne({ Email });
-  console.log(user);
-  if (!user) {
-    return res.json("user not exist");
+// const ACKyc = async (req, res) => {
+//   const Email = req.cookies.Email;
+//   const user = await userModel.findOne({ Email });
+//   console.log(user);
+//   if (!user) {
+//     return res.json("user not exist");
 
-  }
-  user.bankName = req.body.bankName,
-  user.IfceCode = req.body.IfceCode,
-  user.acNumber = req.body.acNumber,
-  user.acHolder = req.body.acHolder,
+//   }
+//   user.bankName = req.body.bankName,
+//   user.IfceCode = req.body.IfceCode,
+//   user.acNumber = req.body.acNumber,
+//   user.acHolder = req.body.acHolder,
  
-  user.branch = req.body.branch
-  console.log(user.panHolder != req.body.acHolder)
+//   user.branch = req.body.branch
+//   console.log(user.panHolder != req.body.acHolder)
 
-  if(user.panHolder != req.body.acHolder){
-    return res.json({msg:"Pan and Account Holder Name Should Be Same!"})
-    }
 
-    if (!token) {
-            await GenrateToken(); // Ensure you have this function implemented elsewhere
-          }
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Bearer ${token}`);
+//     if (!token) {
+//             await GenrateToken(); // Ensure you have this function implemented elsewhere
+//           }
+
+// var myHeaders = new Headers();
+// myHeaders.append("Authorization", `Bearer ${token}`);
 
 // console.log("token:", token);
-myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
-myHeaders.append("Content-Type", "application/json");
+// myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
+// myHeaders.append("Content-Type", "application/json");
 
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-}
+// var requestOptions = {
+//   method: 'GET',
+//   headers: myHeaders,
+//   redirect: 'follow'
+// }
 
 
-fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions)
-  .then(response => response.text())
-  .then(result => {console.log(result)
-    console.log("hello world")
+// fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions)
+//   .then(response => response.text())
+//   .then((result) => {console.log(result)
+//     console.log("hello world")
 
-  const Result = JSON.parse(result)
-  console.log(Result)
-  if(Result.code ==200){
-    if(Result.data.account_exists){
-      user.Acvrifed = true
-         user.save().then(()=>{
-        return  res.json({msg:"valid Details"})
-         })
-    }
-  }
+//   const Result = JSON.parse(result)
+//   console.log(Result)
+//   if(user.panHolder === req.body.acHolder){
+
+//     console.log(user.panHolder,req.body.acHolder)
+
+ 
+//   if(Result.code ==200){
+//     if(Result.data.account_exists){
+//       user.Acvrifed = true
+//          user.save().then(()=>{
+//         return  res.json({msg:"valid hello world "})
+//          })
+//     }
+//   }
   
-  if(Result.data.message == "Invalid account number or ifsc provided"){
-   return res.json({msg:"Invalid account number or ifsc provide"})
-  }
-  if(Result.data.message == "Account is blocked"){
-   return res.json({msg:"Account is blocked"})
-  }
-  if(Result.data.message == "IFSC is invalid"){
-   return res.json({msg:"IFSC is invalid"})
-  }
-  if(Result.data.message == "Given account is an NRE account"){
-   return res.json({msg:"Given account is an NRE account"})
-  }
+//   if(Result.data.message == "Invalid account number or ifsc provided"){
+//    return res.json({msg:"Invalid account number or ifsc provide"})
+//   }
+//   if(Result.data.message == "Account is blocked"){
+//    return res.json({msg:"Account is blocked"})
+//   }
+//   if(Result.data.message == "IFSC is invalid"){
+//    return res.json({msg:"IFSC is invalid"})
+//   }
+//   if(Result.data.message == "Given account is an NRE account"){
+//    return res.json({msg:"Given account is an NRE account"})
+//   }
+// }
+// else{
+//   res.json({msg:"Pan holder and ac holder name should be the same"})
+// }
 
-  })
-  .catch(error => console.log('error', error));
+//   })
+//   .catch(error => console.log('error', error));
+
+
+
+// // fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions)
+// //   .then(response => response.text())
+// //   .then(result => console.log(result))
+// //   .catch(error => console.log('error', error));
   
   
  
@@ -427,7 +441,100 @@ fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_numbe
 
     
 
-}
+// }
+
+
+
+const ACKyc = async (req, res) => {
+  try {
+    const Email = req.cookies.Email;
+    const user = await userModel.findOne({ Email });
+    if (!user) {
+      return res.json("User does not exist");
+    }
+
+    // Update user's bank details
+    user.bankName = req.body.bankName;
+    user.IfceCode = req.body.IfceCode;
+    user.acNumber = req.body.acNumber;
+    user.acHolder = req.body.acHolder;
+    user.branch = req.body.branch;
+
+    // Check if PAN holder's name and account holder's name match
+    // if (user.panHolder !== req.body.acHolder) {
+    //   return res.json({ msg: "Pan holder and account holder name should be the same" });
+    // }
+
+    // Ensure token is available before making the API request
+    if (!token) {
+      await GenrateToken(); // Assuming this function sets the global 'token'
+    }
+
+    // Proceed with the bank verification request
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    // Fetch the bank account verification response
+    const response = await fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions);
+    const resultText = await response.text();
+    const result = JSON.parse(resultText);
+
+    console.log("API result:", result); // Debugging the result
+    if (user.panHolder !== req.body.acHolder) {
+      console.log(user.panHolder,req.body.acHolder)
+
+      return res.status(200).send({msg:"Pan Holder and Ac Holder Name should same"});
+    }
+    // Handle various response cases
+  
+      if (result?.data?.message ==="Bank Account details verified successfully.") {
+        console.log("hhhhhhhhh")
+        if(result?.data?.name_information?.name_at_bank_cleaned.toUpperCase()=== result?.data?.name_information?.name_provided.toUpperCase()){
+          console.log("hhhhhh552145")
+          user.Acvrifed = true;
+          await user.save();
+          return res.json({ msg: "Valid Bank Details" });
+        }
+
+        else{
+          console.log("hhhhh00000")
+          return res.json({msg:"Invalid Bank Details"})
+        }
+      
+      }
+    
+
+    // Handle specific error messages
+    if (result?.data?.message === "Invalid account number or ifsc provided") {
+      return res.json({ msg: "Invalid account number or IFSC provided" });
+    }
+    if (result?.data?.message === "Account is blocked") {
+      return res.json({ msg: "Account is blocked" });
+    }
+    if (result?.data?.message === "IFSC is invalid") {
+      return res.json({ msg: "IFSC is invalid" });
+    }
+    if (result?.data?.message === "Given account is an NRE account") {
+      return res.json({ msg: "Given account is an NRE account" });
+    }
+     if(result?.message == "Beneficiary bank offline"){
+      return res.json({ msg: "Beneficiary bank offline" });
+
+     }
+  } catch (error) {
+    console.error('Error during account verification:', error);
+    return res.status(500).json({ msg: "Error processing request" });
+  }
+};
+
 
 
 
