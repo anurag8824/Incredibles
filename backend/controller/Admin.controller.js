@@ -147,8 +147,8 @@ const Addproduct = async (req, res) => {
 const AllMerchant = async (req, res) => {
     try {
         const Data = await MerchantData.find()
-        if (!Data) {
-            return res.json("Error in Fecting Data")
+        if (Data.length ==0) {
+            return res.json("0 merchant is aviable")
         }
         res.json(Data);
     }
@@ -160,14 +160,15 @@ const AllMerchant = async (req, res) => {
 
 const AddMerchant = async (req, res) => {
     try {
-        const { Email, Password } = req.body;
-        const Merchant = await MerchantData.findOne(Email);
+        const { Email, Password ,Name} = req.body;
+        const Merchant = await MerchantData.findOne({Email});
         if (Merchant) {
             return res.json("Email Alreadt Exist !")
         }
         await MerchantData.create({
             Email: req.body.Email,
-            Password: req.body.Password
+            Password: req.body.Password,
+            Name: req.body.Name,
         })
         res.json("Merchant Created Sucessfully !")
     } catch (error) {

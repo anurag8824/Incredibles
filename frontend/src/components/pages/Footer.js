@@ -69,7 +69,7 @@ const Footer = () => {
               10/42-Nehru Nagar, <br />
               Sethi House-110065 <br />
               (Delhi Office)
-            </div> :
+            </div> 
 
 
 

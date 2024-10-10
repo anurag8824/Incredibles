@@ -25,7 +25,7 @@ const Admin = () => {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${backUrl}/admin/login` , formData)
+        axios.post(`${backUrl}/admin/login` , formData, { withCredentials: true })
         .then((res) => {
             if(res.data.msg == "Email is not existing" || res.data.msg == "Password not match"){
                 alert(res.data.msg);

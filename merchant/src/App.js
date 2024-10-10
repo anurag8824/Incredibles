@@ -7,30 +7,53 @@ import Layout from './Pages/Layout';
 import DealsData from './Pages/DealsData';
 import ProductData from './Pages/ProductData';
 import EditDeal from './Pages/EditDeal';
-import Admin from './Pages/Admin';
+import MerchantAdmin from './Pages/MerchantAdmin';
 import DashBoard from './Pages/DashBoard';
 import Invoices from './Pages/Invoices';
 import DynamicDeal from './Pages/DynamicDeal';
 import MerchantBulkOrder from './Pages/Merchant/MerchantBulkOrder';
 import MerchantOrder from './Pages/Merchant/MerchantOrder';
+import Address from './Pages/DealAddress/Address';
+import FinancialPayUTR from './Pages/MerchantPayment/FinancialPayUTR';
+import BulkMerchantPayment from './Pages/MerchantPayment/BulkMerchantPayment';
+import MerchantPaymentRecieved from './Pages/MerchantPayment/MerchantPaymentRecieved';
+import DeliveryConfirm from './Pages/Orders/DeliveryConfirm';
+import EcomOrderDetails from './Pages/Orders/EcomOrderDetails';
+import MerchantOrderVariant from './Pages/Orders/MerchantOrderVariant';
+import MerchantPricing from './Pages/Merchant/MerchantPricing';
 
 function App() {
-    return (
+  return (
 
-        <BrowserRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Admin />} />
+          <Route index element={<MerchantAdmin />} />
           <Route path="dashboard" element={<DashBoard />} />
 
-          <Route path="dynamic-deals" element={<DynamicDeal/>} />
+
           <Route path="merchant-bulk" element={<MerchantBulkOrder />} />
           <Route path="merchant-order" element={<MerchantOrder />} />
+          <Route path="merchant-pricing" element={<MerchantPricing />} />
+
+          <Route path="bulk-merchant-payment" element={<BulkMerchantPayment />} />
+          <Route path="financial-pay-utr" element={<FinancialPayUTR />} />
+          <Route path="merchant-payment-recieved" element={<MerchantPaymentRecieved />} />
+
+          <Route path="deliverey-confirmation" element={<DeliveryConfirm />} />
+          <Route path="ecom-order-details" element={<EcomOrderDetails />} />
+          <Route path="merchant-order-variant" element={<MerchantOrderVariant />} />
 
 
-          <Route path="invoices" element={<Invoices />} />
 
-          
+          <Route path="merchant-dynamic-deals" element={<DynamicDeal />} />
+          <Route path="merchant-invoices" element={<Invoices />} />
+          <Route path="address" element={<Address />} />
+
+
+
+
+
 
           <Route path="deals-data" element={<DealsData />} />
           <Route path="product-data" element={<ProductData />} />
@@ -50,7 +73,7 @@ function App() {
       </Routes>
     </BrowserRouter>
 
-    );
+  );
 }
 
 export default App;

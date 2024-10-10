@@ -79,7 +79,7 @@ const NewSideBar = () => {
                             <hr className="h-px my-1 bg-gray-400 border-0" />
                             <Link to="merchant-order" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order</Link>
                             <hr className="h-px my-1 bg-gray-400 border-0" />
-                            <a href="#" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order View</a>
+                            <Link to="merchant-pricing" className="block px-4 py-2 hover:bg-gray-200 text-sm"> Merchant Pricing</Link>
                         </div>
                     )}
                 </div>
@@ -96,11 +96,11 @@ const NewSideBar = () => {
                     </button>
                     {dropdownState.product && (
                         <div className="mt-2 pl-4">
-                            <Link to={"merchant-bulk"} className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Bulk Order</Link>
+                            <Link to={"bulk-merchant-payment"} className="block px-4 py-2 hover:bg-gray-200 text-sm">Bulk Merchant Payment</Link>
                             <hr className='h-px my-1 bg-gray-400 border-0' />
-                            <Link to="merchant-order" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant  Order</Link>
+                            <Link to="financial-pay-utr" className="block px-4 py-2 hover:bg-gray-200 text-sm">Financial Payment UTR</Link>
                             <hr className='h-px my-1 bg-gray-400 border-0' />
-                            <a href="#" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order View</a>
+                            <Link to="merchant-payment-recieved" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Payment Recieved</Link>
                         </div>
                     )}
                 </div>
@@ -115,11 +115,11 @@ const NewSideBar = () => {
                     </button>
                     {dropdownState.customer && (
                         <div className="mt-2 pl-4">
-                            <Link to="customer-list" className="block px-4 py-2 hover:bg-gray-200 text-sm">Delivery Confirmation</Link>
+                            <Link to="deliverey-confirmation" className="block px-4 py-2 hover:bg-gray-200 text-sm">Delivery Confirmation</Link>
                             <hr className="h-px my-1 bg-gray-400 border-0" />
-                            <Link to="customer-add" className="block px-4 py-2 hover:bg-gray-200 text-sm">E commerce Order Details</Link>
+                            <Link to="ecom-order-details" className="block px-4 py-2 hover:bg-gray-200 text-sm">E commerce Order Details</Link>
                             <hr className="h-px my-1 bg-gray-400 border-0" />
-                            <a href="#" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order Variant</a>
+                            <Link to="merchant-order-variant" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order Variant</Link>
                         </div>
                     )}
                 </div>
@@ -134,7 +134,7 @@ const NewSideBar = () => {
                     </button>
                     {dropdownState.order && (
                         <div className="mt-2 pl-4">
-                            <Link to="order-list" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Deal Create</Link>
+                            <Link to="merchant-dynamic-deals" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Deal Create</Link>
                             <hr className="h-px my-1 bg-gray-400 border-0" />
                             
                         </div>
@@ -151,7 +151,7 @@ const NewSideBar = () => {
                     </button>
                     {dropdownState.report && (
                         <div className="mt-2 pl-4">
-                            <Link to="sales-report" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Invoices</Link>
+                            <Link to="merchant-invoices" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Invoices</Link>
                             <hr className="h-px my-1 bg-gray-400 border-0" />
                             
                         </div>
@@ -168,11 +168,8 @@ const NewSideBar = () => {
                     </button>
                     {dropdownState.settings && (
                         <div className="mt-2 pl-4">
-                            <Link to="profile-settings" className="block px-4 py-2 hover:bg-gray-200 text-sm">Profile Settings</Link>
-                            <hr className="h-px my-1 bg-gray-400 border-0" />
-                            <Link to="account-settings" className="block px-4 py-2 hover:bg-gray-200 text-sm">Account Settings</Link>
-                            <hr className="h-px my-1 bg-gray-400 border-0" />
-                            <a href="#" className="block px-4 py-2 hover:bg-gray-200 text-sm">Notification Settings</a>
+                            <Link to="address" className="block px-4 py-2 hover:bg-gray-200 text-sm">Address</Link>
+                           
                         </div>
                     )}
                 </div>
@@ -191,14 +188,14 @@ const NewSideBar = () => {
 
 
                 <div className=' py-2'>
-                    <Link to='/deals-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
+                    <Link to='deals-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
                         Deals Data
                     </Link>
                 </div>
 
 
                 <div className='py-2'>
-                    <Link href='/product-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
+                    <Link to='product-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
                         Product Data
                     </Link>
                 </div>

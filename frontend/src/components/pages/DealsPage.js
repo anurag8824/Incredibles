@@ -12,31 +12,31 @@ const DealsPage = () => {
 
     const navigate = useNavigate();
     const backUrl = process.env.REACT_APP_URL;
-     const [pan,setPan] = useState(true);
-     const [ac,setAc] = useState(true);
+    const [pan, setPan] = useState(true);
+    const [ac, setAc] = useState(true);
 
 
     useEffect(() => {
 
         axios.get(`${backUrl}/user/me`, { withCredentials: true })
             .then((res) => {
-                console.log(res,"me")
+                console.log(res, "me")
                 const msg = res.data.msg
                 if (msg == "Email not verifed !") {
                     // alert("Please Verify your email")
                     navigate('/sign-in');
-                } else if (msg == "Email verifed !") { 
+                } else if (msg == "Email verifed !") {
                     const Acvrifed = res.data.user.Acvrifed;
                     const panvrifed = res.data.user.Panvrifed;
-                    if(!panvrifed){
-                      setPan(false)
-                    }else{
+                    if (!panvrifed) {
+                        setPan(false)
+                    } else {
                         setPan(true)
-                        if(Acvrifed){
-                            console.log(Acvrifed,"Acvrifed")
+                        if (Acvrifed) {
+                            console.log(Acvrifed, "Acvrifed")
                             setAc(true)
                         }
-                        else{
+                        else {
                             setAc(false);
                         }
                     }
@@ -69,10 +69,8 @@ const DealsPage = () => {
 
     return (
         <>
-        
-        {pan ? (ac ?"" : <AddAccount />) : <AddPan />}
- 
-           
+
+            {pan ? (ac ? "" : <AddAccount />) : <AddPan />}
 
             {showdeals ?
                 <div className="items-center text-center mt-10 text-red-600 mb-40 pt-8 pb-20">No deals is Live</div>
@@ -81,7 +79,7 @@ const DealsPage = () => {
 
                     {data.map((deal) => {
                         return (<div className="w-72 bg-gray-100 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:shadow-blue-300">
-                            <a href={`/product/${deal._id}`}>
+                            <a href={`/product/${deal.ProductId}`}>
                                 <div style={{ height: "20rem" }} className='w-72 '>
 
                                     <img src={`${backUrl}/${deal.Image}`} alt="Product Image" className="w-72 object-cover rounded-t-xl" />

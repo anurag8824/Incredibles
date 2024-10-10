@@ -13,6 +13,7 @@ const ProductForm = () => {
   const [formData, setFormData] = useState({
     DealTitle: '',
     Price: '',
+    Iprice: '',
     Offer: '',
     Store: '',
     Variant: '',
@@ -98,6 +99,20 @@ const ProductForm = () => {
             name="Price"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             value={formData.Price}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="price" className="block font-medium text-gray-700">
+             I Price
+          </label>
+          <input
+            type="number"
+            id="Iprice"
+            name="Iprice"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            value={formData.Iprice}
             onChange={handleChange}
           />
         </div>
@@ -197,7 +212,7 @@ const ProductForm = () => {
         {/* Deal offerCash */}
         <div>
           <label htmlFor="offerCash" className="block font-medium text-gray-700">
-            OfferCash
+            Incredibles CashBack
           </label>
           <input
             type="text"
@@ -229,7 +244,7 @@ const ProductForm = () => {
             Link
           </label>
           <input
-            type="url"
+            type="text"
             id="link"
             name="Link"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"

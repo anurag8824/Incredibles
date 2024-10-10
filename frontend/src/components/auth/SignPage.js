@@ -19,14 +19,16 @@ const SignPage = () => {
     if (checking) {
       axios.post(`${backUrl}/user/EmailRegister`, { Email }, { withCredentials: true })
         .then((res) => {
-          const mes = res.data.message;
+          const mes = res.data.msg;
+          console.log(mes,"mes");
+          console.log(res);
           console.log(res);
           if (mes === "user already exist!") {
             alert(res.data.message);
           } else if (mes === "Error is sending Email !") {
             alert(res.data.message);
           } else {
-            if (res.data.user == null || res.data.user.verifed === false) {
+            if (res.data.user == null || res.data.user.verifed === false || mes =="Email sent sucessfully !") {
               setState(false);
             } else {
               navigate('/deals');
@@ -81,7 +83,13 @@ const SignPage = () => {
           console.log(res)
           alert(res.data);
         } else {
+          const userdata = res.data.userdata;
+          if(userdata){
+            navigate('/deals')
+          }
+          else{
           navigate('/user-form');
+          }
         }
       })
       .catch((err) => {

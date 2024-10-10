@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Name from '../CopyBoard/Name'
 import Address from '../CopyBoard/Address'
 import PinCode from '../CopyBoard/PinCode'
-import { json } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -35,7 +34,8 @@ const SingleProduct = () => {
     const Id = useParams().Id
     const id = useParams().id
 
-    console.log(id);
+    console.log(id,"ihgjhjk");
+    console.log(Id,"ihgjhjk");
     const navigate = useNavigate();
     const [data, setData] = useState([])
 
@@ -319,7 +319,7 @@ const SingleProduct = () => {
 
 
                                 <div className='ml-1 text-sm font-medium pb-2 text-gray-500'>
-                                    Incredibles ID - {`incredibles` + id}
+                                    Incredibles ID - {`incredibles` + Id}
                                 </div>
 
                                 <div className={`${checked ? "hidden" : "block"} ml-1 text-sm font-medium pb-2 text-gray-500`}>
@@ -331,7 +331,7 @@ const SingleProduct = () => {
                                 </div>
 
                                 <div className={`${tracked ? "hidden" : "block"} ml-1 text-sm font-medium pb-2 text-gray-500`}>
-                                    Delivery Support - {delivered}
+                                    Delivery Support (OTP) - {delivered}
                                 </div>
 
                                 <div className={`${tracked ? "hidden" : "block"} ml-1 text-sm font-medium pb-2 text-gray-500`}>
@@ -455,7 +455,7 @@ const SingleProduct = () => {
                                         </label>
                                         <label className="">
                                             <input type="radio" name="subscription" value="8 Months" className="peer sr-only" checked />
-                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs.{(data.Price - data.Offer) + data.OfferAmmount}</p>
+                                            <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Rs.{(data.Price + data.Offer) + data.OfferAmmount}</p>
                                             <span className="mt-1 block text-center ml-1 text-xs font-medium text-gray-500">Recieve from Incredibles</span>
                                         </label>
 
@@ -472,7 +472,7 @@ const SingleProduct = () => {
                                         </label>
                                     </div>
 
-                                    <ul className="mt-8 space-y-2">
+                                    <ul className="mt-8 space-y-2 border px-2 rounded-md">
                                         <li className="flex items-center text-left text-sm font-medium text-gray-600">
                                             <svg className="mr-2 block h-5 w-5 align-middle text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" className=""></path>

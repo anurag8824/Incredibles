@@ -17,6 +17,7 @@ const DashBoard = () => {
   return (
     <div>Welcome to Incredibles</div>
   )
+  
 }
 
 export default DashBoard

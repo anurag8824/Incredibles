@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AddMerchant = () => {
     const navigate = useNavigate();
+    const backUrl = process.env.REACT_APP_URL;
+
     // Form state
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
+        Name: '',
+        Email: '',
+        Password: '',
     });
 
     // Handle form input changes
@@ -15,7 +18,7 @@ const AddMerchant = () => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name] : value,
+            [name]: value,
         });
     };
 
@@ -24,6 +27,12 @@ const AddMerchant = () => {
         e.preventDefault();
         console.log('Form Data:', formData);
         // Add your form submission logic here
+        axios.post(`${backUrl}/admin/addmerchant` , formData , { withCredentials: true } )
+        .then((res) => {
+
+            console.log(res, "addes merchant")
+
+        })
     };
 
     useEffect(() => {
@@ -53,9 +62,9 @@ const AddMerchant = () => {
                     <input
                         type="text"
                         id="name"
-                        name="name"
+                        name="Name"
                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.name}
+                        value={formData.Name}
                         onChange={handleChange}
                     />
                 </div>
@@ -68,9 +77,9 @@ const AddMerchant = () => {
                     <input
                         type="email"
                         id="email"
-                        name="email"
+                        name="Email"
                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.email}
+                        value={formData.Email}
                         onChange={handleChange}
                     />
                 </div>
@@ -83,9 +92,9 @@ const AddMerchant = () => {
                     <input
                         type="password"
                         id="password"
-                        name="password"
+                        name="Password"
                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={formData.password}
+                        value={formData.Password}
                         onChange={handleChange}
                     />
                 </div>

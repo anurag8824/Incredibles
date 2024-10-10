@@ -1,10 +1,10 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
 const Admin = () => {
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
 
     const backUrl = process.env.REACT_APP_URL;
     // Form state
@@ -18,39 +18,42 @@ const Admin = () => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name] : value,
+            [name]: value,
         });
     };
 
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${backUrl}/admin/login` , formData)
-        .then((res) => {
-            if(res.data.msg == "Email is not existing" || res.data.msg == "Password not match"){
-                alert(res.data.msg);
-            }else{
-                localStorage.setItem("Email",formData.Email);
-                console.log(localStorage.getItem("Email"));
-                navigate('/dashboard')
-            }
-          console.log(res);
-        });
+        axios.post(`${backUrl}/merchant/login`, formData ,  { withCredentials: true })
+            .then((res) => {
+                if (res.data == "Succesfully Login!") {
+                    localStorage.setItem("Email", formData.Email);
+                    console.log(localStorage.getItem("Email"));
+                    navigate('/dashboard')
 
-      
+                } else {
+                    alert(res.data);
+
+
+                }
+                console.log(res);
+            });
+
+
         // Add your form submission logic here
-        
+
     };
 
 
     useEffect(() => {
-     
-      
+
+
     }, [])
-    
 
 
-    
+
+
 
 
 
@@ -100,7 +103,7 @@ const Admin = () => {
 
                 {/* Submit Button */}
                 <div className="md:col-span-2">
-                    <button 
+                    <button
                         type="submit"
                         className="w-full py-3 px-4 mt-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >

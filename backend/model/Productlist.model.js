@@ -37,6 +37,10 @@ const ProductList = new mongoose.Schema({
     Status:{
     type:String,
     default:"Inactive"
+    },
+    Iprice:{
+        type:String,
+        default:""
     }
   
 },{timestamps:true})

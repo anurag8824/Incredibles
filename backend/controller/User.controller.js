@@ -3,6 +3,9 @@ import userModel from "../model/user.model.js";
 import Product from "../model/Productlist.model.js";
 import myproduct from "../model/Myproduct.js";
 import crypto from "crypto";
+import MerchantData from "../model/Merchant.model.js";
+import DealCreate from "../model/MerchantDeal.model.js";
+
 const genrateOtp = () => {
   return crypto.randomInt(1000, 10000)
 }
@@ -27,7 +30,37 @@ const EmailRegister = async (req, res) => {
 
 
     const Subject = "Otp Verification";
-    const Message = `Otp is ${otp}`
+  const Message = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your OTP Code</title>
+    <style>
+      body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+      .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+      h1 { color: #333; font-size: 24px; text-align: center; }
+      .otp { background-color: #f0f0f0; font-size: 28px; color: #007bff; padding: 15px; text-align: center; letter-spacing: 5px; }
+      .footer { text-align: center; font-size: 14px; color: #777; margin-top: 30px; }
+      .footer a { color: #007bff; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Your OTP Code</h1>
+      <p>Dear User,</p>
+      <p>Here is your One-Time Password (OTP) to verify your identity:</p>
+      <div class="otp">${otp}</div>
+      <p>The OTP is valid for 10 minutes. Please do not share it with anyone.</p>
+      <p>Thank you,<br>The IncrediblesDeals Team</p>
+    </div>
+    <div class="footer">
+      <p>&copy; 2024 IncrediblesDeals. All rights reserved.</p>
+    </div>
+  </body>
+  </html>
+`
     EmailVerfication(Email, Subject, Message)
     user.Otp = otp;
     await user.save();
@@ -42,7 +75,7 @@ const EmailRegister = async (req, res) => {
 
 
   const Subject = "Otp Verification";
-  const Message =  `
+  const Message = `
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -111,11 +144,20 @@ const OtpVerfiy = async (req, res) => {
   if (user.Otp == Otp) {
     user.verifed = true;
     await user.save();
-    res.status(200).json({ msg: "Sucessfully Otp Match" })
+    if(user.Phoneno.length>0){
+      res.status(200)
+
+      .json({ msg: "Sucessfully Otp Match" ,userdata:true })
+    }
+    else{
+    res.status(200)
+
+    .json({ msg: "Sucessfully Otp Match" })
+    }
 
   }
   else {
-    res.json({ msg: "Otp Doesn't Match" })
+    res.json({ msg: "Otp Doesn't Match" ,userdata:false})
   }
 
 }
@@ -193,34 +235,34 @@ const Myproduct = async (req, res) => {
     const { OrderId, TrackingId, Otp, FourDigit, AppId } = req.body
     console.log(OrderId, TrackingId, Otp, FourDigit, AppId);
     console.log(req.body);
-    const Product = await myproduct.findOne({Appid:AppId});
+    const Product = await myproduct.findOne({ Appid: AppId });
     console.log(Product)
     if (!Product) {
       res.json({ msg: "AppId is Doesn't Exist !" })
     }
     else {
 
-      if(req.file){
+      if (req.file) {
         const image = `/images/${req.file.filename}`
 
-      Product.OrderId = OrderId
-      // Product.TrackingCompnay = TrackingCompnay
-      Product.TrackingId = TrackingId
-      Product.Otp = Otp
-      Product.FourDigit = FourDigit
-      Product.Invoice = image
+        Product.OrderId = OrderId
+        // Product.TrackingCompnay = TrackingCompnay
+        Product.TrackingId = TrackingId
+        Product.Otp = Otp
+        Product.FourDigit = FourDigit
+        Product.Invoice = image
 
-      await Product.save();
-      res.json({ msg: "order sucessfully Placed !" })
+        await Product.save();
+        res.json({ msg: "order sucessfully Placed !" })
       }
-      else{
+      else {
         Product.OrderId = OrderId
         // Product.TrackingCompnay = TrackingCompnay
         Product.TrackingId = TrackingId
         Product.Otp = Otp
         Product.FourDigit = FourDigit
         // Product.Invoice = image
-  
+
         await Product.save();
         res.json({ msg: "order sucessfully Placed !" })
       }
@@ -231,15 +273,45 @@ const Myproduct = async (req, res) => {
     res.json(error);
   }
 }
+
+// this is update code rember it Thaks 
 const Deals = async (req, res) => {
-  const Deals = await Product.find({ Status: "Active" })
-  if (Deals.length > 0) {
-    res.json({ Deal: Deals.length, Deals })
+  try {
+    // Find all active products
+    const Deal = await Product.find({ Status: "Active" });
+
+    if (Deal.length > 0) {
+      const Deals = await Promise.all(
+        Deal.map(async (product) => {
+          const dealproduct = await DealCreate.find({ ProductId: product._id });
+
+          // Append product details to each deal
+          const DealData = await Promise.all(
+            dealproduct.map((deal) => {
+              return {
+                ...product._doc,   // Spread product fields
+                ...deal._doc       // Spread deal fields
+              };
+            })
+          );
+
+          return DealData;
+        })
+      );
+
+      // Flatten the Deals array as it may have nested arrays
+      const flattenedDeals = Deals.flat();
+
+      // Return the response with the number of deals and deal details
+      res.json({ Deal: Deal.length, Deals: flattenedDeals });
+    } else {
+      res.json({ msg: "0 Deals is live!" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Server error", details: error.message });
   }
-  else {
-    res.json({ msg: "0 Deals is live !" })
-  }
-}
+};
+
 
 const SingleDeal = async (req, res) => {
   const id = req.params.id;
@@ -350,98 +422,7 @@ const PanKyc = async (req, res) => {
 }
 
 
-// const ACKyc = async (req, res) => {
-//   const Email = req.cookies.Email;
-//   const user = await userModel.findOne({ Email });
-//   console.log(user);
-//   if (!user) {
-//     return res.json("user not exist");
 
-//   }
-//   user.bankName = req.body.bankName,
-//   user.IfceCode = req.body.IfceCode,
-//   user.acNumber = req.body.acNumber,
-//   user.acHolder = req.body.acHolder,
- 
-//   user.branch = req.body.branch
-//   console.log(user.panHolder != req.body.acHolder)
-
-
-
-//     if (!token) {
-//             await GenrateToken(); // Ensure you have this function implemented elsewhere
-//           }
-
-// var myHeaders = new Headers();
-// myHeaders.append("Authorization", `Bearer ${token}`);
-
-// console.log("token:", token);
-// myHeaders.append("x-api-key", `${process.env.CLIENT_SECRET_KEY}`);
-// myHeaders.append("Content-Type", "application/json");
-
-// var requestOptions = {
-//   method: 'GET',
-//   headers: myHeaders,
-//   redirect: 'follow'
-// }
-
-
-// fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions)
-//   .then(response => response.text())
-//   .then((result) => {console.log(result)
-//     console.log("hello world")
-
-//   const Result = JSON.parse(result)
-//   console.log(Result)
-//   if(user.panHolder === req.body.acHolder){
-
-//     console.log(user.panHolder,req.body.acHolder)
-
- 
-//   if(Result.code ==200){
-//     if(Result.data.account_exists){
-//       user.Acvrifed = true
-//          user.save().then(()=>{
-//         return  res.json({msg:"valid hello world "})
-//          })
-//     }
-//   }
-  
-//   if(Result.data.message == "Invalid account number or ifsc provided"){
-//    return res.json({msg:"Invalid account number or ifsc provide"})
-//   }
-//   if(Result.data.message == "Account is blocked"){
-//    return res.json({msg:"Account is blocked"})
-//   }
-//   if(Result.data.message == "IFSC is invalid"){
-//    return res.json({msg:"IFSC is invalid"})
-//   }
-//   if(Result.data.message == "Given account is an NRE account"){
-//    return res.json({msg:"Given account is an NRE account"})
-//   }
-// }
-// else{
-//   res.json({msg:"Pan holder and ac holder name should be the same"})
-// }
-
-//   })
-//   .catch(error => console.log('error', error));
-
-
-
-// // fetch(`https://production.deepvue.tech/v1/verification/bankaccount?account_number=${req.body.acNumber}&ifsc=${req.body.IfceCode}&name=${req.body.acHolder}`, requestOptions)
-// //   .then(response => response.text())
-// //   .then(result => console.log(result))
-// //   .catch(error => console.log('error', error));
-  
-  
- 
-
-     
-
-    
-
-// }
 
 
 
@@ -489,28 +470,28 @@ const ACKyc = async (req, res) => {
 
     console.log("API result:", result); // Debugging the result
     if (user.panHolder !== req.body.acHolder) {
-      console.log(user.panHolder,req.body.acHolder)
+      console.log(user.panHolder, req.body.acHolder)
 
-      return res.status(200).send({msg:"Pan Holder and Ac Holder Name should same"});
+      return res.status(200).send({ msg: "Pan Holder and Ac Holder Name should same" });
     }
     // Handle various response cases
-  
-      if (result?.data?.message ==="Bank Account details verified successfully.") {
-        console.log("hhhhhhhhh")
-        if(result?.data?.name_information?.name_at_bank_cleaned.toUpperCase()=== result?.data?.name_information?.name_provided.toUpperCase()){
-          console.log("hhhhhh552145")
-          user.Acvrifed = true;
-          await user.save();
-          return res.json({ msg: "Valid Bank Details" });
-        }
 
-        else{
-          console.log("hhhhh00000")
-          return res.json({msg:"Invalid Bank Details"})
-        }
-      
+    if (result?.data?.message === "Bank Account details verified successfully.") {
+      console.log("hhhhhhhhh")
+      if (result?.data?.name_information?.name_at_bank_cleaned.toUpperCase() === result?.data?.name_information?.name_provided.toUpperCase()) {
+        console.log("hhhhhh552145")
+        user.Acvrifed = true;
+        await user.save();
+        return res.json({ msg: "Valid Bank Details" });
       }
-    
+
+      else {
+        console.log("hhhhh00000")
+        return res.json({ msg: "Invalid Bank Details" })
+      }
+
+    }
+
 
     // Handle specific error messages
     if (result?.data?.message === "Invalid account number or ifsc provided") {
@@ -525,10 +506,10 @@ const ACKyc = async (req, res) => {
     if (result?.data?.message === "Given account is an NRE account") {
       return res.json({ msg: "Given account is an NRE account" });
     }
-     if(result?.message == "Beneficiary bank offline"){
+    if (result?.message == "Beneficiary bank offline") {
       return res.json({ msg: "Beneficiary bank offline" });
 
-     }
+    }
   } catch (error) {
     console.error('Error during account verification:', error);
     return res.status(500).json({ msg: "Error processing request" });
@@ -536,21 +517,35 @@ const ACKyc = async (req, res) => {
 };
 
 
-
-
 const myOrder = async (req, res) => {
   try {
     const Email = req.cookies.Email;
+    const ProductsfromDb = await myproduct.find({ UserId: Email });
+
+    await Promise.all(
+      ProductsfromDb.map(async (product) => {
+        const UpdateAtTime = new Date(product.updatedAt);
+        const TimeNow = new Date();
+        const TimeDiffernce = (TimeNow - UpdateAtTime) / (1000 * 60 * 60)
+        if (TimeDiffernce > 8 && product.OrderId === "") {
+          await myproduct.findByIdAndDelete(product._id)
+
+        }
+
+
+      })
+    )
+
     const Products = await myproduct.find({ UserId: Email });
 
+
     if (Products.length > 0) {
-      // Step 1: Create an array to hold the updated products
       const UpdateProducts = await Promise.all(
         Products.map(async (product) => {
-          // Step 2: Fetch ProductDetails for the current product
+
+
           const ProductDetails = await Product.findById(product.Product_id);
-          
-          // Step 3: Merge the product and ProductDetails into a single object
+
           return {
             ...product.toObject(), // Convert Mongoose document to a plain object
             ...ProductDetails ? ProductDetails.toObject() : {} // Combine with ProductDetails
@@ -570,4 +565,7 @@ const myOrder = async (req, res) => {
 };
 
 
-export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc ,myOrder ,ACKyc}
+
+
+
+export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc, myOrder, ACKyc }
