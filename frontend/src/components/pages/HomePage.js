@@ -55,7 +55,7 @@ const NewHomePage = () => {
 
 
   return (
-    <div className=''>
+    <div className='overflow-hidden'>
       <div className=" bg-gray-800">
 
         <div className="mx-auto h-full px-4 py-28 md:py-40 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">

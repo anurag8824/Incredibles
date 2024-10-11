@@ -32,7 +32,7 @@ const EditDeal = () => {
   };
 
   useEffect(() => {
-    axios.get(`${backUrl}/admin/editdeal/${id}`)
+    axios.get(`${backUrl}/admin/editdeal/${id}` , {withCredentials: true})
       .then((res) => {
         const data = res.data.data;
         setFormData({

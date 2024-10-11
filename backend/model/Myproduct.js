@@ -44,7 +44,12 @@ const MyProducts = new mongoose.Schema({
     status:{
       type:String,
         default:"none"
-    },
+    }, 
+
+    MerchantDealId :{
+        type:String,
+        default:"",
+    }
 
     
 },{timestamps:true})

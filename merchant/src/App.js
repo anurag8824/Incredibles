@@ -37,7 +37,7 @@ function App() {
           <Route path="merchant-pricing" element={<MerchantPricing />} />
 
           <Route path="bulk-merchant-payment" element={<BulkMerchantPayment />} />
-          <Route path="financial-pay-utr" element={<FinancialPayUTR />} />
+          <Route path="/financial-pay-utr" element={<FinancialPayUTR />} />
           <Route path="merchant-payment-recieved" element={<MerchantPaymentRecieved />} />
 
           <Route path="deliverey-confirmation" element={<DeliveryConfirm />} />

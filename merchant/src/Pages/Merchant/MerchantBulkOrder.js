@@ -12,10 +12,10 @@ const MerchantBulkOrder = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${backUrl}/admin/allorder`)
+    axios.get(`${backUrl}/merchant/alldeals`, {withCredentials: true})
       .then((res) => {
-        console.log(res.data.products);
-        setData(res.data.products);
+        console.log(res,"ALL morder")
+        setData(res.data.DealData);
       })
       .catch((err) => {
         console.log(err);
@@ -33,8 +33,11 @@ const MerchantBulkOrder = () => {
 
 
   return (
-    <div className='border'>
-      <div className="relative overflow-x-auto">
+    <div className=''>
+      <h1 className=" block mb-2 text-2xl  font-medium text-gray-900 px-1.5">Merchant Bulk Order</h1>
+
+   
+      <div className="relative border  overflow-x-auto">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -60,15 +63,15 @@ const MerchantBulkOrder = () => {
                     {item.DealTitle}
                   </th>
 
-                  <td className="px-6 py-4">50</td>
-                  <td className="px-6 py-4">{item.Price}</td>
+                  <td className="px-6 py-4">{item.Quantity}</td>
+                  <td className="px-6 py-4">{item.Iprice}</td>
                   <td className="px-6 py-4">Last Date</td>
-                  <td className="px-6 py-4">5</td>
-                  <td className="px-6 py-4">1</td>
-                  <td className="px-6 py-4">1</td>
-                  <td className="px-6 py-4">1</td>
-                  <td className="px-6 py-4">0</td>
-                  <td className="px-6 py-4">25011</td>
+                  <td className="px-6 py-4">Ordered</td>
+                  <td className="px-6 py-4">Shipped</td>
+                  <td className="px-6 py-4">Delivered</td>
+                  <td className="px-6 py-4">pr</td>
+                  <td className="px-6 py-4">c</td>
+                  <td className="px-6 py-4">admin deal</td>
                   
                 </tr>
               ))

@@ -8,7 +8,7 @@ const DealsData = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${backUrl}/admin/allorder`)
+        axios.get(`${backUrl}/admin/allorder` , {withCredentials : true})
             .then((res) => {
                 console.log(res.data.products);
                 setData(res.data.products);

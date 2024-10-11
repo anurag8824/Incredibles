@@ -33,6 +33,7 @@ const SingleProduct = () => {
     };
     const Id = useParams().Id
     const id = useParams().id
+    const did = useParams().did
 
     console.log(id,"ihgjhjk");
     console.log(Id,"ihgjhjk");
@@ -134,7 +135,7 @@ const SingleProduct = () => {
 
     useEffect(() => {
 
-        axios.get(`${backUrl}/user/singledeal/${id}`, { withCredentials: true })
+        axios.get(`${backUrl}/user/singledeal/${id}/${did}`, { withCredentials: true })
             .then((res) => {
                 console.log(res);
                 const msg = res.data.msg;

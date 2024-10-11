@@ -45,7 +45,7 @@ const DealsPage = () => {
                     axios.get(`${backUrl}/user/Deals`, { withCredentials: true })
                         .then((res) => {
                             const msg = res.data.msg;
-                            if (msg == "0 Deals is live !") {
+                            if (msg == "0 Deals is live!") {
                                 setShowdeals(true);
                                 console.log("No deals is live !");
                             } else {
@@ -79,7 +79,7 @@ const DealsPage = () => {
 
                     {data.map((deal) => {
                         return (<div className="w-72 bg-gray-100 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:shadow-blue-300">
-                            <a href={`/product/${deal.ProductId}`}>
+                            <a href={`/product/${deal.ProductId}/${deal.DealId}`}>
                                 <div style={{ height: "20rem" }} className='w-72 '>
 
                                     <img src={`${backUrl}/${deal.Image}`} alt="Product Image" className="w-72 object-cover rounded-t-xl" />

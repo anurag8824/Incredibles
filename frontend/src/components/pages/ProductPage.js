@@ -6,16 +6,21 @@ import axios from 'axios';
 
 const ProductPage = () => {
     const id = useParams().id
+    const Id = useParams().Id
     console.log(id);
     const navigate = useNavigate();
     const [data, setData] = useState([])
     const backUrl = process.env.REACT_APP_URL;
+    const [did , setDid] = useState()
 
 
     useEffect(() => {
-        axios.get(`${backUrl}/user/singledeal/${id}`, { withCredentials: true })
+        axios.get(`${backUrl}/user/singledeal/${id}/${Id}`, { withCredentials: true })
             .then((res) => {
                 const msg = res.data.msg;
+                const Did = res.data.Deal.DealId
+                setDid(Did)
+                console.log(Did , "deasl")
                 if (msg == "no deal found") {
                     console.log("No deals is live !");
                 } else {
@@ -36,14 +41,15 @@ const ProductPage = () => {
 
     const shopPage = (e) => {
         e.preventDefault();
-        axios.post(`${backUrl}/user/orderclick`, { Product_id: id }, { withCredentials: true })
+        axios.post(`${backUrl}/user/orderclick`, { Product_id: id ,MId:Id }, { withCredentials: true })
             .then((res) => {
                 console.log(res, "response")
                 const url = data.Link;
                 console.log(url)// Replace with your desired URL
                 window.open(url, '_blank', 'noopener,noreferrer');
                 const Id = res.data.msg
-                navigate(`/single-product/${id}/${Id}`);
+               
+                navigate(`/single-product/${id}/${Id}/${did}`);
             })
             .catch((err) => {
                 console.log(err);
@@ -59,7 +65,7 @@ const ProductPage = () => {
 
                 <div className="container mx-auto px-4">                    
                     <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-10 lg:mt-12 lg:grid-cols-5 lg:gap-16">
-                        <div className="lg:col-span-3 lg:row-end-1">
+                        <div className="lg:col-span-3  lg:row-end-1">
 
                             <div className="max-w-xl pl-10 overflow-hidden rounded-lg">
                                 <img className="h-full w-60 max-w-full object-cover" src={`${backUrl}/${data.Image}`} alt="" />

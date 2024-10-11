@@ -8,15 +8,16 @@ const DynamicDeal = () => {
   const backUrl = process.env.REACT_APP_URL;
   const [data, setData] = useState([]);
   const [mdata, setMdata] = useState({
-    Color: '',
-    Quantity: '',
+    Color: 'Any Color',
+    Quantity: '1',
     Extra: '',
   });
+
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${backUrl}/merchant/deals`)
+    axios.get(`${backUrl}/merchant/deals` , {withCredentials: true})
       .then((res) => {
         console.log(res, "old merchant");
         console.log(res.data.Deal);
@@ -32,6 +33,7 @@ const DynamicDeal = () => {
     axios.get(`${backUrl}/merchant/update/deals`,  {withCredentials : true })
     .then((res) => {
       console.log(res, "updated res");
+      // console.log(setMerchantdeal , "merchantdeal updated");
     })
   }, [])
 
@@ -42,6 +44,8 @@ const DynamicDeal = () => {
       [name]: value,
     });
   };
+
+ 
 
 
   // const createData = () => {
@@ -55,6 +59,9 @@ const DynamicDeal = () => {
     e.preventDefault();
     console.log('m Data:', mdata);
     console.log(id,"id from frontend")
+    if(mdata.Quantity > 50){
+      alert("Quantity should be less than 50")
+    }else {
     axios.post(`${backUrl}/merchant/deals/create/${id}`, mdata, {withCredentials : true },  {
       headers: {
         'Content-Type': 'multipart/form-data' // Optional, Axios sets this automatically for FormData
@@ -62,10 +69,14 @@ const DynamicDeal = () => {
     }).then((res) => {
       console.log(res, "m deals");
       alert("m deal added sucessfully !");
+
+
       // window.location.reload()
     }).catch((err) => {
       console.log(err);
     })
+  }
+
 
     // Add your form submission logic here
   };
@@ -138,7 +149,7 @@ const DynamicDeal = () => {
                     <td className="px-6 py-4">merchan name info</td>
 
 
-                    <td className="px-6 py-4"> <input name='Quantity' value={mdata.Quantity.target} onChange={handleChange} type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm  block w-full p-1" placeholder="0" required /></td>
+                    <td className="px-6 py-4"> <input name='Quantity' value={mdata.Quantity.target} onChange={handleChange} type="number" id="number-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm  block w-full p-1" placeholder="1" required min={1} max={50} /></td>
 
 
 
@@ -223,3 +234,5 @@ const DynamicDeal = () => {
 };
 
 export default DynamicDeal;
+
+

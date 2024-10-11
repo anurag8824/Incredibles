@@ -25,7 +25,7 @@ const Admin = () => {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${backUrl}/merchant/login`, formData ,  { withCredentials: true })
+        axios.post(`${backUrl}/merchant/login`, formData, { withCredentials: true })
             .then((res) => {
                 if (res.data == "Succesfully Login!") {
                     localStorage.setItem("Email", formData.Email);

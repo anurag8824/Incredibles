@@ -109,7 +109,8 @@ const Addproduct = async (req, res) => {
             CardType: req.body.CardType,
             DealNumber: req.body.DealNumber,
             offerCash: req.body.offerCash,
-            Status: req.body.Status
+            Status: req.body.Status,
+            Iprice:req.body.Iprice,
         });
         res.json("Product List Sucessfully !")
         
@@ -131,7 +132,8 @@ const Addproduct = async (req, res) => {
             CardType: req.body.CardType,
             DealNumber: req.body.DealNumber,
             offerCash: req.body.offerCash,
-            Status: req.body.Status
+            Status: req.body.Status,
+            Iprice:req.body.Iprice,
         })
         res.json("Product List Sucessfully !")
 

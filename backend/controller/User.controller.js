@@ -201,6 +201,8 @@ const OrderClick = async (req, res) => {
   try {
     const Email = req.cookies.Email;
 
+    console.log(req.body,"jgljfdjgj;lkjg;osd")
+
     // Check if the Email cookie exists
     if (!Email) {
       return res.status(400).json({ error: 'Email cookie not found' });
@@ -217,7 +219,8 @@ const OrderClick = async (req, res) => {
     await myproduct.create({
       Appid: AppId,
       UserId: Email,
-      Product_id: req.body.Product_id
+      Product_id: req.body.Product_id,
+      MerchantDealId:req.body.MId,
     });
 
     console.log(req.body, AppId);
@@ -302,6 +305,8 @@ const Deals = async (req, res) => {
       // Flatten the Deals array as it may have nested arrays
       const flattenedDeals = Deals.flat();
 
+      console.log(flattenedDeals);
+
       // Return the response with the number of deals and deal details
       res.json({ Deal: Deal.length, Deals: flattenedDeals });
     } else {
@@ -315,9 +320,15 @@ const Deals = async (req, res) => {
 
 const SingleDeal = async (req, res) => {
   const id = req.params.id;
+  const Id = req.params.Id;
   console.log(id);
-  const deal = await Product.findById(id);
-  if (deal) {
+  const dealproduct = await DealCreate.findOne({ DealId: Id });
+  const dealsproduct = await Product.findById(dealproduct.ProductId);
+  console.log(dealsproduct,"cccccc",dealproduct.ProductId, dealproduct)
+
+   const deal = {...dealsproduct._doc, ...dealproduct._doc}
+
+  if (dealproduct) {
     res.json({ Deal: deal })
 
   }
@@ -326,6 +337,26 @@ const SingleDeal = async (req, res) => {
   }
 
 }
+
+// const SingleDealData = async (req, res) => {
+//   const id = req.params.id;
+//   // const Id = req.params.Id;
+//   console.log(id);
+//   const dealproduct = await DealCreate.findOne({ DealId: Id });
+//   const dealsproduct = await Product.findById(dealproduct.ProductId);
+//   console.log(dealsproduct,"cccccc",dealproduct.ProductId, dealproduct)
+
+//    const deal = {...dealsproduct._doc, ...dealproduct._doc}
+
+//   if (dealproduct) {
+//     res.json({ Deal: deal })
+
+//   }
+//   else {
+//     res.json({ msg: "no deal found" });
+//   }
+
+// }
 
 // genrate access token
 

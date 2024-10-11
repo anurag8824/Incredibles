@@ -10,7 +10,7 @@ const EcomOrderDetails = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${backUrl}/admin/allorder`)
+        axios.get(`${backUrl}/merchant/allorder` , {withCredentials : true})
             .then((res) => {
                 console.log(res.data.products);
                 setData(res.data.products);

@@ -12,7 +12,7 @@ router.get("/me",User.UserCheck)
 router.get("/Deals",User.Deals);
 router.post("/orderclick",User.OrderClick)
 router.post("/myproduct",upload.single('image'),User.Myproduct);                                 //upload.single('Invoice')
-router.get("/singledeal/:id",User.SingleDeal);
+router.get("/singledeal/:id/:Id",User.SingleDeal);
 router.post("/pan/kyc",User.PanKyc)
 router.post("/Ac/kyc",User.ACKyc)
 router.get("/myorder",User.myOrder)

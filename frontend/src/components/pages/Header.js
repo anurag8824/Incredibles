@@ -66,7 +66,7 @@ const Navbar = () => {
             {iuser ? (
               <a href='/profile'>
                 <img
-                  src="/profilegif.gif"
+                  src="/icons89.png"
                   alt="Profile Icon"
                   className="w-12 md:top-3 top-2 h-12"
                 />
