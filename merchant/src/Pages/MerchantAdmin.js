@@ -27,11 +27,12 @@ const Admin = () => {
         e.preventDefault();
         axios.post(`${backUrl}/merchant/login`, formData, { withCredentials: true })
             .then((res) => {
+                console.log(res,"ddd");
                 if (res.data == "Succesfully Login!") {
                     localStorage.setItem("Email", formData.Email);
                     console.log(localStorage.getItem("Email"));
                     navigate('/dashboard')
-                    window.location.reload();
+                    // window.location.reload();
 
                 } else {
                     alert(res.data);

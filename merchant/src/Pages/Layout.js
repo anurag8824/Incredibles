@@ -1,8 +1,29 @@
-import { Outlet, Link } from "react-router-dom";
-import React from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import NewSideBar from "./NewSideBar";
 
 const Layout = () => {
+
+    const [showside, setShowside] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const Email = localStorage.getItem('Email');  // get name of cookies
+        console.log(Email, "email recieved from localstorage");
+        if (Email == null) {
+            console.log("sfj;osadjf")
+            setShowside(false);
+            
+            navigate('/')
+           
+        }
+        else{
+            setShowside(true);
+
+        }
+
+    })
+
 
 
     return (
@@ -11,10 +32,12 @@ const Layout = () => {
                 {/* sidebar */}
 
 
-
-                <div>
+                {showside ?
+              
                     <NewSideBar />
-                </div>
+
+                    : ""}
+              
 
 
                 {/* Main content area */}

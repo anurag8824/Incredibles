@@ -1,8 +1,23 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const FinancialPayUTR = () => {
     const navigate = useNavigate();
+    const backUrl = process.env.REACT_APP_URL;
+
+    const [utrdata, setUtrdata] = useState({
+        Merchant: '',
+        UTR: '',
+        Amount: "",
+    });
+
+
+    useEffect(() => {
+
+    })
+
+
 
 
     useEffect(() => {
@@ -14,27 +29,55 @@ const FinancialPayUTR = () => {
         }
     }, [])
 
+    const utrsubmit = (e) => {
+        e.preventDefault()
+        console.log('utr Data:', utrdata);
+        axios.post(`${backUrl}/merchant/utr`, utrdata, { withCredentials: true })
+        .then((res) => {
+                console.log(res, "utrrr")
+                if(res.data.msg == "successfully created !"){
+                    alert(res.data.msg);
+                }else{
+                    alert(res.data.msg);
+                }
+            })
+
+
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }
+
+    const handleChange = (e) => {
+        const { name, value, } = e.target;
+        setUtrdata({
+            ...utrdata,
+            [name]: value,
+        });
+    };
+
 
 
     return (
         <div>
 
-            <form class="max-w-sm mx-8">
+            <form onSubmit={utrsubmit} class="max-w-sm mx-8">
                 <div className=" block mb-2 text-2xl font-medium text-gray-900">Financial Pay UTR</div>
 
-                <div class="mb-5">  
+                <div class="mb-5">
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 ">Merchant</label>
-                    <input type="text" name='' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-2.5" placeholder="" required />
+                    <input type="text" name='Merchant' onChange={handleChange} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-2.5" placeholder="" required />
                 </div>
 
                 <div class="mb-5">
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 ">UTR*</label>
-                    <input type="text" name='' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-2.5" placeholder="" required />
+                    <input type="text" name='UTR' onChange={handleChange} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-2.5" placeholder="" required />
                 </div>
 
                 <div class="mb-5">
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 ">Amount</label>
-                    <input type="text" name='' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-2.5" placeholder="" required />
+                    <input type="text" name='Amount' onChange={handleChange} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md  block w-full p-2.5" placeholder="" required />
                 </div>
 
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Financial UTR</button>

@@ -3,6 +3,7 @@ import crypto from "crypto";
 import DealCreate from "../model/MerchantDeal.model.js"
 import Product from "../model/Productlist.model.js";
 import myproduct from "../model/Myproduct.js";
+import UTRDATA from "../model/UTR.model.js";
 const DealId = () => {
   return crypto.randomInt(100000, 1000000)
 }
@@ -136,7 +137,7 @@ res.json({msg:'success',data})
 
 const AlldealsforMerchant = async (req, res) => {
     const Email = req.cookies.Memail;
-  
+     console.log("emial",Email)
     try {
       const MerchantDeal = await DealCreate.find({ MerchanId: Email });
   
@@ -148,7 +149,7 @@ const AlldealsforMerchant = async (req, res) => {
             myDealData.map(async (myDeal) => {
               const product = await Product.findById(myDeal.Product_id);
               if (product) {
-                Object.assign(deal._doc, product._doc); // Merge product data into deal
+                Object.assign(deal._doc, myDeal._doc, product._doc); // Merge product data into deal
               }
             })
           );
@@ -160,9 +161,39 @@ const AlldealsforMerchant = async (req, res) => {
       // Return all merged data in a single object
       console.log(DealData,"hhhhhhhh");
       res.json({ DealData });
+      // res.json({msg:"hello world"})
     } catch (error) {
       res.status(500).json({ msg: "Error fetching deals", error });
     }
+  };
+
+
+  const UTR = async (req, res) => {
+   try {
+     const Email = req.cookies.Memail;
+     if(!Email){
+       return res.json({msg:"Email not found "})
+   }
+     const Merchant= await MerchantData.find({Email:Email})
+     if(!Merchant){
+       return res.json({msg:"Merchant not found "});
+ 
+     }
+     
+     await UTRDATA.create({
+       MerchantId:Email,
+       Merchant:req.body.Merchant,
+       UTR:req.body.UTR,
+       Amount:req.body.Amount,
+      
+       
+     })
+ 
+    res.json({msg:"successfully created !"})
+   } catch (error) {
+    res.json({msg:"error creating"});
+   }
+    
   };
   
   
@@ -171,4 +202,4 @@ const AlldealsforMerchant = async (req, res) => {
 
 
   
-export default {MerchantLogin,Dealcreate , DealForMerchant,DealsUpdate,AlldealsforMerchant}
+export default {MerchantLogin,Dealcreate , DealForMerchant,DealsUpdate,AlldealsforMerchant,UTR}

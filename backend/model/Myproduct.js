@@ -49,7 +49,20 @@ const MyProducts = new mongoose.Schema({
     MerchantDealId :{
         type:String,
         default:"",
+    },
+    Receive:{
+        type:Boolean,
+        default:"false"
+    },
+    Alert:{
+        type:String,
+        default:""
+    },
+    Dispute:{
+        type:Boolean,
+        default:"false",
     }
+    
 
     
 },{timestamps:true})

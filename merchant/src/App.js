@@ -4,9 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 import Layout from './Pages/Layout';
-import DealsData from './Pages/DealsData';
-import ProductData from './Pages/ProductData';
-import EditDeal from './Pages/EditDeal';
+
 import MerchantAdmin from './Pages/MerchantAdmin';
 import DashBoard from './Pages/DashBoard';
 import Invoices from './Pages/Invoices';
@@ -55,9 +53,7 @@ function App() {
 
 
 
-          <Route path="deals-data" element={<DealsData />} />
-          <Route path="product-data" element={<ProductData />} />
-          <Route path="edit/deal/:id" element={<EditDeal />} />
+          
 
 
 

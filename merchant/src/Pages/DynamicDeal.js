@@ -17,7 +17,7 @@ const DynamicDeal = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${backUrl}/merchant/deals` , {withCredentials: true})
+    axios.get(`${backUrl}/merchant/deals`, { withCredentials: true })
       .then((res) => {
         console.log(res, "old merchant");
         console.log(res.data.Deal);
@@ -30,11 +30,11 @@ const DynamicDeal = () => {
 
 
   useEffect(() => {
-    axios.get(`${backUrl}/merchant/update/deals`,  {withCredentials : true })
-    .then((res) => {
-      console.log(res, "updated res");
-      // console.log(setMerchantdeal , "merchantdeal updated");
-    })
+    axios.get(`${backUrl}/merchant/update/deals`, { withCredentials: true })
+      .then((res) => {
+        console.log(res, "updated res");
+        // console.log(setMerchantdeal , "merchantdeal updated");
+      })
   }, [])
 
   const handleChange = (e) => {
@@ -45,7 +45,7 @@ const DynamicDeal = () => {
     });
   };
 
- 
+
 
 
   // const createData = () => {
@@ -58,24 +58,24 @@ const DynamicDeal = () => {
   const createData = (e, id) => {
     e.preventDefault();
     console.log('m Data:', mdata);
-    console.log(id,"id from frontend")
-    if(mdata.Quantity > 50){
+    console.log(id, "id from frontend")
+    if (mdata.Quantity > 50) {
       alert("Quantity should be less than 50")
-    }else {
-    axios.post(`${backUrl}/merchant/deals/create/${id}`, mdata, {withCredentials : true },  {
-      headers: {
-        'Content-Type': 'multipart/form-data' // Optional, Axios sets this automatically for FormData
-      }
-    }).then((res) => {
-      console.log(res, "m deals");
-      alert("m deal added sucessfully !");
+    } else {
+      axios.post(`${backUrl}/merchant/deals/create/${id}`, mdata, { withCredentials: true }, {
+        headers: {
+          'Content-Type': 'multipart/form-data' // Optional, Axios sets this automatically for FormData
+        }
+      }).then((res) => {
+        console.log(res, "m deals");
+        alert("m deal added sucessfully !");
 
 
-      // window.location.reload()
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
+        // window.location.reload()
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
 
 
     // Add your form submission logic here
@@ -155,18 +155,18 @@ const DynamicDeal = () => {
 
 
                     <td className="px-6 py-4">
-                      
+
                       <select
-                      id="color"
-                      required
-                      className="bg-gray-50 border font-medium border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-20 mt-0"
-                      name="Color"
-                      value={mdata.Color.target} // Bind the value to the state
-                      onChange={handleChange} // Change handler for the select element
-                    >
-                      <option value="">Any Color</option> {/* For a default option */}
-                      {item.Variant && <option value={item.Variant.target}>{item.Variant}</option>} {/* Dynamically rendering Variant */}
-                    </select>
+                        id="color"
+                        required
+                        className="bg-gray-50 border font-medium border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-20 mt-0"
+                        name="Color"
+                        value={mdata.Color.target} // Bind the value to the state
+                        onChange={handleChange} // Change handler for the select element
+                      >
+                        <option value="">Any Color</option> {/* For a default option */}
+                        {item.Variant && <option value={item.Variant.target}>{item.Variant}</option>} {/* Dynamically rendering Variant */}
+                      </select>
 
                     </td>
 
@@ -203,7 +203,7 @@ const DynamicDeal = () => {
                       <option value="screenshot">digital depths</option>
 
                     </select></td>
-                    <td className="px-6 py-4"><button onClick={(e) => { createData(e,item._id) }} className='bg-gray-700 hover:bg-gray-500  p-1 text-white rounded-sm'>Create</button></td>
+                    <td className="px-6 py-4"><button onClick={(e) => { createData(e, item._id) }} className='bg-gray-700 hover:bg-gray-500  p-1 text-white rounded-sm'>Create</button></td>
 
                     <td className="px-6 py-4">live </td>
                     <td className="px-6 py-4">Fullfilled </td>

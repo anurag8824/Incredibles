@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const MerchantOrderVariant = () => {
+  const navigate = useNavigate()
+
+  
+  useEffect(() => {
+    const Email = localStorage.getItem('Email');  // get name of cookies
+    console.log(Email, "email recieved from localstorage");
+    if (Email == null) {
+      console.log("sfj;osadjf")
+      navigate('/')
+    }
+  }, [])
+
   return (
     <form class="max-w-sm mx-8">
       <div className=" block mb-2 text-xl font-medium text-gray-900">New Merchant Order Variant

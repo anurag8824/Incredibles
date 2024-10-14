@@ -10,10 +10,10 @@ const EcomOrderDetails = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${backUrl}/merchant/allorder` , {withCredentials : true})
+        axios.get(`${backUrl}/merchant/alldeals` , {withCredentials : true})
             .then((res) => {
-                console.log(res.data.products);
-                setData(res.data.products);
+                console.log(res.data,"hgjk");
+                setData(res.data.DealData);
             })
             .catch((err) => {
                 console.log(err);
@@ -42,19 +42,21 @@ const EcomOrderDetails = () => {
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 DARK:bg-gray-700 DARK:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3">Id</th>
-                                <th scope="col" className="px-6 py-3">Order</th>
                                 <th scope="col" className="px-6 py-3">Store</th>
                                 <th scope="col" className="px-6 py-3">Order Number</th>
                                 <th scope="col" className="px-6 py-3">Tracking Number</th>
 
-                                <th scope="col" className="px-6 py-3">Delivery Support</th>
-                                <th scope="col" className="px-6 py-3">Add Delivery Support</th>
+                                <th scope="col" className="px-6 py-3">OTP</th>
+                                <th scope="col" className="px-6 py-3">Delivery Support Pin</th>
+
                                 <th scope="col" className="px-6 py-3">Variant</th>
-                                <th scope="col" className="px-6 py-3">User Merchant Price</th>
+                                <th scope="col" className="px-6 py-3">User Merchant</th>
+                                <th scope="col" className="px-6 py-3">Price</th>
+
                                 <th scope="col" className="px-6 py-3">Address</th>
                                 <th scope="col" className="px-6 py-3">Gift Card</th>
                                 <th scope="col" className="px-6 py-3">Invoice Warranty</th>
-                                <th scope="col" className="px-6 py-3">Action</th>
+                                {/* <th scope="col" className="px-6 py-3">Action</th> */}
 
 
                             </tr>
@@ -65,25 +67,27 @@ const EcomOrderDetails = () => {
                                 data.map((item, index) => (
                                     <tr key={index} className="bg-white border-b DARK:bg-gray-800 DARK:border-gray-700">
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap DARK:text-white">
-                                            id
+                                            {item.DealId}
                                         </th>
-                                        <td className="px-6 py-4">item.order</td>
-                                        <td className="px-6 py-4">store</td>
-                                        <td className="px-6 py-4">ordernumber</td>
-                                        <td className="px-6 py-4">track number</td>
-                                        <td className="px-6 py-4">dsupport</td>
-                                        <td className="px-6 py-4">add dsupport</td>
-                                        <td className="px-6 py-4">Variant</td>
-                                        <td className="px-6 py-4">user m price</td>
-                                        <td className="px-6 py-4">address</td>
-                                        <td className="px-6 py-4">gift card</td>
-                                        <td className="px-6 py-4">inv warr</td>
+                                        <td className="px-6 py-4">{item.Store}</td>
+                                        <td className="px-6 py-4">{item.OrderId}</td>
+                                        <td className="px-6 py-4">{item.TrackingId}</td>
+                                        <td className="px-6 py-4">{item.Otp}</td>
+                                        <td className="px-6 py-4">{item.FourDigit}</td>
+
+                                        <td className="px-6 py-4">{item.Variant}</td>
+                                        <td className="px-6 py-4">{item.MerchanId}</td>
+                                        <td className="px-6 py-4">{item.Iprice}</td>
+
+                                        <td className="px-6 py-4">Gujar ki thadi</td>
+                                        <td className="px-6 py-4">None</td>
+                                        <td className="px-6 py-4">None</td>
 
 
 
 
 
-                                        <td className="px-6 py-4"><button className='bg-gray-700 hover:bg-gray-500 mb-1 p-1 text-white rounded-md'>View</button><button className='bg-gray-700 hover:bg-gray-500 mb-1 p-1 text-white rounded-md'>Request-TrackingId</button><button className='bg-gray-700 hover:bg-gray-500  p-1 text-white rounded-md'>Request-OTP</button></td>
+                                        {/* <td className="px-6 py-4"><button className='bg-gray-700 hover:bg-gray-500 mb-1 p-1 text-white rounded-md'>View</button><button className='bg-gray-700 hover:bg-gray-500 mb-1 p-1 text-white rounded-md'>Request-TrackingId</button><button className='bg-gray-700 hover:bg-gray-500  p-1 text-white rounded-md'>Request-OTP</button></td> */}
 
                                     </tr>
                                 ))

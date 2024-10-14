@@ -7,10 +7,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const MerchantBulkOrder = () => {
-  const backUrl = process.env.REACT_APP_URL;
+  const backUrl = process.env.REACT_APP_URL
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-
+  console.log("backUrl: " + backUrl);
   useEffect(() => {
     axios.get(`${backUrl}/merchant/alldeals`, {withCredentials: true})
       .then((res) => {
@@ -65,11 +65,11 @@ const MerchantBulkOrder = () => {
 
                   <td className="px-6 py-4">{item.Quantity}</td>
                   <td className="px-6 py-4">{item.Iprice}</td>
-                  <td className="px-6 py-4">Last Date</td>
+                  <td className="px-6 py-4">{new Date(item.updatedAt).toLocaleDateString()}</td>
                   <td className="px-6 py-4">Ordered</td>
                   <td className="px-6 py-4">Shipped</td>
                   <td className="px-6 py-4">Delivered</td>
-                  <td className="px-6 py-4">pr</td>
+                  <td className="px-6 py-4">pr 0</td>
                   <td className="px-6 py-4">c</td>
                   <td className="px-6 py-4">admin deal</td>
                   
