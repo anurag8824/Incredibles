@@ -31,6 +31,7 @@ const Admin = () => {
                     localStorage.setItem("Email", formData.Email);
                     console.log(localStorage.getItem("Email"));
                     navigate('/dashboard')
+                    window.location.reload();
 
                 } else {
                     alert(res.data);
@@ -45,11 +46,6 @@ const Admin = () => {
 
     };
 
-
-    useEffect(() => {
-
-
-    }, [])
 
 
 

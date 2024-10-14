@@ -10,11 +10,11 @@ const Layout = () => {
             <div className="flex mt-20 h-screen">
                 {/* sidebar */}
 
+
+
                 <div>
                     <NewSideBar />
                 </div>
-
-
 
 
                 {/* Main content area */}
