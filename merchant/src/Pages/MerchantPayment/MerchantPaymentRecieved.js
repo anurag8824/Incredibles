@@ -14,7 +14,7 @@ const MerchantPaymentRecieved = () => {
     axios.get(`${backUrl}/merchant/alldeals`, { withCredentials: true })
       .then((res) => {
         console.log(res, "ALL morder")
-        setData(res.data.DealData);
+        setData(res.data.DealData.reverse());
       })
       .catch((err) => {
         console.log(err);

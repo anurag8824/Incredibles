@@ -9,6 +9,8 @@ router.post("/deals/create/:id",Merchant.Dealcreate);
 router.post("/login",Merchant.MerchantLogin)
 router.get("/update/deals",Merchant.DealsUpdate);
 router.get("/alldeals",Merchant.AlldealsforMerchant)
+router.get("/allorderdeals",Merchant.AllOrderdDeals)
+
 router.post("/utr",Merchant.UTR);
 
 

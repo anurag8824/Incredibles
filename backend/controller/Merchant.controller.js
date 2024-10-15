@@ -137,14 +137,17 @@ res.json({msg:'success',data})
 
 const AlldealsforMerchant = async (req, res) => {
     const Email = req.cookies.Memail;
-     console.log("emial",Email)
+    //  console.log("emial",Email)
     try {
       const MerchantDeal = await DealCreate.find({ MerchanId: Email });
+      // console.log("MerchanId",MerchantDeal)
   
       const DealData = await Promise.all(
         MerchantDeal.map(async (deal) => {
           const myDealData = await myproduct.find({ MerchantDealId: deal.DealId });
-  
+          console.log(myDealData,"mydealdatata")
+          
+          if(myDealData.length != 0){
           await Promise.all(
             myDealData.map(async (myDeal) => {
               const product = await Product.findById(myDeal.Product_id);
@@ -153,16 +156,71 @@ const AlldealsforMerchant = async (req, res) => {
               }
             })
           );
+        }
+        else{
+          const data = await Product.findById(deal.ProductId);
+          console.log(data,"secconds")
+          if (data) {
+
+          console.log(data);
+          Object.assign(deal._doc, data._doc); // Merge product data into deal
+          }
+
+        }
   
           return deal._doc;
         })
       );
   
       // Return all merged data in a single object
-      console.log(DealData,"hhhhhhhh");
+      // console.log(DealData,"hhhhhhhh");
       res.json({ DealData });
       // res.json({msg:"hello world"})
     } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: "Error fetching deals", error });
+    }
+  };
+
+  const AllOrderdDeals = async (req, res) => {
+    const Email = req.cookies.Memail;
+    //  console.log("emial",Email)
+    try {
+      const MerchantDeal = await DealCreate.find({ MerchanId: Email });
+      // console.log("MerchanId",MerchantDeal)
+  
+      const DealData = await Promise.all(
+        MerchantDeal.map(async (deal) => {
+          const myDealData = await myproduct.find({ MerchantDealId: deal.DealId });
+          console.log(myDealData,"mydealdatata")
+          if(myDealData.length !=0){
+          await Promise.all(
+            myDealData.map(async (myDeal) => {
+              const product = await Product.findById(myDeal.Product_id);
+              if (product) {
+                Object.assign(deal._doc, myDeal._doc, product._doc); // Merge product data into deal
+              }
+            })
+          );
+    
+       
+
+        
+  
+          return deal._doc;
+        }
+        // else{
+        // return 
+        // }
+        })
+      );
+  
+      // Return all merged data in a single object
+      // console.log(DealData,"hhhhhhhh");
+      res.json({ DealData });
+      // res.json({msg:"hello world"})
+    } catch (error) {
+      console.log(error)
       res.status(500).json({ msg: "Error fetching deals", error });
     }
   };
@@ -202,4 +260,4 @@ const AlldealsforMerchant = async (req, res) => {
 
 
   
-export default {MerchantLogin,Dealcreate , DealForMerchant,DealsUpdate,AlldealsforMerchant,UTR}
+export default {MerchantLogin,Dealcreate , DealForMerchant,DealsUpdate,AlldealsforMerchant,UTR,AllOrderdDeals}

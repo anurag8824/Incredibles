@@ -205,8 +205,8 @@ const DynamicDeal = () => {
                     </select></td>
                     <td className="px-6 py-4"><button onClick={(e) => { createData(e, item._id) }} className='bg-gray-700 hover:bg-gray-500  p-1 text-white rounded-sm'>Create</button></td>
 
-                    <td className="px-6 py-4">live </td>
-                    <td className="px-6 py-4">Fullfilled </td>
+                    <td className="px-6 py-4">None Live </td>
+                    <td className="px-6 py-4">None </td>
 
 
 

@@ -15,7 +15,7 @@ const MerchantOrder = () => {
     axios.get(`${backUrl}/merchant/alldeals`, {withCredentials: true})
       .then((res) => {
         console.log(res,"ALL morder")
-        setData(res.data.DealData);
+        setData(res.data.DealData.reverse());
       })
       .catch((err) => {
         console.log(err);
@@ -83,14 +83,14 @@ const MerchantOrder = () => {
                   <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
                   <td className="px-6 py-4">{item.Iprice}</td>
                   <td className="px-6 py-4">{item.Quantity}</td>
-                  <td className="px-6 py-4">deliv</td>
-                  <td className="px-6 py-4">pr</td>
-                  <td className="px-6 py-4">{item.Fullfiled}</td>
+                  <td className="px-6 py-4">{item.Delivered}</td>
+                  <td className="px-6 py-4">0Rs</td>
+                  <td className="px-6 py-4">0Rs</td>
                   {/* <td className="px-6 py-4">tr</td> */}
-                  <td className="px-6 py-4">ord</td>
-                  <td className="px-6 py-4">shi</td>
-                  <td className="px-6 py-4">Progress</td>
-                  <td className="px-6 py-4">total</td>
+                  <td className="px-6 py-4">{item.Fullfiled}</td>
+                  <td className="px-6 py-4">{item.Shipped}</td>
+                  <td className="px-6 py-4">0</td>
+                  <td className="px-6 py-4">0</td>
                   
                 </tr>
               ))

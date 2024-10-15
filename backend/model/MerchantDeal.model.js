@@ -30,6 +30,15 @@ const MerchantDeal = new mongoose.Schema({
     Color:{
         type:String,
         default:"Any Color"
+    },
+    Shipped:{
+        type:String,
+        default:"0",
+
+    },
+    Delivered:{
+        type:String,
+        default:"0",
     }
 
 },{timestamps:true})

@@ -6,6 +6,7 @@ import crypto from "crypto";
 import MerchantData from "../model/Merchant.model.js";
 import DealCreate from "../model/MerchantDeal.model.js";
 
+
 const genrateOtp = () => {
   return crypto.randomInt(1000, 10000)
 }
@@ -243,33 +244,111 @@ const Myproduct = async (req, res) => {
     if (!Product) {
       res.json({ msg: "AppId is Doesn't Exist !" })
     }
-    else {
+    // else {
 
-      if (req.file) {
+    //   if (req.file) {
+    //     const image = `/images/${req.file.filename}`
+
+    //     Product.OrderId = OrderId
+    //     // Product.TrackingCompnay = TrackingCompnay
+    //     Product.TrackingId = TrackingId
+    //     Product.Otp = Otp
+    //     Product.FourDigit = FourDigit
+    //     Product.Invoice = image
+
+    //     await Product.save();
+    //     res.json({ msg: "order sucessfully Placed !" })
+    //   }
+    //   else {
+    //     if(orderId){
+
+    //     }
+    //     Product.OrderId = OrderId
+    //     // Product.TrackingCompnay = TrackingCompnay
+    //     // Product.TrackingId = TrackingId
+    //     // Product.Otp = Otp
+    //     // Product.FourDigit = FourDigit
+    //     // // Product.Invoice = image
+
+
+    //     await Product.save();
+    //     res.json({ msg: "order sucessfully Placed !" })
+    //   }
+
+    // }
+
+    else{
+      if(OrderId){
+        Product.OrderId = OrderId
+        const id = Product.MerchantDealId;
+       const deal =  await DealCreate.findOne({DealId:id});
+       if(!deal){
+        return res.json({msg:"error in filling order id"})
+       }
+
+      const Delivered = parseInt(deal.Fullfiled) +1;
+      deal.Fullfiled =Delivered;
+
+     await deal.save();
+
+     Product.status = "ordered";
+     
+     await Product.save();
+     return res.json({msg:"order sucessfully Placed !"})
+      
+
+      }
+      else if(TrackingId){
+        Product.TrackingId = TrackingId
+        const id = Product.MerchantDealId;
+       const deal =  await DealCreate.findOne({DealId:id})
+       console.log(deal)
+       if(!deal){
+        return res.json({msg:"error in filling order id"})
+       }
+
+      const Delivered = parseInt(deal.Shipped) +1;
+      deal.Shipped =Delivered;
+
+     await deal.save();
+
+     Product.status = "shipped";
+     
+     await Product.save();
+    return res.json({msg:"order sucessfully Placed !"})
+      
+
+      }
+      else if(Otp && FourDigit){
+        Product.Otp = Otp,
+        Product.FourDigit = FourDigit
+
+        const id = Product.MerchantDealId;
+    //    const deal =  await DealCreate.find({DealId:id});
+    //    if(!deal){
+    //     return res.json({msg:"error in filling order id"})
+    //    }
+
+    //   const Delivered = parseInt(deal.Shipped) +1;
+    //   deal.Shipped =Delivered;
+
+    //  await deal.save();
+
+    //  Product.status = "shipped";
+     
+    await Product.save();
+    return res.json({msg:"order sucessfully Placed !"})
+      
+
+      }
+
+      else if(req.file){
+        console.log(req.file);
         const image = `/images/${req.file.filename}`
-
-        Product.OrderId = OrderId
-        // Product.TrackingCompnay = TrackingCompnay
-        Product.TrackingId = TrackingId
-        Product.Otp = Otp
-        Product.FourDigit = FourDigit
-        Product.Invoice = image
-
+        Product.Invoice = image;
         await Product.save();
-        res.json({ msg: "order sucessfully Placed !" })
+       return res.json({msg:"Invoice successfully saved!"})
       }
-      else {
-        Product.OrderId = OrderId
-        // Product.TrackingCompnay = TrackingCompnay
-        Product.TrackingId = TrackingId
-        Product.Otp = Otp
-        Product.FourDigit = FourDigit
-        // Product.Invoice = image
-
-        await Product.save();
-        res.json({ msg: "order sucessfully Placed !" })
-      }
-
     }
   } catch (error) {
     console.log(error);
@@ -505,10 +584,9 @@ const ACKyc = async (req, res) => {
 
       return res.status(200).send({ msg: "Pan Holder and Ac Holder Name should same" });
     }
-    // Handle various response cases
 
     if (result?.data?.message === "Bank Account details verified successfully.") {
-      console.log("hhhhhhhhh")
+      // console.log("hhhhhhhhh")
       if (result?.data?.name_information?.name_at_bank_cleaned.toUpperCase() === result?.data?.name_information?.name_provided.toUpperCase()) {
         console.log("hhhhhh552145")
         user.Acvrifed = true;

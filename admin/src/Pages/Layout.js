@@ -18,7 +18,7 @@ const Layout = () => {
 
 
                 {/* Main content area */}
-                <div className="flex-grow ml-64">
+                <div className="flex-grow md:ml-64 ml-3">
                     {/* Navbar */}
                     {/* <header className="bg-white  fixed w-full z-10 top-0 left-0">
                         <div className="max-w-7xl mx-auto py-4 px-4">

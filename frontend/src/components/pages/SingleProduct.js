@@ -25,6 +25,8 @@ const SingleProduct = () => {
     // for hide and show 
     const [checked, setChecked] = useState(true);
     const [tracked, setTracked] = useState(true);
+    const [supported, setSupported] = useState(true);
+
     const [invoice, setInvoice] = useState(true);
 
 
@@ -34,9 +36,10 @@ const SingleProduct = () => {
     const Id = useParams().Id
     const id = useParams().id
     const did = useParams().did
+    const AppId = Id;
 
-    console.log(id,"ihgjhjk");
-    console.log(Id,"ihgjhjk");
+    console.log(id, "ihgjhjk");
+    console.log(Id, "ihgjhjk");
     const navigate = useNavigate();
     const [data, setData] = useState([])
 
@@ -52,9 +55,16 @@ const SingleProduct = () => {
     const showIdForm = (event) => {
         event.preventDefault();
 
-        setOrder(order);
+        // setOrder(order);
         setChecked(setChecked(false))
         // localStorage.setItem('orderId', order);
+
+        axios.post(`${backUrl}/user/myproduct`, { OrderId: order, AppId }, { withCredentials: true })
+            .then((res) => {
+                console.log(res, "orderrer")
+            })
+
+        
 
 
     }
@@ -74,18 +84,34 @@ const SingleProduct = () => {
         //     support: flipdelivered
         // }))
 
+        setSupported(false);
+
+        axios.post(`${backUrl}/user/myproduct`, { TrackingId: track, AppId }, { withCredentials: true })
+            .then((res) => {
+                console.log(res, "trackeddrrer")
+            })
+
+
+
 
     }
-    const Data = localStorage.getItem("Data");
-    console.log(Data)
 
+    const showSupportForm = () => {
+        setSupported(true);
+
+        axios.post(`${backUrl}/user/myproduct`, { Otp: delivered, FourDigit:flipdelivered, AppId }, { withCredentials: true })
+            .then((res) => {
+                console.log(res, "supporttedd")
+            })
+    }
+   
 
 
     const hideinvoice = (event) => {
         // event.preventDefault();
 
         setTracked(false);
-        setInvoice(false);
+        setInvoice(true);
 
         // const OrderId = localStorage.getItem(orderId)
         const AppId = Id;
@@ -105,26 +131,21 @@ const SingleProduct = () => {
 
         formData.append('image', file)
 
-        console.log(formData);
-        console.log(file, "file ")
+        // console.log(formData);
+        // console.log(file, "file ")
 
-        axios.post(`${backUrl}/user/myproduct`,
-            formData
-            , {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }
-            }).then((res) => {
-                const msg = res.data.msg;
-                if (msg === "order sucessfully Placed !") {
-                    navigate("/deals")
-                }
-                else {
-                    alert("Error in Placing Order wait for some time !")
-                }
+        
+
+            axios.post(`${backUrl}/user/myproduct`,{image: file , AppId}, {headers: { "Content-Type": "multipart/form-data",}})
+            .then((res) => {
+                console.log(res,"invoideeeed")
+                
             }).catch((err) => {
                 console.log(err);
             })
+        
+
+
 
 
 
@@ -166,7 +187,7 @@ const SingleProduct = () => {
                 } else {
                     // setShowdeals(false);
                     const mydata = res.data.products
-                    console.log(mydata,"mydata");
+                    console.log(mydata, "mydata");
                     setMydata(mydata);
                     const updateData = (mydata) => {
                         // Utility function to set state only if the value is not an empty string
@@ -183,7 +204,7 @@ const SingleProduct = () => {
                         setStateIfNotEmpty(mydata.FourDigit, setFlipdelivered);
                         // setStateIfNotEmpty(mydata.Invoice, setInvoice);
 
-                        console.log(order,track);
+                        console.log(order, track);
                     };
 
                     // Call updateData with mydata
@@ -199,6 +220,9 @@ const SingleProduct = () => {
 
 
     }, []);
+
+
+
 
 
 
@@ -266,7 +290,7 @@ const SingleProduct = () => {
 
 
 
-                                <a  className="pb-3 flex items-center font-medium  ">
+                                <a className="pb-3 flex items-center font-medium  ">
                                     <span className="w-6 h-6 text-white bg-indigo-600 border border-gray-200 rounded-full flex justify-center items-center mr-3 text-sm  lg:w-8 lg:h-8">1</span>
                                     <div className="block">
                                         <h4 className="text-base  text-indigo-600">Accepted</h4>
@@ -343,10 +367,12 @@ const SingleProduct = () => {
                                 <div className={`${checked ? "block" : "hidden"} ml-1 hihdden align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                     <p> Order ID </p>
 
-                                    <input onChange={e => { setOrder(e.target.value) }} value= {order} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 " placeholder="xyz1234" required />
+                                    <input onChange={e => { setOrder(e.target.value) }} value={order} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 " placeholder="xyz1234" required />
 
                                     <button type="button" onClick={showIdForm} className="text-white w-24 bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium w-f rounded-lg text-sm px-5 py-2 mb-2 ">Save ID</button>
                                 </div>
+
+                                {/* track from  */}
 
 
                                 <div className={`${checked ? "hidden" : "block"}`}>
@@ -370,22 +396,12 @@ const SingleProduct = () => {
 
 
 
+
+
                                     <div className={`${tracked ? "block" : "hidden"} ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                         <p> Tracking ID </p>
 
                                         <input onChange={e => { setTrack(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
-                                    </div>
-
-                                    <div className={`${tracked ? "block" : "hidden"} ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
-                                        <p> Delivery Support</p>
-
-                                        <input onChange={e => { setDelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
-                                    </div>
-
-                                    <div className={`${tracked ? "block" : "hidden"} ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
-                                        <p> FlipCart Delivery Support</p>
-
-                                        <input onChange={e => { setFlipdelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="John" required />
                                     </div>
 
 
@@ -395,6 +411,39 @@ const SingleProduct = () => {
 
 
                                     </div>
+
+
+                                    {/* support form  */}
+
+
+                                    <div className={`${supported ? "hidden" : "block"}`}>
+
+                                        <div className={` ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
+                                            <p> OTP</p>
+
+                                            <input onChange={e => { setDelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                                        </div>
+
+                                        <div className={` ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
+                                            <p> Fourdigit Delivery Support</p>
+
+                                            <input onChange={e => { setFlipdelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="John" required />
+                                        </div>
+
+
+                                        <div className={` ml-1 text-sm font-medium pb-2 mt-0  text-gray-500`}>
+
+                                            <button type="button" onClick={showSupportForm} className="text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2">Save Support</button>
+
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+
                                 </div>
 
                                 <div className={`${invoice ? "block" : "hidden"}`}>
