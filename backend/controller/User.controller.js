@@ -2,6 +2,7 @@ import EmailVerfication from "../middlewares/Emailverfication.js";
 import userModel from "../model/user.model.js";
 import Product from "../model/Productlist.model.js";
 import myproduct from "../model/Myproduct.js";
+import PAYDATA from "../model/Paymenthistory.model.js";
 import crypto from "crypto";
 import MerchantData from "../model/Merchant.model.js";
 import DealCreate from "../model/MerchantDeal.model.js";
@@ -31,7 +32,7 @@ const EmailRegister = async (req, res) => {
 
 
     const Subject = "Otp Verification";
-  const Message = `
+    const Message = `
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -63,7 +64,7 @@ const EmailRegister = async (req, res) => {
   </html>
 `
     EmailVerfication(Email, Subject, Message)
-    user.Otp = otp;
+    user.OTP = otp;
     await user.save();
     return res
       .status(200)
@@ -115,7 +116,7 @@ const EmailRegister = async (req, res) => {
 
     await userModel.create({
       Email: Email,
-      Otp: otp
+      OTP: otp
 
     })
     res
@@ -142,23 +143,23 @@ const OtpVerfiy = async (req, res) => {
     return res.json({ msg: "Email Doesn't match", user, Email });
 
   }
-  if (user.Otp == Otp) {
+  if (user.OTP == Otp) {
     user.verifed = true;
     await user.save();
-    if(user.Phoneno.length>0){
+    if (user.Phoneno.length > 0) {
       res.status(200)
 
-      .json({ msg: "Sucessfully Otp Match" ,userdata:true })
+        .json({ msg: "Sucessfully Otp Match", userdata: true })
     }
-    else{
-    res.status(200)
+    else {
+      res.status(200)
 
-    .json({ msg: "Sucessfully Otp Match" })
+        .json({ msg: "Sucessfully Otp Match" })
     }
 
   }
   else {
-    res.json({ msg: "Otp Doesn't Match" ,userdata:false})
+    res.json({ msg: "Otp Doesn't Match", userdata: false })
   }
 
 }
@@ -202,7 +203,7 @@ const OrderClick = async (req, res) => {
   try {
     const Email = req.cookies.Email;
 
-    console.log(req.body,"jgljfdjgj;lkjg;osd")
+    console.log(req.body, "jgljfdjgj;lkjg;osd")
 
     // Check if the Email cookie exists
     if (!Email) {
@@ -221,7 +222,7 @@ const OrderClick = async (req, res) => {
       Appid: AppId,
       UserId: Email,
       Product_id: req.body.Product_id,
-      MerchantDealId:req.body.MId,
+      MerchantDealId: req.body.MId,
     });
 
     console.log(req.body, AppId);
@@ -277,77 +278,77 @@ const Myproduct = async (req, res) => {
 
     // }
 
-    else{
-      if(OrderId){
+    else {
+      if (OrderId) {
         Product.OrderId = OrderId
         const id = Product.MerchantDealId;
-       const deal =  await DealCreate.findOne({DealId:id});
-       if(!deal){
-        return res.json({msg:"error in filling order id"})
-       }
+        const deal = await DealCreate.findOne({ DealId: id });
+        if (!deal) {
+          return res.json({ msg: "error in filling order id" })
+        }
 
-      const Delivered = parseInt(deal.Fullfiled) +1;
-      deal.Fullfiled =Delivered;
+        const Delivered = parseInt(deal.Fullfiled) + 1;
+        deal.Fullfiled = Delivered;
 
-     await deal.save();
+        await deal.save();
 
-     Product.status = "ordered";
-     
-     await Product.save();
-     return res.json({msg:"order sucessfully Placed !"})
-      
+        Product.status = "ordered";
+
+        await Product.save();
+        return res.json({ msg: "order sucessfully Placed !" })
+
 
       }
-      else if(TrackingId){
+      else if (TrackingId) {
         Product.TrackingId = TrackingId
         const id = Product.MerchantDealId;
-       const deal =  await DealCreate.findOne({DealId:id})
-       console.log(deal)
-       if(!deal){
-        return res.json({msg:"error in filling order id"})
-       }
+        const deal = await DealCreate.findOne({ DealId: id })
+        console.log(deal)
+        if (!deal) {
+          return res.json({ msg: "error in filling order id" })
+        }
 
-      const Delivered = parseInt(deal.Shipped) +1;
-      deal.Shipped =Delivered;
+        const Delivered = parseInt(deal.Shipped) + 1;
+        deal.Shipped = Delivered;
 
-     await deal.save();
+        await deal.save();
 
-     Product.status = "shipped";
-     
-     await Product.save();
-    return res.json({msg:"order sucessfully Placed !"})
-      
+        Product.status = "shipped";
+
+        await Product.save();
+        return res.json({ msg: "order sucessfully Placed !" })
+
 
       }
-      else if(Otp && FourDigit){
+      else if (Otp && FourDigit) {
         Product.Otp = Otp,
-        Product.FourDigit = FourDigit
+          Product.FourDigit = FourDigit
 
         const id = Product.MerchantDealId;
-    //    const deal =  await DealCreate.find({DealId:id});
-    //    if(!deal){
-    //     return res.json({msg:"error in filling order id"})
-    //    }
+        //    const deal =  await DealCreate.find({DealId:id});
+        //    if(!deal){
+        //     return res.json({msg:"error in filling order id"})
+        //    }
 
-    //   const Delivered = parseInt(deal.Shipped) +1;
-    //   deal.Shipped =Delivered;
+        //   const Delivered = parseInt(deal.Shipped) +1;
+        //   deal.Shipped =Delivered;
 
-    //  await deal.save();
+        //  await deal.save();
 
-    //  Product.status = "shipped";
-     
-    await Product.save();
-    return res.json({msg:"order sucessfully Placed !"})
-      
+        //  Product.status = "shipped";
+
+        await Product.save();
+        return res.json({ msg: "order sucessfully Placed !" })
+
 
       }
 
-      else if(req.file){
+      else if (req.file) {
         console.log(req.file);
         const image = `/images/${req.file.filename}`
         Product.Invoice = image;
         await Product.save();
-       return res.json({msg:"Invoice successfully saved!"})
+        return res.json({ msg: "Invoice successfully saved!" })
       }
     }
   } catch (error) {
@@ -403,9 +404,9 @@ const SingleDeal = async (req, res) => {
   console.log(id);
   const dealproduct = await DealCreate.findOne({ DealId: Id });
   const dealsproduct = await Product.findById(dealproduct.ProductId);
-  console.log(dealsproduct,"cccccc",dealproduct.ProductId, dealproduct)
+  console.log(dealsproduct, "cccccc", dealproduct.ProductId, dealproduct)
 
-   const deal = {...dealsproduct._doc, ...dealproduct._doc}
+  const deal = { ...dealsproduct._doc, ...dealproduct._doc }
 
   if (dealproduct) {
     res.json({ Deal: deal })
@@ -673,8 +674,22 @@ const myOrder = async (req, res) => {
   }
 };
 
+const WalletData = async (req, res) => {
+
+  const Email = req.cookies.Email;
+  try {
+    const Payinfo = await PAYDATA.find({ Email: Email })
+    res.json(Payinfo)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+
+  }
 
 
 
 
-export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc, myOrder, ACKyc }
+}
+
+
+
+export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc, myOrder, ACKyc ,WalletData }

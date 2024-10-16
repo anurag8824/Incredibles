@@ -17,7 +17,7 @@ const User = new mongoose.Schema({
         required:true
     },
     
-    Otp:{
+    OTP:{
     type:String,
     required:true
     },

@@ -4,6 +4,10 @@ import AdminData from "../model/Admin.model.js";
 import Product from "../model/Productlist.model.js";
 import MerchantData from "../model/Merchant.model.js"
 import myproduct from "../model/Myproduct.js";
+import DealCreate from "../model/MerchantDeal.model.js"
+import userModel from "../model/user.model.js";
+import PAYDATA from "../model/Paymenthistory.model.js"
+
 const genrateOtp = () => {
     return crypto.randomInt(1000, 10000)
 }
@@ -66,82 +70,82 @@ const option = {
 // }
 
 const AdminLogin = async (req, res) => {
-   try {
-     const Email = req.body.Email
-     const Password = req.body.Password;
-     const Admin = await AdminData.findOne({Email});
- 
-     // const otp = Admin.Otp;!
-     if(!Admin){
-         return res.json({msg:"Email is not existing"})
-     }
-     if(Admin.Password != Password){
-         return res.json({msg:"Password not match"})
-     }
-     
-      res.json({msg:"successfully"});
-   } catch (error) {
-    console.log(error);
-    res.json({msg:"error"})
-    
-   }
+    try {
+        const Email = req.body.Email
+        const Password = req.body.Password;
+        const Admin = await AdminData.findOne({ Email });
+
+        // const otp = Admin.Otp;!
+        if (!Admin) {
+            return res.json({ msg: "Email is not existing" })
+        }
+        if (Admin.Password != Password) {
+            return res.json({ msg: "Password not match" })
+        }
+
+        res.json({ msg: "successfully" });
+    } catch (error) {
+        console.log(error);
+        res.json({ msg: "error" })
+
+    }
 
 
 }
 
-const AdminPost = async(req,res)=>{
+const AdminPost = async (req, res) => {
     await AdminData.create({});
-        res.json({msg:"success"});
+    res.json({ msg: "success" });
 }
 
 const Addproduct = async (req, res) => {
     console.log(req.body)
-    if(!req.file){
+    if (!req.file) {
         await Product.create({
             DealTitle: req.body.DealTitle,
             Price: req.body.Price,
             Offer: req.body.Offer,
             Store: req.body.Store,
             Variant: req.body.Variant,
-            
+
             Link: req.body.Link,
             OfferAmmount: req.body.OfferAmmount,
             CardType: req.body.CardType,
             DealNumber: req.body.DealNumber,
             offerCash: req.body.offerCash,
             Status: req.body.Status,
-            Iprice:req.body.Iprice,
+            Iprice: req.body.Iprice,
         });
         res.json("Product List Sucessfully !")
-        
-    }
-    else{
-
-    try {
-        const Image = `/images/${req.file.filename}`;
-
-        await Product.create({
-            DealTitle: req.body.DealTitle,
-            Price: req.body.Price,
-            Offer: req.body.Offer,
-            Store: req.body.Store,
-            Variant: req.body.Variant,
-            Image: Image,
-            Link: req.body.Link,
-            OfferAmmount: req.body.OfferAmmount,
-            CardType: req.body.CardType,
-            DealNumber: req.body.DealNumber,
-            offerCash: req.body.offerCash,
-            Status: req.body.Status,
-            Iprice:req.body.Iprice,
-        })
-        res.json("Product List Sucessfully !")
-
-    } catch (error) {
-        res.json(error)
 
     }
-}
+    else {
+
+        try {
+            const Image = `/images/${req.file.filename}`;
+
+            await Product.create({
+                DealTitle: req.body.DealTitle,
+                Price: req.body.Price,
+                Offer: req.body.Offer,
+                Store: req.body.Store,
+                Variant: req.body.Variant,
+                Image: Image,
+                Link: req.body.Link,
+                OfferAmmount: req.body.OfferAmmount,
+                CardType: req.body.CardType,
+                DealNumber: req.body.DealNumber,
+                offerCash: req.body.offerCash,
+                Status: req.body.Status,
+                Iprice: req.body.Iprice,
+            })
+            res.json("Product List Sucessfully !")
+
+        } catch (error) {
+            res.json(error)
+
+        }
+    }
 
 
 }
@@ -149,7 +153,7 @@ const Addproduct = async (req, res) => {
 const AllMerchant = async (req, res) => {
     try {
         const Data = await MerchantData.find()
-        if (Data.length ==0) {
+        if (Data.length == 0) {
             return res.json("0 merchant is aviable")
         }
         res.json(Data);
@@ -162,8 +166,8 @@ const AllMerchant = async (req, res) => {
 
 const AddMerchant = async (req, res) => {
     try {
-        const { Email, Password ,Name} = req.body;
-        const Merchant = await MerchantData.findOne({Email});
+        const { Email, Password, Name } = req.body;
+        const Merchant = await MerchantData.findOne({ Email });
         if (Merchant) {
             return res.json("Email Alreadt Exist !")
         }
@@ -228,7 +232,7 @@ const UpdateDeal = async (req, res) => {
         res.status(500).json({ error: "An error occurred while updating the product" });
     }
 
-   
+
 
 }
 const AllDealsData = async (req, res) => {
@@ -262,7 +266,153 @@ const AllDealsData = async (req, res) => {
     }
 };
 
+const AllOrderdDeals = async (req, res) => {
+    const id = req.body.id;
+    console.log(id)
+    const mdata = await MerchantData.findOne({ _id: id })
+    const Email = mdata.Email;
+    console.log(Email);
+    //  console.log("emial",Email)
+    try {
+        const MerchantDeal = await DealCreate.find({ MerchanId: Email });
+        // console.log("MerchanId",MerchantDeal)
+
+        const DealData = await Promise.all(
+            MerchantDeal.map(async (deal) => {
+                const myDealData = await myproduct.find({ MerchantDealId: deal.DealId });
+                console.log(myDealData, "mydealdatata")
+
+                if (myDealData.length != 0) {
+                    await Promise.all(
+                        myDealData.map(async (myDeal) => {
+                            const product = await Product.findById(myDeal.Product_id);
+                            if (product) {
+                                Object.assign(deal._doc, myDeal._doc, product._doc); // Merge product data into deal
+                            }
+                        })
+                    );
+                }
+                else {
+                    const data = await Product.findById(deal.ProductId);
+                    console.log(data, "secconds")
+                    if (data) {
+
+                        console.log(data);
+                        Object.assign(deal._doc, data._doc); // Merge product data into deal
+                    }
+
+                }
+
+                return deal._doc;
+            })
+        );
+
+        // Return all merged data in a single object
+        // console.log(DealData,"hhhhhhhh");
+        res.json({ DealData });
+        // res.json({msg:"hello world"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ msg: "Error fetching deals", error });
+    }
+};
+
+
+const BlukDealview = async (req, res) => {
+    const id = req.body.id;
+    console.log(id)
+    // const mdata = await MerchantData.findOne({_id:id})
+    // const Email = mdata.Email;
+    // console.log(Email);
+    //  console.log("emial",Email)
+    try {
+        //   const MerchantDeal = await DealCreate.find({ MerchanId: Email });
+        // console.log("MerchanId",MerchantDeal)
+        const myDealData = await myproduct.find({ MerchantDealId: id });
+
+        const DealData = await Promise.all(
+            myDealData.map(async (deal) => {
+                console.log(myDealData, "mydealdatata")
+
+
+                const product = await Product.findById(deal.Product_id);
+                const myDeal = await DealCreate.findOne({ DealId: deal.MerchantDealId })
+                if (product) {
+                    Object.assign(deal._doc, myDeal._doc, product._doc); // Merge product data into deal
+                }
+
+
+
+
+                return deal._doc;
+            })
+        );
+
+        // Return all merged data in a single object
+        // console.log(DealData,"hhhhhhhh");
+        res.json({ DealData });
+        // res.json({msg:"hello world"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ msg: "Error fetching deals", error });
+    }
+};
+
+const PaymentStatus = async (req, res) => {
+    try {
+        const data = await myproduct.find({ Receive: true, PaymentSatuts: false });
+
+        if (data.length === 0) {
+            return res.json({ msg: "0 Payments remaining" });
+        }
+
+        const AlluserData = await Promise.all(
+            data.map(async (item) => {
+                const user = await userModel.findOne({ Email: item.UserId });
+
+                // Ensure that user exists
+                if (!user) {
+                    return { ...item._doc, user: null }; // Handle case where user is not found
+                }
+
+                return { ...item._doc, ...user._doc };
+            })
+        );
+
+        res.json({ AlluserData });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ Error: error.message });
+    }
+};
+
+
+const PayHistory = async (req, res) => {
+    try {
+        const appId = req.body.appId
+        const user = await myproduct.findOne({ Appid: appId })
+
+        console.log(user)
+        const Email = user.UserId
+        if (!user) {
+            return res.json({ msg: "Error in fetching user" })
+        }
+            await PAYDATA.create({
+                UTR: req.body.UTR,
+                Email: Email,
+                Amount: req.body.Amount,
+                APPID: req.body.appId
+            })
+            res.json({ msg: "success" })
+        
+    } catch (error) {
+        res.json({ msg: error.message })
+    }
+
+}
+
+
 export default {
-    AllDealsData, AdminLogin,AdminPost, Addproduct, AllMerchant, AddMerchant, AllDeals, EditDeal
-    , UpdateDeal,
+    AllDealsData, AdminLogin, AdminPost, AllOrderdDeals, Addproduct, AllMerchant, AddMerchant, AllDeals, EditDeal
+    , UpdateDeal, BlukDealview, PaymentStatus, PayHistory
 }

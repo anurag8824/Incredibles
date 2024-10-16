@@ -1,18 +1,33 @@
 import React from 'react'
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NewSideBar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [showside, setShowside] = useState(true);
     const [menuOpen, setMenuOpen] = useState(false);
+
+    const [dropdownState, setDropdownState] = useState({
+        merchant: false,
+        product: false,
+        customer: false,
+        order: false,
+        report: false,
+        settings: false,
+    });
+
+    // Toggle function for dropdowns
+    const toggleDropdown = (dropdownName) => {
+        setDropdownState((prevState) => ({
+            ...prevState,
+            [dropdownName]: !prevState[dropdownName],
+        }));
+    };
 
     const navigate = useNavigate();
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+    // const toggleDropdown = () => {
+    //     setIsOpen(!isOpen);
+    // };
 
 
     useEffect(() => {
@@ -20,7 +35,6 @@ const NewSideBar = () => {
         console.log(Email, "email recieved from localstorage");
         if (Email == null) {
             console.log("sfj;osadjf")
-            setShowside(false);
         }
     }, [])
 
@@ -34,13 +48,8 @@ const NewSideBar = () => {
     return (
         <aside className="text-black  flex flex-col  fixed top-0 left-0 z-40 w-64 h-screen">
             {/* Header  */}
-            <header className="bg-gray-200 w-screen z-10 top-0 left-0">
-                <div className="max-w-7xl mx-auto py-4  px-4">
-                    <h1 className="text-xl font-bold">Incredible Deals</h1>
-                </div>
-            </header>
+            <header className="bg-gray-200 flex w-screen z-10 top-0 left-0">
 
-            {showside ?
 
                 <div className='flex items-center md:hidden'>
 
@@ -82,116 +91,180 @@ const NewSideBar = () => {
                     </button>
 
                 </div>
-                : ""}
-
-            {showside ?
-
-                <div id="mobile-menu-2" className={`${menuOpen ? "block" : "hidden"} md:block h-full  px-3 space-y-2 font-medium py-4 overflow-y-auto bg-gray-50 DARK:bg-gray-800`}>
 
 
-                    {/* Dropdown */}
-                    <a href='dashboard' className="w-full text-left px-4 py-2 rounded-md bg-slate-200 focus:outline-none" >
-                        DashBoard
-                    </a>
-
-                    <div>
-                        <button
-                            onClick={toggleDropdown}
-                            className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
-                        >
-                            Merchant
-                        </button>
-
-                        {isOpen && (
-                            <div className="mt-2 pl-4">
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Bulk Order</a>
-                                <hr className='h-px my-1 bg-gray-400 border-0' />
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Bulk Order Show</a>
-                                <hr className='h-px my-1 bg-gray-400 border-0' />
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order View</a>
-                            </div>
-                        )}
-                    </div>
-
-
-                    <div>
-                        <button className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
-                            Merchant - Payment
-                        </button>
-                    </div>
-
-                    <div>
-                        <button className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
-                            Orders
-                        </button>
-                    </div>
-
-                    <div>
-                        <a href='dynamic-deals' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
-                            Dynamic Deals
-                        </a>
-                    </div>
-
-
-
-                    <div>
-                        <a href='invoices' className='w-full  text-left px-4 py-4 rounded-md focus:outline-none'>
-                            Invoices
-                        </a>
-                    </div>
+                <div className="max-w-7xl mx-auto py-4  px-4">
+                    <h1 className="text-xl font-bold">Incredible Deals</h1>
+                </div>
+            </header>
 
 
 
 
-                    <div>
-                        <button className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
-                            Deal - Attributes
-                        </button>
-                    </div>
-
-                    <div className=' py-2'>
-                        <a href='/deals-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
-                            Deals Data
-                        </a>
-                    </div>
 
 
-                    <div className='py-2'>
-                        <a href='/product-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
-                            Product Data
-                        </a>
-                    </div>
+            <div id="mobile-menu-2" className={`${menuOpen ? "block" : "hidden"} md:block h-full  px-3 space-y-2 font-medium py-4 overflow-y-auto bg-gray-50 DARK:bg-gray-800`}>
 
 
-                    <hr className='h-px my-2  bg-gray-400 border-0' />
 
 
-                    <div>
-                        <div className='w-full text-left px-4 py-2 mb-4 bg-slate-200 hover:bg-slate-200 focus:outline-none'>
-                            <a href='add-product'>Add Product</a>
+
+                {/* Dropdown */}
+                <Link to='dashboard' className="w-full text-left px-4 py-2 rounded-md bg-slate-200 focus:outline-none" >
+                    DashBoard
+                </Link>
+
+
+                <div>
+                    <button
+                        onClick={() => toggleDropdown('merchant')}
+                        className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
+                    >
+                        Merchant
+                    </button>
+                    {dropdownState.merchant && (
+                        <div className="mt-2 pl-4">
+                            <Link to="add-merchant" className="block px-4 py-2 hover:bg-gray-200 text-sm">Add Merchant</Link>
+                            <hr className="h-px my-1 bg-gray-400 border-0" />
+                            <Link to="merchant-details" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Details</Link>
+                            <hr className="h-px my-1 bg-gray-400 border-0" />
+                            <Link to="merchant-payment" className="block px-4 py-2 hover:bg-gray-200 text-sm"> Merchant Payment</Link>
                         </div>
-                    </div>
-
-
-
-                    <div>
-                        <div className='w-full text-left px-4 py-2 mb-4 bg-slate-200 hover:bg-slate-200 focus:outline-none'>
-                            <a href='add-merchant'>Add Merchant</a>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className='w-full text-left px-4 py-2 mb-4 bg-gray-500 hover:bg-red-600 focus:outline-none'>
-                            <a href='/'>Log Out</a>
-                        </div>
-                    </div>
-
-
-
+                    )}
                 </div>
 
 
-                : ""}
+
+
+                <div>
+                    <button
+                        onClick={() => toggleDropdown('product')}
+                        className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
+                    >
+                        Deals Info
+                    </button>
+                    {dropdownState.product && (
+                        <div className="mt-2 pl-4">
+                            {/* <Link to={"bulk-merchant-payment"} className="block px-4 py-2 hover:bg-gray-200 text-sm">Bulk Merchant Payment</Link> */}
+                            <hr className='h-px my-1 bg-gray-400 border-0' />
+                            <Link to="created-deals" className="block px-4 py-2 hover:bg-gray-200 text-sm">Created Deals</Link>
+                            <hr className='h-px my-1 bg-gray-400 border-0' />
+                            <Link to="deals-payment-request" className="block px-4 py-2 hover:bg-gray-200 text-sm">Deals Payment Requests</Link>
+                        </div>
+                    )}
+                </div>
+
+                {/* Customer Dropdown */}
+                <div>
+                    <button
+                        onClick={() => toggleDropdown('customer')}
+                        className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
+                    >
+                        Orders
+                    </button>
+                    {dropdownState.customer && (
+                        <div className="mt-2 pl-4">
+                            <Link to="deliverey-confirmation" className="block px-4 py-2 hover:bg-gray-200 text-sm">Delivery Confirmation</Link>
+                            <hr className="h-px my-1 bg-gray-400 border-0" />
+                            <Link to="ecom-order-details" className="block px-4 py-2 hover:bg-gray-200 text-sm">E commerce Order Details</Link>
+                            <hr className="h-px my-1 bg-gray-400 border-0" />
+                            <Link to="merchant-order-variant" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order Variant</Link>
+                        </div>
+                    )}
+                </div>
+
+                {/* Orders Dropdown */}
+                <div>
+                    <button
+                        onClick={() => toggleDropdown('order')}
+                        className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
+                    >
+                        Dynamic Deal
+                    </button>
+                    {dropdownState.order && (
+                        <div className="mt-2 pl-4">
+                            <Link to="merchant-dynamic-deals" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Deal Create</Link>
+                            <hr className="h-px my-1 bg-gray-400 border-0" />
+
+                        </div>
+                    )}
+                </div>
+
+                {/* Reports Dropdown */}
+                <div>
+                    <button
+                        onClick={() => toggleDropdown('report')}
+                        className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
+                    >
+                        Invoices
+                    </button>
+                    {dropdownState.report && (
+                        <div className="mt-2 pl-4">
+                            <Link to="merchant-invoices" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Invoices</Link>
+                            <hr className="h-px my-1 bg-gray-400 border-0" />
+
+                        </div>
+                    )}
+                </div>
+
+                {/* Settings Dropdown */}
+                <div>
+                    <button
+                        onClick={() => toggleDropdown('settings')}
+                        className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
+                    >
+                        Deal - Attributs
+                    </button>
+                    {dropdownState.settings && (
+                        <div className="mt-2 pl-4">
+                            <Link to="address" className="block px-4 py-2 hover:bg-gray-200 text-sm">Address</Link>
+
+                        </div>
+                    )}
+                </div>
+
+                <div className=' py-2'>
+                    <a href='/deals-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
+                        Deals Data
+                    </a>
+                </div>
+
+
+                <div className='py-2'>
+                    <a href='/product-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
+                        Product Data
+                    </a>
+                </div>
+
+
+                <hr className='h-px my-2  bg-gray-400 border-0' />
+
+
+                <div>
+                    <div className='w-full text-left px-4 py-2 mb-4 bg-slate-200 hover:bg-slate-200 focus:outline-none'>
+                        <a href='add-product'>Add Product</a>
+                    </div>
+                </div>
+
+
+
+                <div>
+                    <div className='w-full text-left px-4 py-2 mb-4 bg-slate-200 hover:bg-slate-200 focus:outline-none'>
+                        <a href='add-merchant'>Add Merchant</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div className='w-full text-left px-4 py-2 mb-4 bg-gray-500 hover:bg-red-600 focus:outline-none'>
+                        <a href='/'>Log Out</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
 
         </aside>
     )

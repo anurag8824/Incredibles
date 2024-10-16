@@ -19,6 +19,11 @@ router.post("/addmerchant",Admin.AddMerchant);
 
 router.get("/alldeals",Admin.AllDeals);
 router.get("/allorder",Admin.AllDealsData);
-router.post("/cd",Merchant.Dealcreate)
+router.get("/allmerchant",Admin.AllMerchant);
+router.post("/merchantdata",Admin.AllOrderdDeals)
+router.post("/Blukdeal/view",Admin.BlukDealview);
+router.get("/payment/details",Admin.PaymentStatus);
+router.post("/payhistory",Admin.PayHistory)
+
 
 export default router;

@@ -181,21 +181,21 @@ const DynamicDeal = () => {
                       value={mdata.Extra.target} // Bind the value to state
                       onChange={handleChange} // Change happens at select level
                     >
-                      <option value="₹0">₹0</option>
-                      <option value="₹50.0">₹50.0</option>
-                      <option value="₹100.0">₹100.0</option>
-                      <option value="₹150.0">₹150.0</option>
-                      <option value="₹200.0">₹200.0</option>
-                      <option value="₹250.0">₹250.0</option>
-                      <option value="₹300.0">₹300.0</option>
-                      <option value="₹350.0">₹350.0</option>
-                      <option value="₹400.0">₹400.0</option>
-                      <option value="₹450.0">₹450.0</option>
-                      <option value="₹500.0">₹500.0</option>
-                      <option value="₹550.0">₹550.0</option>
-                      <option value="₹1,000.0">₹1,000.0</option>
-                      <option value="₹1,500.0">₹1,500.0</option>
-                      <option value="₹2,000.0">₹2,000.0</option>
+                      <option value="0">₹0</option>
+                      <option value="50">₹50.0</option>
+                      <option value="100">₹100.0</option>
+                      <option value="150">₹150.0</option>
+                      <option value="200">₹200.0</option>
+                      <option value="250">₹250.0</option>
+                      <option value="300">₹300.0</option>
+                      <option value="350">₹350.0</option>
+                      <option value="400">₹400.0</option>
+                      <option value="450">₹450.0</option>
+                      <option value="500">₹500.0</option>
+                      <option value="550">₹550.0</option>
+                      <option value="1000">₹1,000.0</option>
+                      <option value="1500">₹1,500.0</option>
+                      <option value="2000">₹2,000.0</option>
                     </select>
                     </td>
                     <td className="px-6 py-4"><select id="countries" required className="bg-gray-50  border font-medium border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-20 mt-0  ">

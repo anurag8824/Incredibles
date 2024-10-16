@@ -176,7 +176,7 @@ const AlldealsforMerchant = async (req, res) => {
       // console.log(DealData,"hhhhhhhh");
       res.json({ DealData });
       // res.json({msg:"hello world"})
-    } catch (error) {
+    } catch (error) { 
       console.log(error)
       res.status(500).json({ msg: "Error fetching deals", error });
     }

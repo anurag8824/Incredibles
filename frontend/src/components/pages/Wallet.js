@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import axios from 'axios';
 
 const Wallet = () => {
+    const backUrl = process.env.REACT_APP_URL;
+    const [data, setData] = useState([])
+
+
+    useEffect(() => {
+        axios.get(`${backUrl}/user/walletdata`, { withCredentials: true })
+            .then((res) => {
+                console.log(res, 'wallet data')
+                setData(res.data)
+            })
+    })
     return (
         <div className="min-h-screen flex mt-2 justify-center">
             <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
@@ -16,21 +29,59 @@ const Wallet = () => {
                         1,250.00</p>
                 </div>
 
-{/* 
+
                 <div className="">
                     <h1 className="text-xl font-medium text-gray-600">All Transactions</h1>
-                </div> */}
+                </div>
 
                 <hr className='w-full' />
 
-                {/* <div className="flex mt-2 space-x-2">
+                <div className="flex mt-2 space-x-2">
                     <button className="bg-blue-800 hover:bg-blue-600 text-white font-semibold py-1 px-6 rounded-lg">
                         Recieved
                     </button>
                     <button className="bg-gray-100 hover:bg-blue-600 text-gray-800 font-semibold py-1 px-6 rounded-lg">
                         Cancelled
                     </button>
-                </div> */}
+                </div>
+
+
+                <div>
+
+
+
+
+                    {data.length > 0 ? (
+                        data.map((item, index) => (
+                            <div key={index} className="flex mt-2 space-x-2">
+
+
+
+                                <div className="font-base text-md py-1 px-6 ">
+                                    Rs{item.Amount}
+                                </div>
+                                <div className="font-base text-md py-1 px-6">
+                                    Cancelled
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+                        ))
+                    ) : (
+                        <div> no deal </div>
+                    )}
+
+
+                </div>
+
+
+
+
 
 
             </div>

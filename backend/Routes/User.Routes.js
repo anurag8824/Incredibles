@@ -16,6 +16,8 @@ router.get("/singledeal/:id/:Id",User.SingleDeal);
 router.post("/pan/kyc",User.PanKyc)
 router.post("/Ac/kyc",User.ACKyc)
 router.get("/myorder",User.myOrder)
+router.get("/walletdata", User.WalletData)
+
 
 
 export default router;

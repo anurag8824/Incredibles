@@ -33,7 +33,7 @@ const Admin = () => {
                     localStorage.setItem("Email", formData.Email);
                     console.log(localStorage.getItem("Email"));
                     navigate('/dashboard')
-                    window.location.reload();
+                    // window.location.reload();
 
                 }
                 console.log(res);
