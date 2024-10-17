@@ -105,7 +105,7 @@ const ProductForm = () => {
 
         <div>
           <label htmlFor="price" className="block font-medium text-gray-700">
-             I Price
+             Incredibles Price
           </label>
           <input
             type="number"

@@ -11,6 +11,8 @@
 # production
 /build
 
+**/.env
+
 
 # Environment variables
 .env
