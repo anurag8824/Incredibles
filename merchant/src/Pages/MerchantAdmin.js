@@ -18,7 +18,7 @@ const Admin = () => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value,
+            [name]: name === 'Email' ? value.toLowerCase() : value,
         });
     };
 

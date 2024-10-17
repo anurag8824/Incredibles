@@ -5,15 +5,18 @@ import axios from 'axios';
 const Wallet = () => {
     const backUrl = process.env.REACT_APP_URL;
     const [data, setData] = useState([])
+    const [wallet,setWallet] = useState([])
 
 
     useEffect(() => {
         axios.get(`${backUrl}/user/walletdata`, { withCredentials: true })
             .then((res) => {
                 console.log(res, 'wallet data')
-                setData(res.data)
+                console.log(res.data.Payinfo,"dd")
+                setData(res.data.Payinfo);
+                setWallet(res.data.wallet);
             })
-    })
+    } ,[])
     return (
         <div className="min-h-screen flex mt-2 justify-center">
             <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
@@ -26,7 +29,7 @@ const Wallet = () => {
                 <div className="mb-8 rounded-md px-4 py-2 bg-blue-900">
                     <h2 className="text-xl font-semibold  text-gray-100">Your Balance:</h2>
                     <p className="text-3xl font-bold text-gray-100 mt-2 mb-4">₹
-                        1,250.00</p>
+                        {wallet}</p>
                 </div>
 
 
@@ -36,7 +39,7 @@ const Wallet = () => {
 
                 <hr className='w-full' />
 
-                <div className="flex mt-2 space-x-2">
+                <div className="flex mt-2 space-x-2 border-b pb-2">
                     <button className="bg-blue-800 hover:bg-blue-600 text-white font-semibold py-1 px-6 rounded-lg">
                         Recieved
                     </button>
@@ -53,27 +56,33 @@ const Wallet = () => {
 
                     {data.length > 0 ? (
                         data.map((item, index) => (
-                            <div key={index} className="flex mt-2 space-x-2">
+                        item ? (
+                            <div key={index} className="flex border-b py-1 justify-between">
 
 
 
-                                <div className="font-base text-md py-1 px-6 ">
-                                    Rs{item.Amount}
-                                </div>
-                                <div className="font-base text-md py-1 px-6">
-                                    Cancelled
+                                <div className="font-semibold text-blue-800 text-md py-1  ">
+                                    {item.APPID}
                                 </div>
 
+                                <div className="font-normal text-md py-1  ">
+                                    {item.UTR}
+                                </div>
+
+                                <div className=" text-md font-semibold text-green-600 py-1 ">
+                                    +₹ {item.Amount}
+                                </div>
 
 
 
-                            </div>
+
+                            </div>) : null
 
 
 
                         ))
                     ) : (
-                        <div> no deal </div>
+                        <div>  </div>
                     )}
 
 

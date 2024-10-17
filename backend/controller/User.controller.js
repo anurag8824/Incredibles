@@ -6,6 +6,7 @@ import PAYDATA from "../model/Paymenthistory.model.js";
 import crypto from "crypto";
 import MerchantData from "../model/Merchant.model.js";
 import DealCreate from "../model/MerchantDeal.model.js";
+import { parse } from "path";
 
 
 const genrateOtp = () => {
@@ -224,6 +225,19 @@ const OrderClick = async (req, res) => {
       Product_id: req.body.Product_id,
       MerchantDealId: req.body.MId,
     });
+    const data = await Product.findById(req.body.Product_id);
+    const price = parseFloat(data.Price)
+    const offer = parseFloat(data.OfferAmmount) * .98;
+    const cashrewardI = price - parseFloat(data.offerCash)
+
+    const totalwallet = offer + cashrewardI;
+    const user = await userModel.findOne({ Email: Email })
+    user.Wallet = totalwallet
+    await user.save();
+
+
+
+
 
     console.log(req.body, AppId);
     res.json({ "msg": AppId, Email });
@@ -675,21 +689,38 @@ const myOrder = async (req, res) => {
 };
 
 const WalletData = async (req, res) => {
-
   const Email = req.cookies.Email;
+
   try {
-    const Payinfo = await PAYDATA.find({ Email: Email })
-    res.json(Payinfo)
+    // Fetch pay information and user data
+    const Payinfo = await PAYDATA.find({ Email: Email });
+    const user = await userModel.findOne({ Email: Email });
+
+    // Check if user exists and extract wallet
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const wallet = user.Wallet; // Assuming 'Wallet' is a property, not a promise
+
+    // Combine Payinfo array with wallet data
+    // var data = Payinfo.map(item => ({ ...item.toObject(), wallet }));
+    var data = { Payinfo, wallet }
+    console.log(data, "sfddf");
+
+
+    // var data = { wallet };
+
+    // Send the combined data as response
+    res.json(data);
   } catch (error) {
-    res.status(500).json({ error: error.message })
-
+    // Handle any errors
+    console.log(error, "eerrr");
+    res.status(500).json({ error: error.message });
   }
+};
 
 
 
 
-}
-
-
-
-export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc, myOrder, ACKyc ,WalletData }
+export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc, myOrder, ACKyc, WalletData }

@@ -380,8 +380,8 @@ const SingleProduct = () => {
                                     <div className={`${tracked ? "block" : "hidden"} ml-1  text-sm font-medium pb-2  text-gray-500`}>
 
                                         <form className="grid gap-2 align-middle w-full mx-full">
-                                            <label for="countries" className="block text-sm font-medium pb-1 text-gray-500 dark:text-white">Select Track</label>
-                                            <select id="countries" required className="bg-gray-50 border font-medium border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mt-0 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <label for="countries" className="block text-sm font-medium pb-1 text-gray-500 DARK:text-white">Select Track</label>
+                                            <select id="countries" required className="bg-gray-50 border font-medium border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mt-0 p-2 DARK:bg-gray-700 DARK:border-gray-600 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-blue-500 DARK:focus:border-blue-500">
                                                 <option selected>Choose a Company</option>
                                                 <option value="EKART">E-Kart</option>
                                                 <option value="DV">Delhivery</option>
@@ -401,7 +401,7 @@ const SingleProduct = () => {
                                     <div className={`${tracked ? "block" : "hidden"} ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                         <p> Tracking ID </p>
 
-                                        <input onChange={e => { setTrack(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                                        <input onChange={e => { setTrack(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 DARK:bg-gray-700 DARK:border-gray-600 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-blue-500 DARK:focus:border-blue-500" placeholder="Tracking Id" required />
                                     </div>
 
 
@@ -421,13 +421,13 @@ const SingleProduct = () => {
                                         <div className={` ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                             <p> OTP</p>
 
-                                            <input onChange={e => { setDelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+                                            <input onChange={e => { setDelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 DARK:bg-gray-700 DARK:border-gray-600 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-blue-500 DARK:focus:border-blue-500" placeholder="OTP" required />
                                         </div>
 
                                         <div className={` ml-1 align-middle grid gap-2 text-sm font-medium pb-2 text-gray-500`}>
                                             <p> Fourdigit Delivery Support</p>
 
-                                            <input onChange={e => { setFlipdelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="John" required />
+                                            <input onChange={e => { setFlipdelivered(e.target.value) }} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="FourDigit Support " required />
                                         </div>
 
 

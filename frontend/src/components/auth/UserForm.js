@@ -42,7 +42,7 @@ const UserForm = () => {
 
                     <div>
                         <label for="phone" className="block mb-2 text-sm font-medium text-gray-900">Phone number</label>
-                        <input type="number"  onChange={e=>{setPhoneno(e.target.value)}} id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="123-45-678" pattern="" required />
+                        <input type="text"  onChange={e=>{setPhoneno(e.target.value)}} id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="123-45-678" required />
                     </div>
 
 

@@ -109,7 +109,7 @@ const SignPage = () => {
             </div>
             <div className="mb-5">
               <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">Enter Your email</label>
-              <input type="email" id="email" onChange={e => setEmail(e.target.value)}
+              <input type="email" id="email" onChange={e => setEmail(e.target.value.toLowerCase())}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="name@xyz1234.com" required />
             </div>

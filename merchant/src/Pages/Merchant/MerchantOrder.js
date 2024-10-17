@@ -40,8 +40,8 @@ const MerchantOrder = () => {
 
    
       <div className="relative border  overflow-x-auto">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 DARK:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 DARK:bg-gray-700 DARK:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">No</th>
               <th scope="col" className="px-6 py-3">Id</th>
@@ -67,12 +67,12 @@ const MerchantOrder = () => {
           <tbody>
             {data.length > 0 ? (
               data.map((item, index) => (
-                <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr key={index} className="bg-white border-b DARK:bg-gray-800 DARK:border-gray-700">
                   <td className="px-6 py-4">{index + 1}</td>
                   <td className="px-6 py-4">{item.DealId}</td>
 
 
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap DARK:text-white">
                     {item.DealTitle}
                   </th>
 

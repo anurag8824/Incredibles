@@ -155,7 +155,7 @@ const NewSideBar = () => {
                 </div>
 
                 {/* Customer Dropdown */}
-                <div>
+                {/* <div>
                     <button
                         onClick={() => toggleDropdown('customer')}
                         className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
@@ -171,10 +171,10 @@ const NewSideBar = () => {
                             <Link to="merchant-order-variant" className="block px-4 py-2 hover:bg-gray-200 text-sm">Merchant Order Variant</Link>
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 {/* Orders Dropdown */}
-                <div>
+                {/* <div>
                     <button
                         onClick={() => toggleDropdown('order')}
                         className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
@@ -188,10 +188,10 @@ const NewSideBar = () => {
 
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 {/* Reports Dropdown */}
-                <div>
+                {/* <div>
                     <button
                         onClick={() => toggleDropdown('report')}
                         className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
@@ -205,10 +205,10 @@ const NewSideBar = () => {
 
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 {/* Settings Dropdown */}
-                <div>
+                {/* <div>
                     <button
                         onClick={() => toggleDropdown('settings')}
                         className="w-full text-left px-4 py-2 rounded-md focus:outline-none"
@@ -221,7 +221,7 @@ const NewSideBar = () => {
 
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 <div className=' py-2'>
                     <a href='/deals-data' className='w-full text-left px-4 py-2 rounded-md focus:outline-none'>
@@ -240,11 +240,11 @@ const NewSideBar = () => {
                 <hr className='h-px my-2  bg-gray-400 border-0' />
 
 
-                <div>
+                {/* <div>
                     <div className='w-full text-left px-4 py-2 mb-4 bg-slate-200 hover:bg-slate-200 focus:outline-none'>
                         <a href='add-product'>Add Product</a>
                     </div>
-                </div>
+                </div> */}
 
 
 
@@ -256,7 +256,7 @@ const NewSideBar = () => {
 
                 <div>
                     <div className='w-full text-left px-4 py-2 mb-4 bg-gray-500 hover:bg-red-600 focus:outline-none'>
-                        <a href='/'>Log Out</a>
+                        <a href='#'>Log Out</a>
                     </div>
                 </div>
 

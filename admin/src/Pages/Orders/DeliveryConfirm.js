@@ -136,48 +136,7 @@ const DeliveryConfirm = () => {
 
       <div className=''>
         Filter:-
-        {/* <div className="relative border overflow-x-auto">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
-              <tr>
-                <th scope="col" className="px-6 py-3">Incredibles Id</th>
-                <th scope="col" className="px-6 py-3">Order Id</th>
-
-                <th scope="col" className="px-6 py-3">Order Number </th>
-                <th scope="col" className="px-6 py-3">Tracking Id</th>
-                
-                <th scope="col" className="px-6 py-3">Store</th>
-                <th scope="col" className="px-6 py-3">Creation Date</th>
-                <th scope="col" className="px-6 py-3">State</th>
-                <th scope="col" className="px-6 py-3">Product Name</th>
-                <th scope="col" className="px-6 py-3">Address</th>
-
-
-
-
-
-              </tr>
-            </thead>
-
-            <tbody>
-
-              <tr className="bg-white border-b ">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                <input type="text" id="small-input" class="block w-12 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-                </th>
-                <td className="px-6 py-4">hjh</td>
-                <td className="px-6 py-4">hjk</td>
-                <td className="px-6 py-4">username</td>
-
-
-                <td className="px-6 py-4"><button className='bg-gray-700 hover:bg-gray-500  p-1 text-white rounded-md'>Check</button></td>
-
-              </tr>
-
-
-            </tbody>
-          </table>
-        </div> */}
+        
 
         <div className="flex gap-4 mb-4">
           <input
@@ -213,7 +172,7 @@ const DeliveryConfirm = () => {
 
       <hr className='my-2' />
 
-      <button onClick={() => downloadCSV()} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Download CSV</button>
+      <button onClick={() => downloadCSV()} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-4 '>Download CSV</button>
 
 
       <hr className='my-2' />

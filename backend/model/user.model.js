@@ -24,7 +24,7 @@ const User = new mongoose.Schema({
     Phoneno:{
         type:String,
         // required:true,
-        default:"1234567890",
+        default:"",
     },
     verifed:{
        type:Boolean,
@@ -70,6 +70,10 @@ const User = new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    Wallet:{
+        type:Number,
+        default:0,
+    }
 })
 
 const userModel = mongoose.model("userdetail",User)

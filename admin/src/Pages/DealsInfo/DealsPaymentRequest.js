@@ -16,7 +16,17 @@ const OneDealInfo = () => {
     axios.get(`${backUrl}/admin/payment/details`, { withCredentials: true })
       .then((res) => {
         console.log(res, "deal getss")
-        setData(res.data.AlluserData);
+        console.log(res.data.AlluserData,"deals array")
+        if(res.data.AlluserData == undefined){
+          setData([]);
+
+        }
+        else{
+          setData(res.data.AlluserData);
+
+        }
+       
+        
       })
   }, [])
 
@@ -70,8 +80,10 @@ const OneDealInfo = () => {
             </thead>
 
             <tbody>
-              {data.length > 0 ? (
+              {data.length > 0 || !undefined? (
                 data.map((item, index) => (
+                  item ? (
+
                   <tr key={index} className="bg-white border-b DARK:bg-gray-800 DARK:border-gray-700">
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap DARK:text-white">
                       {item.UserId}
@@ -105,7 +117,7 @@ const OneDealInfo = () => {
                     </td>
 
 
-                  </tr>
+                  </tr> ) : null
                 ))
               ) : (
                 <tr>
