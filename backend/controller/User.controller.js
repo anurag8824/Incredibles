@@ -491,7 +491,10 @@ const PanKyc = async (req, res) => {
 
     user.panNumber = req.body.panNumber;
     user.panHolder = req.body.panHolder;
-
+    const dbcheckforPan = await userModel.find({panNumber:req.body.panNumber})
+    if(dbcheckforPan.length>0){
+      return res.json({msg:"Pan Number Already Verified"})
+    }
     // Check if token exists or generate it if not available
     if (!token) {
       await GenrateToken();
@@ -513,13 +516,16 @@ const PanKyc = async (req, res) => {
     let result = await response.text();
     let parsedResult = JSON.parse(result);
 
-    if (parsedResult?.data?.status === "VALID") {
+    if (parsedResult?.data?.status === "VALID"  && parsedResult?.data?.full_name.toUppercase() ===req.body.panHolder.toUppercase()) {
       user.Panvrifed = true;
       await user.save();
       return res.json({ msg: "Valid Pan Details" });
     } else if (parsedResult?.data?.status === "INVALID") {
       return res.json({ msg: "Invalid Details" });
-    } else if (parsedResult.detail === "Not a valid token") {
+    } else if(parsedResult?.data?.full_name.toUppercase() ===req.body.panHolder.toUppercase()){
+      return res.json({msg:"Invalid Name Please Check your Name "})
+    }
+    else if (parsedResult.detail === "Not a valid token") {
       console.log("Invalid token, regenerating...");
 
       // Regenerate token and retry the PAN verification
