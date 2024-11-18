@@ -63,7 +63,7 @@ const MyDealStatus = () => {
                 :
                 <section id='Projects' className="w-96 mx-auto grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 justify-items-center justify-center gap-y-8 gap-x-96 mt-8 mb-36">
 
-                {data ? 
+                {data.length >0 ? 
                     {data.map((data) => {
                     
                         return (<div class="w-72 bg-gray-100 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:shadow-blue-300">
