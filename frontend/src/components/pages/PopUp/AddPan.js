@@ -36,7 +36,7 @@ const AddPan = () => {
     axios.post(`${backUrl}/user/pan/kyc` , panData, {withCredentials : true})
     .then((res) => {
       console.log(res);
-      if(res.data.msg = "valid Details"){
+      if(res.data.msg == "Valid Pan Details"){
         window.location.reload();
       }else {
         alert(res.data.msg);
@@ -55,7 +55,7 @@ const AddPan = () => {
     const { name, value } = e.target;
     setPanData({
       ...panData,
-      [name]: value,
+      [name]: value.replace(/\s+/g, ' ').trim(),
     });
   };
 

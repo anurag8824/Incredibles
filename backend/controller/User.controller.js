@@ -516,13 +516,13 @@ const PanKyc = async (req, res) => {
     let result = await response.text();
     let parsedResult = JSON.parse(result);
 
-    if (parsedResult?.data?.status === "VALID"  && parsedResult?.data?.full_name.toUppercase() ===req.body.panHolder.toUppercase()) {
+    if (parsedResult?.data?.status === "VALID"  && parsedResult?.data?.full_name.toUpperCase() ===req.body.panHolder.toUpperCase()) {
       user.Panvrifed = true;
       await user.save();
       return res.json({ msg: "Valid Pan Details" });
     } else if (parsedResult?.data?.status === "INVALID") {
       return res.json({ msg: "Invalid Details" });
-    } else if(parsedResult?.data?.full_name.toUppercase() ===req.body.panHolder.toUppercase()){
+    } else if(parsedResult?.data?.full_name.toUpperCase() !== req.body.panHolder.toUpperCase()){
       return res.json({msg:"Invalid Name Please Check your Name "})
     }
     else if (parsedResult.detail === "Not a valid token") {

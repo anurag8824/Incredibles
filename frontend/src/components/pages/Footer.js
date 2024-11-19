@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FaBoxOpen, FaHome, FaRegArrowAltCircleDown, FaRegArrowAltCircleRight, FaTags, FaUserCircle } from 'react-icons/fa';
+import { FaBoxOpen, FaRegArrowAltCircleDown, FaRegArrowAltCircleRight, FaTags, FaUserCircle } from 'react-icons/fa';
+
+import {  FaHome } from 'react-icons/fa';
+
+
 
 
 // import axios from 'axios';
@@ -34,7 +38,7 @@ const Footer = () => {
       {/* Desktop View  */}
       <footer className="bg-gray-800 md:block ">
         <div className="mx-auto grid max-w-screen-xl gap-x-12 md:gap-y-8 gap-y-1 px-4 py-8 md:grid-cols-2 xl:grid-cols-3 xl:px-10">
-          
+
           <div className="max-w-sm">
             <div className="mb-6 flex h-12 items-center space-x-2">
               <span className="text-2xl font-bold text-white">Incre<span className="text-blue-600">dibles</span></span>
@@ -69,7 +73,7 @@ const Footer = () => {
               10/42-Nehru Nagar, <br />
               Sethi House-110065 <br />
               (Delhi Office)
-            </div> 
+            </div>
 
 
 
@@ -92,12 +96,12 @@ const Footer = () => {
           </div>
 
 
-          
+
 
         </div>
 
         <hr></hr>
-        
+
         <div className="bg-gray-800">
           <div className="mx-auto flex max-w-screen-xl flex-col gap-y-4 px-4 py-3 text-center text-white sm:flex-row sm:justify-between sm:text-left">
             <div className="">© 2024 Incredibles | All Rights Reserved</div>
