@@ -54,7 +54,7 @@ const AddAccount = () => {
     const { name, value } = e.target;
     setAcData({
       ...acData,
-      [name]: value.replace(/\s+/g, ' ').trim(),
+      [name]: value.trim(),
     });
   };
 

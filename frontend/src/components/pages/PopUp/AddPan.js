@@ -55,7 +55,7 @@ const AddPan = () => {
     const { name, value } = e.target;
     setPanData({
       ...panData,
-      [name]: value.replace(/\s+/g, ' ').trim(),
+      [name]: value.trim(),
     });
   };
 
