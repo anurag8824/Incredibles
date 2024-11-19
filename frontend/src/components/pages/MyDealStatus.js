@@ -59,7 +59,7 @@ const MyDealStatus = () => {
 
         <>
             {showdeals ?
-                <div className="items-center text-center mt-10 text-red-600 mb-40 pt-8 pb-20">No deals is Live</div>
+                <div className="items-center text-center mt-10 text-red-600  pt-8 pb-20">No deals is Live</div>
                 :
                 <section id='Projects' className="w-96 mx-auto grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 justify-items-center justify-center gap-y-8 gap-x-96 mt-8 mb-36">
 
@@ -109,7 +109,7 @@ const MyDealStatus = () => {
 
 
                         )
-                    })   : "0 deals close "}
+                    })   : <p className='mb-60 text-red-500 font-medium text-lg'>Not Deal is pending...</p>}
 
 
 
