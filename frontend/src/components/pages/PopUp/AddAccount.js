@@ -21,8 +21,18 @@ const AddAccount = () => {
   const closeAcModal = (e) => {
     e.preventDefault();
     setAcModal(false);
-    // console.log("Sds",acData)
-    axios.post(`${backUrl}/user/Ac/kyc` , acData, {withCredentials : true}).then((response)=>{
+
+    // Trim all data fields before sending
+    const trimmedData = {
+      acNumber: acData.acNumber.trim(),
+      acHolder: acData.acHolder.trim().toUpperCase(),
+      bankName: acData.bankName.trim(),
+      IfceCode: acData.IfceCode.trim().toUpperCase(),
+    };
+
+    console.log('Trimmed Data:', trimmedData);
+
+    axios.post(`${backUrl}/user/Ac/kyc`, trimmedData, { withCredentials: true }).then((response)=>{
 
 
       if (response.data.msg === "Valid Bank Details"){
@@ -42,8 +52,7 @@ const AddAccount = () => {
   const [acData, setAcData] = useState({
     acNumber: '',
     acHolder: '',
-    bankName: '',
-    branch: '',
+    bankName: '', 
     IfceCode: '',
 
 
@@ -54,7 +63,7 @@ const AddAccount = () => {
     const { name, value } = e.target;
     setAcData({
       ...acData,
-      [name]: value.trim(),
+      [name]: value,
     });
   };
 
@@ -163,23 +172,7 @@ const AddAccount = () => {
                   </div>
 
 
-                  <div className="col-span-2">
-                    <label
-                      htmlFor="name"
-                      className="block mb-2 text-sm font-medium text-gray-900 DARK:text-white"
-                    >
-                    Branch Name
-                    </label>
-                    <input
-                      type="text"
-                      name="branch"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 DARK:bg-gray-600 DARK:border-gray-500 DARK:placeholder-gray-400 DARK:text-white DARK:focus:ring-primary-500 DARK:focus:border-primary-500"
-                      placeholder="Type Branch Name"
-                      required=""
-                      value={acData.branch}
-                      onChange={handleChange}
-                    />
-                  </div>
+                  
 
 
 

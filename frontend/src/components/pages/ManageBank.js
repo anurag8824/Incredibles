@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ManageBank = () => {
+    const [accData, setAccData] = useState()
+
     // Form state
     const [accountData, setAccountData] = useState({
         bankName: '',
@@ -28,60 +31,111 @@ const ManageBank = () => {
         });
     };
 
-    // Handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Account Data:', accountData);
-        axios.post(`${backUrl}/kyc`, accountData, { withCredentials: true })
+
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get(`${backUrl}/user/me`, { withCredentials: true })
             .then((res) => {
-                if (res.data == "sucesfully completed !") {
-                    alert("succesfully completed")
+                const msg = res.data.msg
+                // const User = res.data.user;
+                // setData(User)
+                if (msg == "Email not verifed !") {
+                    // alert("Please Verify your email")
+                    navigate('/sign-in');
+
+                } else if (msg == "Email verifed !") {
+                    // setLoading(false);
                 }
                 else {
-                    alert("Error in KYC")
+                    navigate('/sign-in');
+                }
+            })
+    }, []);
+
+
+
+    useEffect(() => {
+        axios.get(`${backUrl}/user/me`, { withCredentials: true })
+            .then((res) => {
+                console.log(res, "bankd");
+                const bankdata = res.data;
+                console.log(bankdata, "bankdata");
+                setAccData(bankdata);  // Update the state
+            })
+            .catch((error) => {
+                console.error("Error fetching user data", error);
+            });
+    }, []);
+
+    useEffect(() => {
+        // This effect runs whenever accData changes
+        console.log(accData, "Updated accData");  // Now you can log the updated state here
+    }, [accData]);  // Dependency on accData
+
+    console.log(accData,"map data")
+
+
+    useEffect(() => {
+        axios.get(`${backUrl}/user/me`, { withCredentials: true })
+
+            .then((res) => {
+                const bankdata = res.data.user;
+
+                if (bankdata.Acvrifed && bankdata.Panvrifed) {
+                    // navigate("/manage-bank")
+                }
+                else {
+                    navigate('/deals');
                 }
 
-            })
-            .catch((err) => {
-                alert(err);
-            })
-        // Add your form submission logic here
-    };
+
+            }).catch((error) => {
+                console.error("Error fetching user data", error);
+            });
+
+
+
+
+
+    }, [])
 
     return (
         <div className='w-full max-w-3xl mx-auto px-4 md:px-6 pb-24 pt-8'>
-            <form onSubmit={handleSubmit} className="" >
-                <h2 class="block mb-2 text-lg font-medium pb-4 text-gray-900">Add Your Bank Details</h2>
+            <form className="" >
+                <h2 class="block mb-2 text-lg font-medium pb-4 text-gray-900">Your Bank Details</h2>
 
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
-
+                    {/* {accData.} */}
 
 
                     <div>
                         <label for="bankName" class="block mb-2 text-sm font-medium text-gray-900">Bank Name</label>
-                        <input onChange={handleChange} name="bankName" type="text" id="bankName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                        
+                        <p onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">{accData?.user?.bankName}</p>
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label for="branch" class="block mb-2 text-sm font-medium text-gray-900 ">Branch Name</label>
-                        <input onChange={handleChange} name="branch" type="text" id="branch" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
-                    </div>
+                        <p onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">{accData?.user?.panHolder}</p>
+                    </div> */}
 
 
                     <div>
                         <label for="IfceCode" class="block mb-2 text-sm font-medium text-gray-900 ">IFSC Code</label>
-                        <input onChange={handleChange} name='IfceCode' type="text" id="IfceCode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                        <p onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">{accData?.user?.IfceCode}</p>
                     </div>
 
 
                     <div>
                         <label for="acNumber" class="block mb-2 text-sm font-medium text-gray-900 ">Account Number</label>
-                        <input onChange={handleChange} name='acNumber' type="text" id="acNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                        <p onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">{accData?.user?.acNumber}</p>
                     </div>
 
                     <div>
                         <label for="acHolder" class="block mb-2 text-sm font-medium text-gray-900">Account Holder name</label>
-                        <input onChange={handleChange} name='acHolder' type="text" id="acHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                        <p onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">{accData?.user?.acHolder}</p>
                     </div>
 
 
@@ -89,14 +143,14 @@ const ManageBank = () => {
 
                     <div>
                         <label for="panNumber" class="block mb-2 text-sm font-medium text-gray-900 ">Pan Number</label>
-                        <input onChange={handleChange} name='panNumber' type="text" id="panNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                        <p onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">{accData?.user?.panNumber}</p>
                     </div>
 
 
 
                     <div>
                         <label for="panHolder" class="block mb-2 text-sm font-medium text-gray-900 ">PAN Holder Name</label>
-                        <input onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                        <p onChange={handleChange} name='panHolder' type="text" id="panHolder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">{accData?.user?.panHolder}</p>
                     </div>
 
 
@@ -105,7 +159,7 @@ const ManageBank = () => {
 
 
 
-               
+
             </form>
 
         </div>

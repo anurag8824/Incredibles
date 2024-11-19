@@ -25,18 +25,37 @@ const AddPan = () => {
     
 
 
-  //onlclick optional h butn se open
+
+  const [panData, setPanData] = useState({
+    panNumber: ''.trim(),
+    panHolder: ''.trim(),
+  });
   
 
   //save krte hi onsubmit h form ka
   const closePanModal = (e) => {
     e.preventDefault();
+
     setPanModal(false);
     console.log("sdfg",panData);
-    axios.post(`${backUrl}/user/pan/kyc` , panData, {withCredentials : true})
+
+    const trimmedData = {
+      panNumber: panData.panNumber.trim(),
+      panHolder: panData.panHolder.trim().toUpperCase(),
+    };
+
+    console.log(trimmedData, "trim")
+
+
+
+
+
+    axios.post(`${backUrl}/user/pan/kyc` , trimmedData, {withCredentials : true})
     .then((res) => {
       console.log(res);
-      if(res.data.msg = "Valid Pan Details"){
+      console.log(res.data.msg);
+
+      if(res.data.msg == "Valid Pan Details"){
         window.location.reload();
       }else {
         alert(res.data.msg);
@@ -45,17 +64,14 @@ const AddPan = () => {
 
   };
 
-  const [panData, setPanData] = useState({
-    panNumber: '',
-    panHolder: '',
-  });
+  
 
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPanData({
       ...panData,
-      [name]: value.trim(),
+      [name]: value,
     });
   };
 
