@@ -31,6 +31,12 @@ const AddMerchant = () => {
         .then((res) => {
 
             console.log(res, "addes merchant")
+            if(res.data == "Merchant Created Sucessfully !"){
+               alert(res.data)
+               navigate('/')
+            }else{
+                alert(res.data)
+            }
 
         })
     };

@@ -61,7 +61,7 @@ const MerchantOrder = () => {
             {data.length > 0 ? (
               data.map((item, index) => (
                 <tr key={index} className="bg-white border-b DARK:bg-gray-800 DARK:border-gray-700">
-                  <td className="px-6 py-4">{item.DealId}jjk</td>
+                  <td className="px-6 py-4">{item.DealId}</td>
 
 
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap DARK:text-white">

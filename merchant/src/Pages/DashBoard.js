@@ -15,7 +15,7 @@ const DashBoard = () => {
 
 
   return (
-    <div className='text-xl font-medium'>Incredibles, <br/> Welcome to Active Admin. This is the default dashboard page.</div>
+    <div className='text-xl font-medium'>Incredibles, <br/> Welcome to Merchant panel. This is the default dashboard page.</div>
   )
   
 }

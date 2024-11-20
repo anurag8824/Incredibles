@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const DealsData = () => {
     const backUrl = process.env.REACT_APP_URL;
@@ -48,30 +48,45 @@ const DealsData = () => {
                     </thead>
 
                     <tbody>
-                        {data.length > 0 ? (
-                            data.map((item, index) => (
-                                <tr key={index} className="bg-white border-b DARK:bg-gray-800 DARK:border-gray-700">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap DARK:text-white">
-                                        {item.UserId}
-                                    </th>
-                                    <td className="px-6 py-4">{item.Appid}</td>
-                                    <td className="px-6 py-4">{item.DealTitle}</td>
-                                    <td className="px-6 py-4">{item.OrderId}</td>
-                                    <td className="px-6 py-4">{item.TrackingId}</td>
-                                    <td className="px-6 py-4">{item.SupportId}</td>
-                                    <td className="px-6 py-4">{item.CartSupportId}</td>
-                                    <td className="px-6 py-4">1</td>
-                                    <td className="px-6 py-4">{item.Price}</td>
-                                    <td className="px-6 py-4">{item.Status}</td>
+                        {data ?
+                            <>
+                                {
+                                    data.length > 0 ? (
+                                        data.map((item, index) => (
+                                            item ? (
+                                                <tr key={index} className="bg-white border-b DARK:bg-gray-800 DARK:border-gray-700">
+                                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap DARK:text-white">
+                                                        {item.UserId}
+                                                    </th>
+                                                    <td className="px-6 py-4">{item.Appid}</td>
+                                                    <td className="px-6 py-4">{item.DealTitle}</td>
+                                                    <td className="px-6 py-4">{item.OrderId}</td>
+                                                    <td className="px-6 py-4">{item.TrackingId}</td>
+                                                    <td className="px-6 py-4">{item.SupportId}</td>
+                                                    <td className="px-6 py-4">{item.CartSupportId}</td>
+                                                    <td className="px-6 py-4">1</td>
+                                                    <td className="px-6 py-4">{item.Price}</td>
+                                                    <td className="px-6 py-4">{item.Status}</td>
+                                                </tr>) : "Not available yet"
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="10" className="text-center py-4">
+                                                No deals available.
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </>
+
+                            : (
+                                <tr>
+                                    <td colSpan="10" className="text-center py-4">
+                                        No deals added yet
+                                    </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="10" className="text-center py-4">
-                                    No deals available.
-                                </td>
-                            </tr>
-                        )}
+                            )}
+
                     </tbody>
                 </table>
             </div>

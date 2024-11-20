@@ -15,7 +15,8 @@ const DashBoard = () => {
 
 
   return (
-    <div>Welcome to Incredibles</div>
+    <div className='text-xl font-medium'>Incredibles, <br/> Welcome to Active Admin. This is the default dashboard page.</div>
+    
   )
 }
 
