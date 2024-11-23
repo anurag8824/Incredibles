@@ -155,7 +155,7 @@ const SignPage = () => {
               </div>
             </form>
 
-            <div className="text-sm text-slate-500 mt-4">Didn't receive code? <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">Resend</a></div>
+            {/* <div className="text-sm text-slate-500 mt-4">Didn't receive code? <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">Resend</a></div> */}
           </div>
         </div>
 
