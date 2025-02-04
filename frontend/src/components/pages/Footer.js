@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaBoxOpen, FaRegArrowAltCircleDown, FaRegArrowAltCircleRight, FaTags, FaUserCircle } from 'react-icons/fa';
 
-import {  FaHome } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
 
 
 
@@ -52,27 +52,29 @@ const Footer = () => {
 
 
 
-            <div className={`text-white ${showAddress ? "hidden" : "block"} md:block pb-2`}>
+            {/* <div className={`text-white ${showAddress ? "hidden" : "block"} md:block pb-2`}>
               Near Sagar Enclave,<br />
               Mangyawas-302020 <br />
               (Jaipur Office)
               <hr />
 
-            </div>
+            </div> */}
 
-            <div className={`text-white ${showAddress ? "hidden" : "block"} md:block pb-2`}>
+            {/* <div className={`text-white ${showAddress ? "hidden" : "block"} md:block pb-2`}>
               729 Transport Nagar, <br />
               Transport Nagar-211011 <br />
               (Allahabad Office)
               <hr />
 
 
-            </div>
+            </div> */}
 
             <div className={`text-white md:block ${showAddress ? "hidden" : "block"}`}>
-              10/42-Nehru Nagar, <br />
-              Sethi House-110065 <br />
-              (Delhi Office)
+              RELIABLE EMPIRE SOLUTIONS
+              PLOT NO - A4 LOGIX TECHNOVA,  <br />
+              B-320, SECTOR -132, <br />
+              GAUTAM BUDDHA NAGAR 201301<br />
+              (Noida Office)
             </div>
 
 
