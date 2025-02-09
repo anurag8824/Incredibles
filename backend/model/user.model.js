@@ -14,7 +14,8 @@ const User = new mongoose.Schema({
     },
     Email:{
         type:String,
-        required:true
+        // required:false,
+        default:""
     },
     
     OTP:{

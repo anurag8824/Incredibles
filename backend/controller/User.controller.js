@@ -8,6 +8,8 @@ import MerchantData from "../model/Merchant.model.js";
 import DealCreate from "../model/MerchantDeal.model.js";
 import { parse } from "path";
 
+import axios from "axios";
+
 
 const genrateOtp = () => {
   return crypto.randomInt(1000, 10000)
@@ -133,17 +135,146 @@ const EmailRegister = async (req, res) => {
 
 }
 
+
+const WhatsAppRegister = async (req, res) => {
+
+  const sendWhatsAppOTP = async (countryCode, phoneNumber, otp) => {
+    try {
+      const API_KEY = "dFV0Z0hrVWpKeUphTHB2Sldjbi1KRGpTWjVOWWRBcXN0Z20yMFlKNDNwQTo="; // Store API Key in environment variable
+      const API_URL = "https://api.interakt.ai/v1/public/message/";
+
+      const requestBody = {
+        countryCode: countryCode, // Example: "+91" for India
+        phoneNumber: phoneNumber, // User's WhatsApp number
+        type: "Template",
+        callbackData: "otp_verification", // Optional callback data
+        template: {
+          name: "otp_auth_", // Ensure this matches the template name in Interakt
+          languageCode: "en_GB",
+          bodyValues: [otp], // Replace {{otp}} in the template with actual OTP
+          buttonValues: {
+            "0": [otp] // ✅ Pass a valid value (short URL)
+          }
+
+
+        }
+      };
+
+      const response = await axios.post(API_URL, requestBody, {
+        headers: {
+          'Authorization': `Basic ${API_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log("Message sent successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error sending message:", error.response ? error.response.data : error.message);
+      throw error;
+    }
+  };
+
+
+
+  const { phoneno } = req.body;
+
+  if (!phoneno) {
+    return res.status(400).json({ msg: "Phone number is required" });
+  }
+
+
+  try {
+    const otp = genrateOtp(); // Function to generate a random OTP
+
+
+    const existingUser = await userModel.findOne({ Phoneno: phoneno });
+
+
+    if (existingUser) {
+      // Update OTP if user already exists
+
+
+      
+
+      // Example usage
+    
+
+
+      existingUser.OTP = otp;
+      await existingUser.save();
+      res.status(200)
+        .cookie("PhoneNumber", phoneno, {
+          httpOnly: true,   // 👈 Prevents XSS attacks
+          secure: true,     // 👈 Only send over HTTPS
+          sameSite: "Strict", // 👈 Prevent CSRF attacks
+          maxAge: 24 * 60 * 60 * 1000, // 👈 Cookie expires in 1 day
+        }).json({ msg: "OTP updated successfully", OTP: otp });
+    } else {
+      // Create a new user with the phone number
+
+      sendWhatsAppOTP("+91", phoneno, otp,)
+      .then(response => console.log("Success:", response))
+      .catch(error => console.error("Failed:", error));
+      const newUser = new userModel({
+        Phoneno: phoneno,
+        OTP: otp,
+      });
+
+      await newUser.save();
+      res.status(201).cookie("PhoneNumber", phoneno, {
+        httpOnly: true,   // 👈 Prevents XSS attacks
+        secure: true,     // 👈 Only send over HTTPS
+        sameSite: "Strict", // 👈 Prevent CSRF attacks
+        maxAge: 24 * 60 * 60 * 1000, // 👈 Cookie expires in 1 day
+      }).json({ msg: "User registered successfully", OTP: otp });
+    }
+
+
+  } catch (error) {
+    console.log(error)
+    res.status(202).json({ msg: "Error in sending Whatsapp !", })
+
+  }
+
+
+
+
+
+
+
+
+}
+
 const OtpVerfiy = async (req, res) => {
   const { Otp } = req.body;
   console.log(Otp)
-  const Email = req.cookies.Email;
-  console.log(Email, "email from cookies")
-  const user = await userModel.findOne({ Email: Email });
-  console.log(user);
+  // const Email = req.cookies.Email;
+
+  const Email = req.cookies.Email || "";   // Get Email from cookies
+  const PhoneNumber = req.cookies.PhoneNumber || "";  // Get Phone Number from cookies
+
+  console.log(PhoneNumber, "email from cookies")
+  // const user = await userModel.findOne({ Email: Email });
+  // console.log(user);
+
+
+  let user;
+
+  if (Email) {
+    user = await userModel.findOne({ Email: Email });
+  } else if (PhoneNumber) {
+    user = await userModel.findOne({ Phoneno: PhoneNumber });
+  }
+
+  console.log(user, "verif");
+
+
   if (!user) {
-    return res.json({ msg: "Email Doesn't match", user, Email });
+    return res.json({ msg: "Email or Phone number Doesn't match", user, Email });
 
   }
+  console.log(user.OTP, "db otp")
   if (user.OTP == Otp) {
     user.verifed = true;
     await user.save();
@@ -160,7 +291,7 @@ const OtpVerfiy = async (req, res) => {
 
   }
   else {
-    res.json({ msg: "Otp Doesn't Match", userdata: false })
+    res.status(400).json({ msg: "Otp Doesn't Match", userdata: false })
   }
 
 }
@@ -186,8 +317,19 @@ const ResndOtp = async (req, res) => {
 }
 
 const UserCheck = async (req, res) => {
-  const Email = req.cookies.Email;
-  const user = await userModel.findOne({ Email });
+  // const Email = req.cookies.Email;
+  const Email = req.cookies.Email || "";   // Get Email from cookies
+  const PhoneNumber = req.cookies.PhoneNumber || "";
+
+  let user;
+
+  if (Email) {
+    user = await userModel.findOne({ Email });
+  }
+  if (!user && PhoneNumber) {
+    user = await userModel.findOne({ Phoneno: PhoneNumber });
+  }
+
   if (!user) {
     return res.json({ msg: "user not exist !" })
   }
@@ -195,7 +337,7 @@ const UserCheck = async (req, res) => {
     res.json({ msg: "Email not verifed !" })
   }
   else {
-    res.json({ msg: "Email verifed !", user, Email })
+    res.json({ msg: "Email verifed !", user, Email, PhoneNumber })
   }
 }
 
@@ -491,9 +633,9 @@ const PanKyc = async (req, res) => {
 
     user.panNumber = req.body.panNumber;
     user.panHolder = req.body.panHolder;
-    const dbcheckforPan = await userModel.find({panNumber:req.body.panNumber})
-    if(dbcheckforPan.length>0){
-      return res.json({msg:"Pan Number Already Verified"})
+    const dbcheckforPan = await userModel.find({ panNumber: req.body.panNumber })
+    if (dbcheckforPan.length > 0) {
+      return res.json({ msg: "Pan Number Already Verified" })
     }
     // Check if token exists or generate it if not available
     if (!token) {
@@ -516,14 +658,14 @@ const PanKyc = async (req, res) => {
     let result = await response.text();
     let parsedResult = JSON.parse(result);
 
-    if (parsedResult?.data?.status === "VALID"  && parsedResult?.data?.full_name.toUpperCase() ===req.body.panHolder.toUpperCase()) {
+    if (parsedResult?.data?.status === "VALID" && parsedResult?.data?.full_name.toUpperCase() === req.body.panHolder.toUpperCase()) {
       user.Panvrifed = true;
       await user.save();
       return res.json({ msg: "Valid Pan Details" });
     } else if (parsedResult?.data?.status === "INVALID") {
       return res.json({ msg: "Invalid Details" });
-    } else if(parsedResult?.data?.full_name.toUpperCase() !== req.body.panHolder.toUpperCase()){
-      return res.json({msg:"Invalid Name Please Check your Name "})
+    } else if (parsedResult?.data?.full_name.toUpperCase() !== req.body.panHolder.toUpperCase()) {
+      return res.json({ msg: "Invalid Name Please Check your Name " })
     }
     else if (parsedResult.detail === "Not a valid token") {
       console.log("Invalid token, regenerating...");
@@ -729,4 +871,4 @@ const WalletData = async (req, res) => {
 
 
 
-export default { EmailRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc, myOrder, ACKyc, WalletData }
+export default { EmailRegister, WhatsAppRegister, OtpVerfiy, UserData, ResndOtp, OrderClick, Myproduct, Deals, UserCheck, SingleDeal, PanKyc, myOrder, ACKyc, WalletData }

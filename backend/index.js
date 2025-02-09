@@ -6,6 +6,7 @@ import Admin from "./Routes/Admin.Routes.js"
 import Merchant from "./Routes/Merchant.Routes.js"
 import cookieParser from "cookie-parser"
 import cors from "cors";
+import axios from "axios";
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,9 @@ app.use("/merchant", Merchant)
 
 
 
+
+
+
 app.get('/', (req, res) => {
     res.send('Welcome to the API');
 });
@@ -44,5 +48,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log("server is running on port" ,PORT)
+    console.log("server is running on port", PORT)
 });

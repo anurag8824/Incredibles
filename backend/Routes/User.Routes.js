@@ -5,6 +5,8 @@ const router = Router();
 
 
 router.post("/EmailRegister",User.EmailRegister)
+router.post("/Whatsapp",User.WhatsAppRegister)
+
 router.post("/Otpverfiy",User.OtpVerfiy)
 router.post("/register/finish",User.UserData)
 // router.post("resend",User.resendOtp)
