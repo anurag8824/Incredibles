@@ -4,125 +4,88 @@ const PrivacyPolicy = () => {
   return (
     <div className="bg-gray-100">
     <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+        <h1 class="text-3xl font-bold mb-4 text-center">Privacy Policy</h1>
+        <p class="mb-6">Reliable Empire Solution ("proprietor firm," "we," "our," or "us") is committed to protecting your privacy. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+        
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">1. Eligibility as per Contract Act, 1872</h2>
+            <p>Individuals and entities must fulfill the eligibility criteria outlined in Section 11 of the Indian Contract Act, 1872, to enter into an agreement with Reliable Empire Solution. Requirements include:</p>
+            <ul class="list-disc pl-5">
+                <li>Being of legal age (18 years or above).</li>
+                <li>Being of sound mind and capable of understanding the agreement.</li>
+                <li>Not being disqualified by law due to insolvency, criminal conviction, or other restrictions.</li>
+            </ul>
+        </section>
 
-        <p className="mb-4">
-            This privacy policy sets out how our website uses and protects any information that you give us when you use
-            this
-            website.
-        </p>
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">2. What We Collect and Your Rights</h2>
+            <p>We collect necessary information to provide services effectively:</p>
+            <h3 class="text-lg font-medium mt-2">A) Personal Information</h3>
+            <ul class="list-disc pl-5">
+                <li>Name</li>
+                <li>Email ID</li>
+                <li>Mobile Number</li>
+                <li>Mailing Address</li>
+                <li>PAN Card</li>
+            </ul>
+            <h3 class="text-lg font-medium mt-2">B) Financial Information</h3>
+            <p>Payment details (only when required for transactions).</p>
+            <h3 class="text-lg font-medium mt-2">C) Technical Information</h3>
+            <ul class="list-disc pl-5">
+                <li>Browser type and version</li>
+                <li>Device type and OS</li>
+                <li>IP address and location data</li>
+                <li>Cookies and tracking technologies</li>
+            </ul>
+        </section>
 
-        <h2 className="text-2xl font-bold mb-2">Information We Collect</h2>
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">3. Sharing of Information</h2>
+            <p>We do not sell or rent personal information. We may share data with:</p>
+            <ul class="list-disc pl-5">
+                <li>Service providers for operations and payment processing.</li>
+                <li>Government authorities as required by law.</li>
+                <li>In cases of business transfers, such as mergers or acquisitions.</li>
+            </ul>
+        </section>
 
-        <p className="mb-4">
-            We may collect the following information:
-        </p>
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">4. Data Security and Third-Party Links</h2>
+            <p>We use industry-standard security measures to protect your data but do not control third-party sites linked to our platform.</p>
+        </section>
+        
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">5. Cookies and Tracking Technologies</h2>
+            <p>We use cookies and tracking technologies to enhance user experience and analyze site usage. Users can disable cookies via browser settings, but this may limit functionality.</p>
+        </section>
+        
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">6. Children's Privacy & Future Amendments</h2>
+            <p>Our services are not intended for children under 18. Any collected minor data will be deleted. We may update this policy, and changes will be posted on our website.</p>
+        </section>
+        
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">7. Disclaimer on Privacy</h2>
+            <p>While we take privacy seriously, discrepancies may occur. The English version of this policy prevails.</p>
+        </section>
+        
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">8. Contact Information</h2>
+            <p>For inquiries or grievances, contact us at:</p>
+            <p class="font-medium">Reliable Empire Solution</p>
+            <p>Plot No - A4, Logix Technova, B-320, Sector -132, Gautam Buddha Nagar, 201301 (Noida Office)</p>
+            <p><strong>Grievance Contact:</strong> Arti Yadav</p>
+            <p>Email: <a href="mailto:support@incredibledeals.in" class="text-blue-600 underline">support@incredibledeals.in</a></p>
+        </section>
+    </div>
 
-        <ul className="list-disc list-inside mb-4">
-            <li>Your name and contact information</li>
-            <li>Demographic information</li>
-            <li>Other information relevant to customer surveys and/or offers</li>
-        </ul>
+      
 
-        <h2 className="text-2xl font-bold mb-2">How We Use the Information</h2>
 
-        <p className="mb-4">
-            We require this information to understand your needs and provide you with a better service, and in
-            particular
-            for
-            the following reasons:
-        </p>
+      
 
-        <ul className="list-disc list-inside mb-4">
-            <li>Internal record keeping</li>
-            <li>Improving our products and services</li>
-            <li>Sending promotional emails about new products, special offers, or other information which we think you
-                may
-                find
-                interesting</li>
-            <li>From time to time, we may also use your information to contact you for market research purposes. We may
-                contact
-                you by email, phone, or mail. We may use the information to customize the website according to your
-                interests.</li>
-        </ul>
-
-        <h2 className="text-2xl font-bold mb-2">Security</h2>
-
-        <p className="mb-4">
-            We are committed to ensuring that your information is secure. In order to prevent unauthorized access or
-            disclosure,
-            we have put in place suitable physical, electronic, and managerial procedures to safeguard and secure the
-            information we collect online.
-        </p>
-
-        <h2 className="text-2xl font-bold mb-2">Cookies</h2>
-
-        <p className="mb-4">
-            A cookie is a small file that asks permission to be placed on your computer's hard drive. Once you agree,
-            the
-            file
-            is added, and the cookie helps analyze web traffic or lets you know when you visit a particular site.
-            Cookies
-            allow
-            web applications to respond to you as an individual. The web application can tailor its operations to your
-            needs,
-            likes, and dislikes by gathering and remembering information about your preferences.
-        </p>
-
-        <p className="mb-4">
-            Overall, cookies help us provide you with a better website by enabling us to monitor which pages you find
-            useful
-            and which you do not. A cookie in no way gives us access to your computer or any information about you,
-            other
-            than
-            the data you choose to share with us.
-        </p>
-
-        <h2 className="text-2xl font-bold mb-2">Links to Other Websites</h2>
-
-        <p className="mb-4">
-            Our website may contain links to other websites of interest. However, once you have used these links to
-            leave
-            our
-            site, you should note that we do not have any control over that other website. Therefore, we cannot be
-            responsible
-            for the protection and privacy of any information which you provide whilst visiting such sites and such
-            sites
-            are
-            not governed by this privacy statement. You should exercise caution and look at the privacy statement
-            applicable
-            to
-            the website in question.
-        </p>
-
-        <h2 className="text-2xl font-bold mb-2">Controlling Your Personal Information</h2>
-
-        <p className="mb-4">
-            You may choose to restrict the collection or use of your personal information in the following ways:
-        </p>
-
-        <ul className="list-disc list-inside mb-4">
-            <li>If you have previously agreed to us using your personal information for direct marketing purposes, you
-                may
-                change your mind at any time by writing to or emailing us. </li>
-            <li>We will not sell, distribute, or lease your personal information to third parties unless we have your
-                permission
-                or are required by law to do so. We may use your personal information to send you promotional
-                information
-                about
-                third parties which we think you may find interesting if you tell us that you wish this to happen.</li>
-            <li>You may request details of personal information which we hold about you. If you would like a copy of the
-                information held on you, please write to Incredibles.</li>
-            <li>If you believe that any information we are holding on you is incorrect or incomplete, please write to or
-                email
-                us as soon as possible at the above address. We will promptly correct any information found to be
-                incorrect.
-            </li>
-        </ul>
-
-        <p className="mb-4">
-            This privacy policy is subject to change without notice.
-        </p>
+      
     </div>
 </div>
   )
